@@ -1,0 +1,68 @@
+How to run locally:
+
+# Status Page EC2 Installation Steps
+
+## 1. Prepare the EC2 Instance
+sudo yum update -y
+sudo yum groupinstall "Development Tools" -y
+sudo yum install -y gcc libxml2-devel libxslt-devel libffi-devel libpq-devel     openssl-devel bzip2-devel zlib-devel redhat-rpm-config git tmux
+
+## 2. Install Python 3.11 and Pip
+sudo yum install -y python3.11 python3.11-devel
+python3.11 --version
+python3.11 -m venv /opt/status-page/venv
+source /opt/status-page/venv/bin/activate
+pip install --upgrade pip
+
+## 3. Install PostgreSQL & Redis
+sudo dnf install -y postgresql15 postgresql15-server
+sudo postgresql-setup --initdb
+sudo systemctl enable --now postgresql
+
+sudo dnf install -y redis6
+sudo systemctl enable --now redis6
+
+## 4. Deploy Status Page Source Code
+sudo mkdir -p /opt/status-page
+sudo cp -r ~/status-page/* /opt/status-page/
+cd /opt/status-page
+source venv/bin/activate
+
+## 5. Configure Application
+cp statuspage/configuration_example.py statuspage/configuration.py
+python3.11 generate_secret_key.py
+pip install -r requirements.txt
+pip install psycopg2-binary rq-scheduler
+
+## 6. Database Setup
+sudo -u postgres psql
+# Inside psql:
+#   CREATE USER "status-page" WITH PASSWORD 'yourpassword';
+#   CREATE DATABASE statuspage OWNER "status-page";
+#   \q
+
+python3.11 statuspage/manage.py migrate
+python3.11 statuspage/manage.py createsuperuser
+
+## 7. Collect Static Files
+python3.11 manage.py collectstatic
+
+## 8. Test Locally with Django
+python3.11 manage.py runserver 0.0.0.0:8000 --insecure
+
+## 9. Production with Gunicorn + Systemd
+gunicorn statuspage.wsgi:application --bind 127.0.0.1:8001
+sudo cp contrib/*.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now status-page status-page-scheduler status-page-rq
+journalctl -u status-page.service -f
+
+## 10. Configure Reverse Proxy (Apache)
+sudo yum install -y httpd mod_ssl
+sudo mkdir -p /etc/httpd/sites-available
+sudo cp /opt/status-page/contrib/apache.conf /etc/httpd/sites-available/status-page.conf
+sudo mv /etc/httpd/sites-available/status-page.conf /etc/httpd/conf.d/status-page.conf
+sudo systemctl enable --now httpd
+sudo systemctl restart httpd
+change /etc/systemd/system/status-page.service User and group to ec2-user
+
