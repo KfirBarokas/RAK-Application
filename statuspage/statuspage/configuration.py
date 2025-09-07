@@ -29,7 +29,7 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'localhost',
+        'HOST': 'project-rak-redis-7fftml.serverless.use1.cache.amazonaws.com',
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],

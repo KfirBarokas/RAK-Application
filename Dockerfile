@@ -21,3 +21,4 @@ RUN python3 statuspage/manage.py createsuperuser
 RUN python3 statuspage/manage.py collectstatic # is needed?
 RUN python3 statuspage/manage.py runserver 0.0.0.0:8000 --insecure &
 
+# stop currently running application!@!!!
