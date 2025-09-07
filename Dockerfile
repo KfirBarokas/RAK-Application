@@ -12,8 +12,15 @@ RUN groupadd --system status-page && adduser --system -g status-page status-page
 
 #RUN chmod +x ./upgrade.sh
 #RUN PYTHON=/usr/bin/python3.11 bash upgrade.sh
-RUN chmod +x ./app-entrypoint.sh
-cmd ["./app-entrypoint.sh"]
+#RUN chmod +x ./app-entrypoint.sh
+#cmd ["./app-entrypoint.sh"]
+
+
+RUN chmod +x ./upgrade.sh
+RUN PYTHON=/usr/bin/python3.11 bash upgrade.sh
+
+RUN python3 statuspage/manage.py createsuperuser --noinput
+CMD ["python3", "statuspage/manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
 
 
 #RUN python3 statuspage/manage.py createsuperuser

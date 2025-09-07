@@ -48,8 +48,8 @@ REDIS = {
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
         # 'SENTINEL_SERVICE': 'netbox',
         'PASSWORD': '',
-        'DATABASE': 1,
-        'SSL': False,
+        'DATABASE': 0,
+        'SSL': True,
         # Set this to True to skip TLS certificate verification
         # This can expose the connection to attacks, be careful
         # 'INSECURE_SKIP_TLS_VERIFY': False,
