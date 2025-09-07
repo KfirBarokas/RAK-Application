@@ -1,41 +1,60 @@
+# ------------------------------------------------------------------------------
 # Python
+# ------------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
-*.egg-info/
+*.so
 *.egg
+*.egg-info/
+.eggs/
 *.pyo
 *.pyd
-*.so
-
-# Virtual environments
-venv/
-ENV/
-env/
-myenv/
-*.env
-*.venv
 .Python
+venv/
+env/
+ENV/
+*.sqlite3
 
-# Build & packaging
-build/
-dist/
-pip-wheel-metadata/
-
+# ------------------------------------------------------------------------------
 # Django
-*.log
-db.sqlite3
-media/
-staticfiles/
+# ------------------------------------------------------------------------------
+# Collected static files (can always be regenerated)
+statuspage/static/*
+!statuspage/static/.gitkeep
 
-# IDEs & tools
-.vscode/
+# Ignore media uploads (if any, unless you want them versioned)
+media/
+uploads/
+
+# ------------------------------------------------------------------------------
+# MkDocs
+# ------------------------------------------------------------------------------
+# Build output
+site/
+statuspage/project-static/docs/
+statuspage/static/docs/
+
+# Custom theme should be tracked if you modify it
+# So ignore everything except your overrides
+statuspage/project-static/docs/_theme/*
+!statuspage/project-static/docs/_theme/main.html
+!statuspage/project-static/docs/_theme/*.css
+!statuspage/project-static/docs/_theme/*.js
+
+# ------------------------------------------------------------------------------
+# Logs
+# ------------------------------------------------------------------------------
+*.log
+*.out
+*.err
+
+# ------------------------------------------------------------------------------
+# OS / IDE
+# ------------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
 .idea/
+.vscode/
 *.swp
 *.swo
-*.DS_Store
-
-# Coverage / testing
-.coverage
-htmlcov/
-.pytest_cache/
 

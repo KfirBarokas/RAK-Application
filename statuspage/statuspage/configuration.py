@@ -17,11 +17,11 @@ STATIC_ROOT = '/opt/status-page/statuspage/static'
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
-    'NAME': 'statuspage',         # Database name
-    'USER': 'statuspage',               # PostgreSQL username
-    'PASSWORD': '123456',           # PostgreSQL password
-    'HOST': 'localhost',      # Database server
-    'PORT': '',               # Database port (leave blank for default)
+    'NAME': 'postgres',         # Database name
+    'USER': 'postgres',               # PostgreSQL username
+    'PASSWORD': 'projectrak',           # PostgreSQL password
+    'HOST': 'project-rak2.cx248m4we6k7.us-east-1.rds.amazonaws.com',      # Database 
+    'PORT': '5432',               # Database port (leave blank for default)
     'CONN_MAX_AGE': 300,      # Max database connection age
 }
 
@@ -36,13 +36,13 @@ REDIS = {
         # 'SENTINEL_SERVICE': 'status-page',
         'PASSWORD': '',
         'DATABASE': 0,
-        'SSL': False,
+        'SSL': True,
         # Set this to True to skip TLS certificate verification
         # This can expose the connection to attacks, be careful
         # 'INSECURE_SKIP_TLS_VERIFY': False,
     },
     'caching': {
-        'HOST': 'localhost',
+        'HOST': 'project-rak-redis-7fftml.serverless.use1.cache.amazonaws.com',
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
