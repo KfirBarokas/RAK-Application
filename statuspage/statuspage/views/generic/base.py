@@ -1,4 +1,3 @@
-from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 
@@ -47,7 +46,7 @@ class BaseObjectView(ObjectPermissionRequiredMixin, View):
         """
         return get_object_or_404(self.queryset, **kwargs)
 
-    def get_extra_context(self, request: WSGIRequest, instance):
+    def get_extra_context(self, request, instance):
         """
         Return any additional context data to include when rendering the template.
         Args:

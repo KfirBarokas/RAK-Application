@@ -11,7 +11,6 @@ __all__ = (
 
 class StatusPageFeatureSet(
     ChangeLoggingMixin,
-    WebhooksMixin,
 ):
     class Meta:
         abstract = True

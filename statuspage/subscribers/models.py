@@ -29,9 +29,6 @@ class Subscriber(StatusPageModel):
     incident_subscriptions = models.BooleanField(
         default=True,
     )
-    incident_notifications_subscribed_only = models.BooleanField(
-        default=False,
-    )
     component_subscriptions = models.ManyToManyField(
         to=Component,
         related_name='subscribers',
@@ -64,7 +61,6 @@ class Subscriber(StatusPageModel):
             self.send_mail(
                 subject=f'Verify your Subscription to {config.SITE_TITLE}',
                 template='subscribers/verification',
-                ignore_email_verification=True,
             )
 
     @classmethod
@@ -74,10 +70,10 @@ class Subscriber(StatusPageModel):
         except:
             return None
 
-    def send_mail(self, subject, template, context=None, ignore_email_verification=False, headers={}):
+    def send_mail(self, subject, template, context=None):
         if context is None:
             context = {}
-        if not self.email_verified_at and not ignore_email_verification:
+        if not self.email_verified_at:
             return None
         config = get_config()
         extra_context = ({
@@ -92,5 +88,4 @@ class Subscriber(StatusPageModel):
         message = render_to_string(f'emails/{template}.txt', extra_context)
         html_message = render_to_string(f'emails/{template}.html', extra_context)
 
-        django_rq.enqueue(send_mail, subject=subject, message=message, html_message=html_message,
-                          recipient_list=[self.email], headers=headers)
+        django_rq.enqueue(send_mail, subject=subject, message=message, html_message=html_message, recipient_list=[self.email])

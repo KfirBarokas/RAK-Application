@@ -25,7 +25,6 @@ from django.contrib import messages
 from users.models import UserConfig, Token
 from users.tables import TokenTable, TwoFactorTable
 from utilities.forms import ConfirmationForm
-from utilities.views import register_model_view
 
 
 class LoginView(View):
@@ -198,7 +197,6 @@ class ChangePasswordView(LoginRequiredMixin, View):
         })
 
 
-@register_model_view(Token, 'list')
 class TokenListView(LoginRequiredMixin, View):
 
     def get(self, request):
@@ -214,8 +212,6 @@ class TokenListView(LoginRequiredMixin, View):
         })
 
 
-@register_model_view(Token, 'edit')
-@register_model_view(Token, 'add')
 class TokenEditView(LoginRequiredMixin, View):
 
     def get(self, request, pk=None):
@@ -262,7 +258,6 @@ class TokenEditView(LoginRequiredMixin, View):
         })
 
 
-@register_model_view(Token, 'delete')
 class TokenDeleteView(LoginRequiredMixin, View):
 
     def get(self, request, pk):

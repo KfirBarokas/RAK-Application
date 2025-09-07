@@ -1,6 +1,5 @@
 import datetime
 import decimal
-import urllib.parse
 from typing import Dict, Any
 
 from django import template
@@ -9,14 +8,9 @@ from django.template.defaultfilters import date
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
-from django.utils.timezone import make_aware
-from pysvg.structure import Svg
 
-from components.models import Component
-from incidents.choices import IncidentImpactChoices
 from utilities.forms import get_selected_values
 from utilities.forms.forms import TableConfigForm
-from utilities.pysvg_helpers import create_rect
 from utilities.utils import get_viewname
 
 register = template.Library()
@@ -243,58 +237,12 @@ def get_visible_components(value: any) -> Any:
 
 
 @register.filter
-def get_historic_status(value: Component) -> Any:
-    """
-    Template to return historic status
-    """
-    num_days = 90
-    start_date = make_aware(datetime.datetime.today()) + datetime.timedelta(days=1)
-    end_date = (start_date - datetime.timedelta(days=num_days)).replace(microsecond=0, second=0, minute=0, hour=0)
-
-    date_list = [end_date + datetime.timedelta(days=x) for x in range(num_days)]
-    component_incidents = value.incidents.all()
-
-    status_svg = Svg(width=816, height=34)
-
-    for index, date in enumerate(date_list):
-        end = date + datetime.timedelta(days=1)
-        incidents = list(filter(lambda i: date <= i.created <= end, component_incidents))
-
-        if len(list(filter(lambda i: i.impact == IncidentImpactChoices.CRITICAL, incidents))) > 0:
-            status_svg.addElement(create_rect(index=index,
-                                              date=date,
-                                              incidents=len(incidents),
-                                              fill="rgb(239, 68, 68)"))
-        elif len(list(filter(lambda i: i.impact == IncidentImpactChoices.MAJOR, incidents))) > 0:
-            status_svg.addElement(create_rect(index=index,
-                                              date=date,
-                                              incidents=len(incidents),
-                                              fill="rgb(249, 115, 22)"))
-        elif len(list(filter(lambda i: i.impact == IncidentImpactChoices.MINOR, incidents))) > 0:
-            status_svg.addElement(create_rect(index=index,
-                                              date=date,
-                                              incidents=len(incidents),
-                                              fill="rgb(234, 179, 8)"))
-        else:
-            status_svg.addElement(create_rect(index=index,
-                                              date=date,
-                                              incidents=len(incidents),
-                                              fill="rgb(34, 197, 94)"))
-
-    return mark_safe(status_svg.getXML())
-
-
-@register.filter
 def join_components_with_groups(value: any) -> Any:
     """
     Template to return only visibly components
     """
     return mark_safe(", ".join(list(map(lambda c: f'{c.component_group.name} &mdash; {c.name}' if c.component_group else c.name, value))))
 
-
-@register.filter
-def urlencode(value: str) -> Any:
-    return urllib.parse.quote(value)
 
 #
 # Tags

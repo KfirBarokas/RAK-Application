@@ -9,9 +9,6 @@ class IncidentMaintenanceModel(StatusPageModel):
     visibility = models.BooleanField(
         default=False,
     )
-    send_email = models.BooleanField(
-        default=True,
-    )
 
     class Meta:
         abstract = True
@@ -23,9 +20,6 @@ class IncidentMaintenanceUpdateModel(StatusPageModel):
     )
     new_status = models.BooleanField(
         default=False,
-    )
-    send_email = models.BooleanField(
-        default=True,
     )
 
     class Meta:

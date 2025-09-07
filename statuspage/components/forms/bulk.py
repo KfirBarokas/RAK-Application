@@ -26,11 +26,6 @@ class ComponentBulkEditForm(StatusPageModelBulkEditForm):
         widget=StaticSelect(),
         label='Component Group',
     )
-    show_historic_incidents = forms.NullBooleanField(
-        required=False,
-        widget=BulkEditNullBooleanSelect,
-        label='Show historic Incidents',
-    )
     visibility = forms.NullBooleanField(
         required=False,
         widget=BulkEditNullBooleanSelect,
@@ -47,8 +42,7 @@ class ComponentBulkEditForm(StatusPageModelBulkEditForm):
 
     model = Component
     fieldsets = (
-        ('Component', ('description', 'link', 'component_group', 'show_historic_incidents', 'visibility', 'status',
-                       'order')),
+        ('Component', ('description', 'link', 'component_group', 'visibility', 'status', 'order')),
     )
     nullable_fields = ('link', 'description', 'component_group')
 

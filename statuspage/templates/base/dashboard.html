@@ -22,7 +22,7 @@
               <img class="" src="{% static 'logo.svg' %}" alt="Status-Page">
             </div>
             <div class="hidden md:block">
-              <div class="ml-10 flex items-baseline space-x-2">
+              <div class="ml-10 flex items-baseline space-x-4">
                 {% nav %}
               </div>
             </div>
@@ -76,7 +76,12 @@
                     </div>
                     {% if request.user.is_staff %}
                       <div class="py-1" role="none">
-                          <a href="{% url 'admin:index' %}" class="{% dashboard_dropdown_active 'admin:index' %} block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">Admin</a>
+                          <a href="{% url 'admin:index' %}" class="{% dashboard_dropdown_active 'admin:index' %} block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">Admin {% badge '2FA Required' %}</a>
+                      </div>
+                    {% endif %}
+                    {% if perms.extras.view_objectchange %}
+                      <div class="py-1" role="none">
+                          <a href="{% url 'extras:objectchange_list' %}" class="{% dashboard_dropdown_active 'extras:objectchange_list' %} block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">Changelog</a>
                       </div>
                     {% endif %}
                     {% if perms.subscribers.view_subscriber and config.SITE_SUBSCRIBERS %}
@@ -127,7 +132,7 @@
             <a href="{% url 'users:token_list' %}" class="{% dashboard_link_active 'users:token_list' %} block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75">API Tokens</a>
             <a href="{% url 'users:device_list' %}" class="{% dashboard_link_active 'users:device_list' %} block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75">2FA Devices</a>
             {% if request.user.is_staff %}
-              <a href="{% url 'admin:index' %}" class="{% dashboard_link_active 'admin:index' %} block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75">Admin</a>
+              <a href="{% url 'admin:index' %}" class="{% dashboard_link_active 'admin:index' %} block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75">Admin {% badge '2FA Required' %}</a>
             {% endif %}
             {% if perms.extras.view_objectchange %}
               <a href="{% url 'extras:objectchange_list' %}" class="{% dashboard_link_active 'extras:objectchange_list' %} block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75">Changelog</a>
@@ -148,21 +153,7 @@
     </header>
     <main class="grow">
       <div class="mx-auto py-4 sm:px-6 lg:px-8 dark:text-white">
-        {% if config.BANNER_TOP %}
-          <div class="text-center mx-3">
-            {{ config.BANNER_TOP|safe }}
-          </div>
-        {% endif %}
-
-        {% block tabs %}{% endblock %}
-
         {% block dashboard_content %}{% endblock %}
-
-        {% if config.BANNER_BOTTOM %}
-          <div class="text-center mx-3 my-4">
-            {{ config.BANNER_BOTTOM|safe }}
-          </div>
-        {% endif %}
       </div>
     </main>
     <footer class="py-4 px-8 text-gray-500 dark:text-gray-300">

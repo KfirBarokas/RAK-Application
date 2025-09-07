@@ -1,10 +1,9 @@
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
-from django.contrib.auth.models import User
-
 from incidents.choices import *
+from django.contrib.auth.models import User
 from components.models import Component
+from subscribers.models import Subscriber
 from utilities.models import IncidentMaintenanceModel, IncidentMaintenanceUpdateModel
 
 
@@ -31,7 +30,6 @@ class Incident(IncidentMaintenanceModel):
         related_name='incidents',
         blank=True,
     )
-    created = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ['pk']
@@ -41,6 +39,23 @@ class Incident(IncidentMaintenanceModel):
 
     def get_absolute_url(self):
         return reverse('incidents:incident', args=[self.pk])
+
+    def save(self, **kwargs):
+        is_new = self.pk is None
+
+        super().save(**kwargs)
+
+        if is_new and self.visibility:
+            try:
+                subscribers = Subscriber.objects.filter(incident_subscriptions=True)
+
+                for subscriber in subscribers:
+                    subscriber.send_mail(subject=f'Incident "{self.title}": Created', template='incidents/created', context={
+                        'incident': self,
+                        'components': self.components.filter(visibility=True),
+                    })
+            except:
+                pass
 
     def get_impact_color(self):
         (color, _, __) = IncidentImpactChoices.colors.get(self.impact)
@@ -72,7 +87,6 @@ class IncidentUpdate(IncidentMaintenanceUpdateModel):
         blank=True,
         null=True
     )
-    created = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ['pk']
@@ -83,50 +97,20 @@ class IncidentUpdate(IncidentMaintenanceUpdateModel):
     def get_absolute_url(self):
         return reverse('incidents:incidentupdate', args=[self.pk])
 
+    def save(self, **kwargs):
+        is_new = self.pk is None
 
-class IncidentTemplate(IncidentMaintenanceModel):
-    template_name = models.CharField(
-        max_length=255,
-    )
-    status = models.CharField(
-        max_length=255,
-        choices=IncidentStatusChoices,
-        default=IncidentStatusChoices.INVESTIGATING,
-    )
-    impact = models.CharField(
-        max_length=255,
-        choices=IncidentImpactChoices,
-        default=IncidentImpactChoices.NONE,
-    )
-    components = models.ManyToManyField(
-        to=Component,
-        related_name='+',
-        blank=True,
-    )
-    update_component_status = models.BooleanField(
-        default=False,
-    )
-    text = models.CharField(
-        max_length=65536,
-    )
+        super().save(**kwargs)
 
-    class Meta:
-        ordering = ['pk']
+        if is_new and self.incident.visibility:
+            try:
+                subscribers = Subscriber.objects.filter(incident_subscriptions=True)
 
-    def __str__(self):
-        return self.template_name
-
-    def get_absolute_url(self):
-        return reverse('incidents:incidenttemplate', args=[self.pk])
-
-    def get_impact_color(self):
-        (color, _, __) = IncidentImpactChoices.colors.get(self.impact)
-        return color
-
-    def get_impact_border_color(self):
-        (_, color, __) = IncidentImpactChoices.colors.get(self.impact)
-        return color
-
-    def get_impact_text_color(self):
-        (_, __, color) = IncidentImpactChoices.colors.get(self.impact)
-        return color
+                for subscriber in subscribers:
+                    subscriber.send_mail(subject=f'Incident "{self.incident.title}": Update Posted', template='incidentupdates/created', context={
+                        'incident': self.incident,
+                        'update': self,
+                        'components': self.incident.components.filter(visibility=True),
+                    })
+            except:
+                pass

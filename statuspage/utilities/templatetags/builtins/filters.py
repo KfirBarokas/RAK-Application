@@ -160,9 +160,9 @@ def render_markdown(value):
     # Render Markdown
     html = markdown(value, extensions=['def_list', 'fenced_code', 'tables', StrikethroughExtension()])
 
-    # If the string is not empty wrap it in prose to style everything
+    # If the string is not empty wrap it in rendered-markdown to style tables
     if html:
-        html = f'<div class="prose dark:prose-invert">{html}</div>'
+        html = f'<div class="rendered-markdown">{html}</div>'
 
     schemes = get_config().ALLOWED_URL_SCHEMES
 

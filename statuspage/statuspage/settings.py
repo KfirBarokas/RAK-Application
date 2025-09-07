@@ -4,12 +4,10 @@ import sys
 import platform
 
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.translation import gettext_lazy as _
 
 from statuspage.config import PARAMS
-from statuspage.constants import RQ_QUEUE_HIGH, RQ_QUEUE_DEFAULT, RQ_QUEUE_LOW
 
-VERSION = '2.5.2-dev'
+VERSION = '2.0.17-dev'
 
 HOSTNAME = platform.node()
 
@@ -62,8 +60,6 @@ EMAIL = getattr(configuration, 'EMAIL', {})
 EXEMPT_VIEW_PERMISSIONS = []
 FIELD_CHOICES = getattr(configuration, 'FIELD_CHOICES', {})
 INTERNAL_IPS = getattr(configuration, 'INTERNAL_IPS', ('127.0.0.1', '::1'))
-HTTP_PROXIES = getattr(configuration, 'HTTP_PROXIES', None)
-JINJA2_FILTERS = getattr(configuration, 'JINJA2_FILTERS', {})
 LOGGING = getattr(configuration, 'LOGGING', {})
 # LOGIN_REQUIRED = getattr(configuration, 'LOGIN_REQUIRED', False)
 LOGIN_REQUIRED = True
@@ -71,10 +67,7 @@ LOGIN_TIMEOUT = getattr(configuration, 'LOGIN_TIMEOUT', None)
 MEDIA_ROOT = getattr(configuration, 'MEDIA_ROOT', os.path.join(BASE_DIR, 'media')).rstrip('/')
 PLUGINS = getattr(configuration, 'PLUGINS', [])
 PLUGINS_CONFIG = getattr(configuration, 'PLUGINS_CONFIG', {})
-QUEUE_MAPPINGS = getattr(configuration, 'QUEUE_MAPPINGS', {})
 RQ_DEFAULT_TIMEOUT = getattr(configuration, 'RQ_DEFAULT_TIMEOUT', 300)
-RQ_RETRY_INTERVAL = getattr(configuration, 'RQ_RETRY_INTERVAL', 60)
-RQ_RETRY_MAX = getattr(configuration, 'RQ_RETRY_MAX', 0)
 SESSION_COOKIE_NAME = getattr(configuration, 'SESSION_COOKIE_NAME', 'sessionid')
 SHORT_DATE_FORMAT = getattr(configuration, 'SHORT_DATE_FORMAT', 'Y-m-d')
 SHORT_DATETIME_FORMAT = getattr(configuration, 'SHORT_DATETIME_FORMAT', 'Y-m-d H:i')
@@ -112,12 +105,10 @@ TASKS_REDIS_USING_SENTINEL = all([
 ])
 TASKS_REDIS_SENTINEL_SERVICE = TASKS_REDIS.get('SENTINEL_SERVICE', 'default')
 TASKS_REDIS_SENTINEL_TIMEOUT = TASKS_REDIS.get('SENTINEL_TIMEOUT', 10)
-TASKS_REDIS_USERNAME = TASKS_REDIS.get('USERNAME', '')
 TASKS_REDIS_PASSWORD = TASKS_REDIS.get('PASSWORD', '')
 TASKS_REDIS_DATABASE = TASKS_REDIS.get('DATABASE', 0)
 TASKS_REDIS_SSL = TASKS_REDIS.get('SSL', False)
 TASKS_REDIS_SKIP_TLS_VERIFY = TASKS_REDIS.get('INSECURE_SKIP_TLS_VERIFY', False)
-TASKS_REDIS_CA_CERT_PATH = TASKS_REDIS.get('CA_CERT_PATH', False)
 
 # Caching
 if 'caching' not in REDIS:
@@ -127,27 +118,22 @@ if 'caching' not in REDIS:
 CACHING_REDIS_HOST = REDIS['caching'].get('HOST', 'localhost')
 CACHING_REDIS_PORT = REDIS['caching'].get('PORT', 6379)
 CACHING_REDIS_DATABASE = REDIS['caching'].get('DATABASE', 0)
-CACHING_REDIS_USERNAME = REDIS['caching'].get('USERNAME', '')
-CACHING_REDIS_USERNAME_HOST = '@'.join(filter(None, [CACHING_REDIS_USERNAME, CACHING_REDIS_HOST]))
 CACHING_REDIS_PASSWORD = REDIS['caching'].get('PASSWORD', '')
 CACHING_REDIS_SENTINELS = REDIS['caching'].get('SENTINELS', [])
 CACHING_REDIS_SENTINEL_SERVICE = REDIS['caching'].get('SENTINEL_SERVICE', 'default')
 CACHING_REDIS_PROTO = 'rediss' if REDIS['caching'].get('SSL', False) else 'redis'
 CACHING_REDIS_SKIP_TLS_VERIFY = REDIS['caching'].get('INSECURE_SKIP_TLS_VERIFY', False)
-CACHING_REDIS_CA_CERT_PATH = REDIS['caching'].get('CA_CERT_PATH', False)
 
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'{CACHING_REDIS_PROTO}://{CACHING_REDIS_USERNAME_HOST}:{CACHING_REDIS_PORT}/{CACHING_REDIS_DATABASE}',
+        'LOCATION': f'{CACHING_REDIS_PROTO}://{CACHING_REDIS_HOST}:{CACHING_REDIS_PORT}/{CACHING_REDIS_DATABASE}',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             'PASSWORD': CACHING_REDIS_PASSWORD,
         }
     }
 }
-
-
 if CACHING_REDIS_SENTINELS:
     DJANGO_REDIS_CONNECTION_FACTORY = 'django_redis.pool.SentinelConnectionFactory'
     CACHES['default']['LOCATION'] = f'{CACHING_REDIS_PROTO}://{CACHING_REDIS_SENTINEL_SERVICE}/{CACHING_REDIS_DATABASE}'
@@ -156,9 +142,6 @@ if CACHING_REDIS_SENTINELS:
 if CACHING_REDIS_SKIP_TLS_VERIFY:
     CACHES['default']['OPTIONS'].setdefault('CONNECTION_POOL_KWARGS', {})
     CACHES['default']['OPTIONS']['CONNECTION_POOL_KWARGS']['ssl_cert_reqs'] = False
-if CACHING_REDIS_CA_CERT_PATH:
-    CACHES['default']['OPTIONS'].setdefault('CONNECTION_POOL_KWARGS', {})
-    CACHES['default']['OPTIONS']['CONNECTION_POOL_KWARGS']['ssl_ca_certs'] = CACHING_REDIS_CA_CERT_PATH
 
 if LOGIN_TIMEOUT is not None:
     # Django default is 1209600 seconds (14 days)
@@ -170,7 +153,7 @@ EMAIL_HOST_PASSWORD = EMAIL.get('PASSWORD')
 EMAIL_PORT = EMAIL.get('PORT', 25)
 EMAIL_SSL_CERTFILE = EMAIL.get('SSL_CERTFILE')
 EMAIL_SSL_KEYFILE = EMAIL.get('SSL_KEYFILE')
-EMAIL_SUBJECT_PREFIX = EMAIL.get('SUBJECT_PREFIX', '[Status-Page] ')
+EMAIL_SUBJECT_PREFIX = '[Status-Page] '
 EMAIL_USE_SSL = EMAIL.get('USE_SSL', False)
 EMAIL_USE_TLS = EMAIL.get('USE_TLS', False)
 EMAIL_TIMEOUT = EMAIL.get('TIMEOUT', 10)
@@ -210,7 +193,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -258,19 +240,9 @@ OTP_ADMIN_HIDE_SENSITIVE_DATA = True
 
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
-USE_L10N = True
+USE_L10N = False
 USE_TZ = True
 USE_DEPRECATED_PYTZ = True
-
-LANGUAGES = [
-    ('en', _('English')),
-    ('de', _('German')),
-    ('fr', _('French')),
-    ('es', _('Spanish')),
-]
-LOCALE_PATHS = (
-    f'{BASE_DIR}/locale',
-)
 
 WSGI_APPLICATION = 'statuspage.wsgi.application'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -376,15 +348,12 @@ SWAGGER_SETTINGS = {
     'VALIDATOR_URL': None,
 }
 
-
-#
-# Django RQ (Webhooks backend)
-#
-
 if TASKS_REDIS_USING_SENTINEL:
     RQ_PARAMS = {
         'SENTINELS': TASKS_REDIS_SENTINELS,
         'MASTER_NAME': TASKS_REDIS_SENTINEL_SERVICE,
+        'DB': TASKS_REDIS_DATABASE,
+        'PASSWORD': TASKS_REDIS_PASSWORD,
         'SOCKET_TIMEOUT': None,
         'CONNECTION_KWARGS': {
             'socket_connect_timeout': TASKS_REDIS_SENTINEL_TIMEOUT
@@ -394,31 +363,18 @@ else:
     RQ_PARAMS = {
         'HOST': TASKS_REDIS_HOST,
         'PORT': TASKS_REDIS_PORT,
+        'DB': TASKS_REDIS_DATABASE,
+        'PASSWORD': TASKS_REDIS_PASSWORD,
         'SSL': TASKS_REDIS_SSL,
         'SSL_CERT_REQS': None if TASKS_REDIS_SKIP_TLS_VERIFY else 'required',
+        'DEFAULT_TIMEOUT': RQ_DEFAULT_TIMEOUT,
     }
-RQ_PARAMS.update({
-    'DB': TASKS_REDIS_DATABASE,
-    'USERNAME': TASKS_REDIS_USERNAME,
-    'PASSWORD': TASKS_REDIS_PASSWORD,
-    'DEFAULT_TIMEOUT': RQ_DEFAULT_TIMEOUT,
-})
-
-if TASKS_REDIS_CA_CERT_PATH:
-    RQ_PARAMS.setdefault('REDIS_CLIENT_KWARGS', {})
-    RQ_PARAMS['REDIS_CLIENT_KWARGS']['ssl_ca_certs'] = TASKS_REDIS_CA_CERT_PATH
 
 RQ_QUEUES = {
-    RQ_QUEUE_HIGH: RQ_PARAMS,
-    RQ_QUEUE_DEFAULT: RQ_PARAMS,
-    RQ_QUEUE_LOW: RQ_PARAMS,
+    'high': RQ_PARAMS,
+    'default': RQ_PARAMS,
+    'low': RQ_PARAMS,
 }
-
-# Add any queues defined in QUEUE_MAPPINGS
-RQ_QUEUES.update({
-    queue: RQ_PARAMS for queue in set(QUEUE_MAPPINGS.values()) if queue not in RQ_QUEUES
-})
-
 
 for plugin_name in PLUGINS:
 

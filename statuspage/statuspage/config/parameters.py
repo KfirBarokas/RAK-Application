@@ -28,22 +28,8 @@ PARAMS = (
         default=False,
         field=forms.BooleanField,
     ),
-    ConfigParam(
-        name='SITE_PUBLIC_WEBHOOKS',
-        label='Public Webhooks',
-        description='Enable Public Webhooks (Requires correct E-Mail server setup)',
-        default=False,
-        field=forms.BooleanField,
-    ),
 
     # Custom Styling
-    ConfigParam(
-        name='HIDE_HISTORY_WHEN_EMPTY',
-        label='Hide Incident / Maintenance history when empty',
-        default=False,
-        field=forms.BooleanField,
-    ),
-
     ConfigParam(
         name='CUSTOM_STYLE_HEADER',
         label='Header HTML',
@@ -100,67 +86,6 @@ PARAMS = (
         description="Permitted schemes for URLs in user-provided content",
         field=SimpleArrayField,
         field_kwargs={'base_field': forms.CharField()}
-    ),
-    ConfigParam(
-        name='CAPTCHA_PROVIDER',
-        label='Captcha Provider',
-        default=None,
-        field=forms.ChoiceField,
-        field_kwargs={
-            'choices': [
-                (None, '---------'),
-                ('TURNSTILE', 'CloudFlare Turnstile'),
-                ('RECAPTCHA_V2', 'Google reCAPTCHA v2'),
-                ('HCAPTCHA', 'hCaptcha'),
-            ],
-        },
-    ),
-    ConfigParam(
-        name='CAPTCHA_PUBLIC_KEY',
-        label='Captcha Public Key',
-        default='',
-        field=forms.CharField,
-    ),
-    ConfigParam(
-        name='CAPTCHA_PRIVATE_KEY',
-        label='Captcha Private Key',
-        default='',
-        field=forms.CharField,
-    ),
-
-    # Banners
-    ConfigParam(
-        name='BANNER_LOGIN',
-        label='Login banner',
-        default='',
-        description="Additional content to display on the login page",
-        field_kwargs={
-            'widget': forms.Textarea(
-                attrs={'class': 'vLargeTextField'}
-            ),
-        },
-    ),
-    ConfigParam(
-        name='BANNER_TOP',
-        label='Top banner',
-        default='',
-        description="Additional content to display at the top of every page",
-        field_kwargs={
-            'widget': forms.Textarea(
-                attrs={'class': 'vLargeTextField'}
-            ),
-        },
-    ),
-    ConfigParam(
-        name='BANNER_BOTTOM',
-        label='Bottom banner',
-        default='',
-        description="Additional content to display at the bottom of every page",
-        field_kwargs={
-            'widget': forms.Textarea(
-                attrs={'class': 'vLargeTextField'}
-            ),
-        },
     ),
 
     # Pagination

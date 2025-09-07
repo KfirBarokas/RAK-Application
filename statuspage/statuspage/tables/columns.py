@@ -26,9 +26,6 @@ __all__ = (
     'TemplateColumn',
     'ToggleColumn',
     'UtilizationColumn',
-    'TruncatedTextColumn',
-    'ContentTypeColumn',
-    'ContentTypesColumn',
 )
 
 
@@ -276,25 +273,6 @@ class ContentTypeColumn(tables.Column):
         return content_type_identifier(value)
 
 
-class ContentTypesColumn(tables.ManyToManyColumn):
-    """
-    Display a list of ContentType instances.
-    """
-    def __init__(self, separator=None, *args, **kwargs):
-        # Use a line break as the default separator
-        if separator is None:
-            separator = mark_safe('<br />')
-        super().__init__(separator=separator, *args, **kwargs)
-
-    def transform(self, obj):
-        return content_type_name(obj, include_app=False)
-
-    def value(self, value):
-        return ','.join([
-            content_type_identifier(ct) for ct in self.filter(value)
-        ])
-
-
 class ColorColumn(tables.Column):
     """
     Display an arbitrary color value, specified in RRGGBB format.
@@ -416,11 +394,3 @@ class MarkdownColumn(tables.TemplateColumn):
 
     def value(self, value):
         return value
-
-
-class TruncatedTextColumn(tables.Column):
-    """A Column to limit to 100 characters and add an ellipsis"""
-    def render(self, value):
-        if len(value) > 52:
-            return value[0:49] + '...'
-        return str(value)

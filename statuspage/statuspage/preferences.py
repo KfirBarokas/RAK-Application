@@ -1,4 +1,4 @@
-from statuspage.registry import registry
+from extras.registry import registry
 from users.preferences import UserPreference
 from utilities.paginator import EnhancedPaginator
 

@@ -1,5 +1,4 @@
 from utilities.choices import ChoiceSet
-from django.utils.translation import gettext_lazy as _
 
 
 class MaintenanceStatusChoices(ChoiceSet):
@@ -11,10 +10,10 @@ class MaintenanceStatusChoices(ChoiceSet):
     COMPLETED = 'completed'
 
     CHOICES = [
-        (SCHEDULED, _('Scheduled')),
-        (IN_PROGRESS, _('In Progress')),
-        (VERIFYING, _('Verifying')),
-        (COMPLETED, _('Completed')),
+        (SCHEDULED, 'Scheduled'),
+        (IN_PROGRESS, 'In Progress'),
+        (VERIFYING, 'Verifying'),
+        (COMPLETED, 'Completed'),
     ]
 
 
@@ -24,5 +23,5 @@ class MaintenanceImpactChoices(ChoiceSet):
     MAINTENANCE = 'maintenance'
 
     CHOICES = [
-        (MAINTENANCE, _('Maintenance'), ('bg-blue-500', 'border-blue-500', 'text-blue-500')),
+        (MAINTENANCE, 'Maintenance', ('bg-blue-500', 'border-blue-500', 'text-blue-500')),
     ]

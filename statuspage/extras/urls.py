@@ -1,11 +1,9 @@
-from django.urls import path, include
+from django.urls import path
 
-from utilities.urls import get_model_urls
-
-from . import views # noqa Required for registration
+from . import views
 
 app_name = 'extras'
 urlpatterns = [
-    path('changelog/', include(get_model_urls('extras', 'objectchange'))),
-    path('webhooks/', include(get_model_urls('extras', 'webhook'))),
+    path('changelog/', views.ObjectChangeListView.as_view(), name='objectchange_list'),
+    path('changelog/<int:pk>/', views.ObjectChangeView.as_view(), name='objectchange'),
 ]

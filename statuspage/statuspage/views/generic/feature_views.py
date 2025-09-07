@@ -10,8 +10,6 @@ __all__ = (
     'ObjectChangeLogView',
 )
 
-from utilities.views import ViewTab
-
 
 class ObjectChangeLogView(View):
     """
@@ -24,11 +22,6 @@ class ObjectChangeLogView(View):
         base_template: The name of the template to extend. If not provided, "{app}/{model}.html" will be used.
     """
     base_template = None
-    tab = ViewTab(
-        label='Changelog',
-        permission='extras.view_objectchange',
-        weight=10000
-    )
 
     def get(self, request, model, **kwargs):
 
@@ -62,5 +55,5 @@ class ObjectChangeLogView(View):
             'object': obj,
             'table': objectchanges_table,
             'base_template': self.base_template,
-            'tab': self.tab,
+            'active_tab': 'changelog',
         })

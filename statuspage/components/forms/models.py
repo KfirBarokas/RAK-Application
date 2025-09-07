@@ -11,15 +11,14 @@ __all__ = (
 class ComponentForm(StatusPageModelForm):
     fieldsets = (
         ('Component', (
-            'name', 'link', 'description', 'component_group', 'status', 'show_historic_incidents', 'visibility',
-            'order',
+            'name', 'link', 'description', 'component_group', 'status', 'visibility', 'order',
         )),
     )
 
     class Meta:
         model = Component
         fields = (
-            'name', 'link', 'description', 'component_group', 'status', 'show_historic_incidents', 'visibility', 'order'
+            'name', 'link', 'description', 'component_group', 'status', 'visibility', 'order'
         )
         widgets = {
             'component_group': StaticSelect(),

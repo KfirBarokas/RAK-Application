@@ -40,7 +40,7 @@ REDIS = {
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
-        # 'SENTINEL_SERVICE': 'statuspage',
+        # 'SENTINEL_SERVICE': 'netbox',
         'PASSWORD': '',
         'DATABASE': 1,
         'SSL': False,
@@ -110,7 +110,6 @@ EMAIL = {
     'USE_TLS': False,
     'TIMEOUT': 10,  # seconds
     'FROM_EMAIL': '',
-    'SUBJECT_PREFIX': '[Status-Page] ',
 }
 
 # IP addresses recognized as internal to the system. The debugging toolbar will be available only to clients accessing
