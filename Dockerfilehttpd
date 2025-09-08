@@ -1,0 +1,15 @@
+FROM httpd:2.4
+
+COPY updated-files/ssl/status-page.crt /usr/local/apache2/conf/ssl/status-page.crt
+COPY updated-files/ssl/status-page.key /usr/local/apache2/conf/ssl/status-page.key
+
+COPY updated-files/status-page.conf /usr/local/apache2/conf/extra/status-page.conf
+
+RUN sed -i '/#LoadModule proxy_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
+ && sed -i '/#LoadModule proxy_http_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
+ && sed -i '/#LoadModule headers_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
+ && sed -i '/#LoadModule ssl_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
+ && sed -i '/#LoadModule socache_shmcb_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
+ && echo "Include conf/extra/status-page.conf" >> /usr/local/apache2/conf/httpd.conf
+
+EXPOSE 80 443
