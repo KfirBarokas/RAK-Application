@@ -5,22 +5,27 @@ COPY . /opt/status-page
 WORKDIR /opt/status-page
 
 RUN yum update -y
-RUN yum install -y python3.11 python3.11-devel gcc libxml2-devel libxslt-devel libffi-devel libpq-devel openssl-devel redhat-rpm-config shadow-utils
+RUN yum install -y python3.11 python3.11-devel python3-pip gcc libxml2-devel libxslt-devel libffi-devel libpq-devel openssl-devel redhat-rpm-config shadow-utils && yum clean all
+#RUN python3 -m pip install --upgrade pip
+
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
+
 
 RUN groupadd --system status-page && adduser --system -g status-page status-page
+#RUN python3 --version
+#RUN /usr/bin/python3.11 -m pip install -r requirements.txt
+
+#RUN chmod +x ./upgrade.sh
+#RUN PYTHON=/usr/bin/python3.11 bash upgrade.sh
+RUN chmod +x ./app-entrypoint.sh
+cmd ["./app-entrypoint.sh"]
 
 
 #RUN chmod +x ./upgrade.sh
 #RUN PYTHON=/usr/bin/python3.11 bash upgrade.sh
-#RUN chmod +x ./app-entrypoint.sh
-#cmd ["./app-entrypoint.sh"]
 
-
-RUN chmod +x ./upgrade.sh
-RUN PYTHON=/usr/bin/python3.11 bash upgrade.sh
-
-RUN python3 statuspage/manage.py createsuperuser --noinput
-CMD ["python3", "statuspage/manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
+#RUN python3 statuspage/manage.py createsuperuser --noinput
+#CMD ["python3", "statuspage/manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
 
 
 #RUN python3 statuspage/manage.py createsuperuser
