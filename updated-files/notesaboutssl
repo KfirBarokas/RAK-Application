@@ -1,0 +1,5 @@
+#you will need to create a new ssl certificate for your domain because we are using a free one use this command!!
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout updated-files/ssl/status-page.key \
+  -out updated-files/ssl/status-page.crt \
+  -subj "/CN=ec2-54-172-141-184.compute-1.amazonaws.com"
