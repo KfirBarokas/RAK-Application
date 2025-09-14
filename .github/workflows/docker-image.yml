@@ -40,6 +40,9 @@ jobs:
         aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
     - name: Deploy new image to EKS
       run: |
-        kubectl set image deployment/my-app my-app=${IMAGE_URI} -n default
-        kubectl rollout status deployment/my-app -n default
+        kubectl set image deployment/django-gunicorn -n default
+        kubectl rollout status deployment/django-gunicorn -n default
+        kubectl set image deployment/httpd -n default
+        kubectl rollout status deployment/httpd -n default
+        
       
