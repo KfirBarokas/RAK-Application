@@ -27,12 +27,12 @@ jobs:
     - name: tag and push to ecr httpd
       run: |  
         docker build -t httpd -f Dockerfile.httpd .
-        docker tag httpd:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/httpd:latest
-        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/httpd:latest
+        docker tag httpd:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest
+        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest
  
     - name: tag and push to ecr app
       run: |
         docker build -t django-gunicorn -f Dockerfile.app .
-        docker tag django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/django-gunicorn:latest
-        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/django-gunicorn:latest
+        docker tag django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
+        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
       
