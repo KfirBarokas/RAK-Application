@@ -1,4 +1,4 @@
-#
+import os
 # Required Settings
 #
 
@@ -17,20 +17,20 @@ STATIC_ROOT = '/opt/status-page/statuspage/static'
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
-    'NAME': 'postgres',         # Database name
-    'USER': 'postgres',               # PostgreSQL username
-    'PASSWORD': 'projectrak',           # PostgreSQL password
-    'HOST': 'project-rak2.cx248m4we6k7.us-east-1.rds.amazonaws.com',      # Database 
-    'PORT': '5432',               # Database port (leave blank for default)
-    'CONN_MAX_AGE': 300,      # Max database connection age
+    'NAME': os.getenv('DB_NAME', 'postgres'),         # Database name
+    'USER': os.getenv('DB_USER', 'postgres'),               # PostgreSQL username
+    'PASSWORD': os.getenv('DB_PASS', ''),           # PostgreSQL password
+    'HOST': os.getenv('DB_HOST', 'localhost'),      # Database 
+    'PORT': os.getenv('DB_PORT', '5432'),               # Database port (leave blank for default)
+    'CONN_MAX_AGE': int(os.getenv('DB_CONN_MAX_AGE', 300)),      # Max database connection age
 }
 
 # Redis database settings. Redis is used for caching and for queuing background tasks. A separate configuration exists
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'project-rak-redis-7fftml.serverless.use1.cache.amazonaws.com',
-        'PORT': 6379,
+        'HOST': os.getenv('REDIS_HOST', 'localhost'),
+        'PORT': int(os.getenv('REDIS_PORT', 6379)),
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
         # 'SENTINEL_SERVICE': 'status-page',
