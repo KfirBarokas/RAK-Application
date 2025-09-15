@@ -1,6 +1,6 @@
 FROM 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest AS django
 
-FROM httpd:2.4
+FROM httpd:latest
 COPY updated-files/status-page.conf /usr/local/apache2/conf/extra/status-page.conf
 
 RUN sed -i '/#LoadModule proxy_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
