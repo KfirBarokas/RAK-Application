@@ -1,24 +1,23 @@
-FROM amazonlinux:latest AS django
+FROM python:3.11-slim AS django
 
 WORKDIR /opt/status-page
+
+# Install system dependencies needed for building wheels
+RUN apt-get update && apt-get install -y \
+    gcc libpq-dev libxml2-dev libxslt1-dev libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy app code
 COPY . .
 
-RUN yum update -y && \
-    yum install -y python3.11 python3.11-devel python3-pip gcc \
-                   libxml2-devel libxslt-devel libffi-devel \
-                   postgresql-devel zlib-devel bzip2 bzip2-devel \
-                   xz-devel wget make \
-                   openssl-devel redhat-rpm-config shadow-utils && \
-    yum clean all
+# Install Python dependencies
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install -r requirements.txt
 
-RUN pip3 install --upgrade pip setuptools wheel
-
-# install requirements with verbose output for debugging
-RUN pip3 install -r requirements.txt --verbose
+# Collect static files at build time
 ENV DJANGO_SETTINGS_MODULE=statuspage.settings
-RUN python3 manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
-RUN groupadd --system status-page && adduser --system -g status-page status-page
+# Entrypoint
 RUN chmod +x ./app-entrypoint.sh
-
 CMD ["./app-entrypoint.sh"]
