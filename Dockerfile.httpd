@@ -2,7 +2,7 @@ FROM httpd:2.4
 
 COPY updated-files/status-page.conf /usr/local/apache2/conf/extra/status-page.conf
 
-COPY updated-files/ /opt/status-page/statuspage/static/
+COPY updated-files/static/ /opt/status-page/statuspage/static/
 
 RUN sed -i '/#LoadModule proxy_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
  && sed -i '/#LoadModule proxy_http_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
