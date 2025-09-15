@@ -1,12 +1,16 @@
 FROM 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest AS staticbuilder
 WORKDIR /opt/status-page
+ENV SECRET_KEY=dummy
+ENV DEBUG=False
+ENV DB_NAME=dummy
+ENV DB_USER=dummy
+ENV DB_PASS=dummy
+ENV DB_HOST=localhost
+ENV DB_PORT=5432
+ENV REDIS_HOST=localhost
+ENV REDIS_PORT=6379
 ENV STATIC_ROOT=/opt/status-page/statuspage/static
 RUN python3 statuspage/manage.py collectstatic --noinput
-
-
-
-
-
 
 
 
