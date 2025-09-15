@@ -19,8 +19,8 @@ ENV/
 # Django
 # ------------------------------------------------------------------------------
 # Collected static files (can always be regenerated)
-statuspage/static/*
-!statuspage/static/.gitkeep
+#statuspage/static/*
+#!statuspage/static/.gitkeep
 
 # Ignore media uploads (if any, unless you want them versioned)
 media/
