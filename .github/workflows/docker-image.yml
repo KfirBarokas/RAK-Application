@@ -30,17 +30,6 @@ jobs:
         docker tag rak-django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
         docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
 
-    - name: Collect static files
-      run: |
-        CID=$(docker create 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest \
-          /bin/sh -c "cd /opt/status-page/statuspage && DJANGO_SETTINGS_MODULE=statuspage.configuration python3 manage.py collectstatic --noinput")
-        docker start -a $CID
-        docker cp $CID:/opt/status-page/statuspage/static ./staticfiles
-        docker rm $CID
-
-
-
-      
     - name: tag and push to ecr httpd
       run: |  
         docker build -t rak-httpd -f Dockerfile.httpd .
