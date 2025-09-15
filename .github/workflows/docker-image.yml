@@ -23,18 +23,18 @@ jobs:
         aws-region: us-east-1
     - name: log in to ecr
       run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 992382545251.dkr.ecr.us-east-1.amazonaws.com
+
+    - name: tag and push to ecr app
+      run: |
+        docker build -t rak-django-gunicorn -f Dockerfile.app .
+        docker tag rak-django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
+        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
       
     - name: tag and push to ecr httpd
       run: |  
         docker build -t rak-httpd -f Dockerfile.httpd .
         docker tag rak-httpd:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest
         docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest
-        
-    - name: tag and push to ecr app
-      run: |
-        docker build -t rak-django-gunicorn -f Dockerfile.app .
-        docker tag rak-django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
-        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
         
     - name: Update kubeconfig for EKS
       run: |
