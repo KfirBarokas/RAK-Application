@@ -41,9 +41,7 @@ jobs:
         aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
     - name: Deploy new image to EKS
       run: |
-        kubectl set image deployment/django-gunicorn django-gunicorn=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest -n default
-        kubectl rollout status deployment/django-gunicorn -n default
-        kubectl set image deployment/httpd httpd=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest -n default
-        kubectl rollout status deployment/httpd -n default
+        kubectl rollout restart deployment django-gunicorn
+        kubectl rollout restart deployment httpd
         
       
