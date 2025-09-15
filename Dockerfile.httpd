@@ -1,4 +1,4 @@
-FROM 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:<DJANGO_TAG> AS staticbuilder
+FROM 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest AS staticbuilder
 WORKDIR /opt/status-page
 
 # Minimal env so settings load without real infra during build
