@@ -32,14 +32,11 @@ jobs:
 
     - name: Collect static files
       run: |
-          # create a temp container
-          CID=$(docker create 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest \
-            /bin/sh -c "DJANGO_SETTINGS_MODULE=statuspage.statuspage.configuration python3 manage.py collectstatic --noinput")
-          # start container so it runs collectstatic
-          docker start -a $CID
-          # copy static files out
-          docker cp $CID:/opt/status-page/statuspage/static ./staticfiles
-          docker rm $CID
+        CID=$(docker create 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest \
+          /bin/sh -c "cd /opt/status-page/statuspage && DJANGO_SETTINGS_MODULE=statuspage.configuration python3 manage.py collectstatic --noinput")
+        docker start -a $CID
+        docker cp $CID:/opt/status-page/statuspage/static ./staticfiles
+        docker rm $CID
 
 
 
