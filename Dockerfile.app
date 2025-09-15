@@ -9,8 +9,6 @@ RUN yum install -y python3.11 python3.11-devel python3-pip gcc libxml2-devel lib
 
 RUN groupadd --system status-page && adduser --system -g status-page status-page
 
-RUN python3 manage.py collectstatic --noinput
-
 RUN chmod +x ./app-entrypoint.sh
 cmd ["./app-entrypoint.sh"]
 
