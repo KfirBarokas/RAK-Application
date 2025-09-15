@@ -1,7 +1,7 @@
 FROM httpd:2.4
 COPY updated-files/status-page.conf /usr/local/apache2/conf/extra/status-page.conf
 
-COPY --from=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn /opt/status-page/statuspage/static/ /opt/status-page/statuspage/static/
+COPY --from=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest /opt/status-page/statuspage/static/ /opt/status-page/statuspage/static/
 
 RUN sed -i '/#LoadModule proxy_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
  && sed -i '/#LoadModule proxy_http_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
