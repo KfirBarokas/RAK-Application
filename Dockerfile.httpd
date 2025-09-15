@@ -1,34 +1,5 @@
-FROM 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest AS staticbuilder
-WORKDIR /opt/status-page
-
-# Minimal env so settings load without real infra during build
-ENV DJANGO_SETTINGS_MODULE=statuspage.settings \
-    SECRET_KEY=dummy \
-    DEBUG=False \
-    DB_NAME=dummy \
-    DB_USER=dummy \
-    DB_PASS=dummy \
-    DB_HOST=localhost \
-    DB_PORT=5432 \
-    REDIS_HOST=localhost \
-    REDIS_PORT=6379 \
-    STATIC_ROOT=/opt/status-page/statuspage/static
-
-# Ensure target dir exists (collectstatic will also create it, but this avoids permission surprises)
-RUN mkdir -p /opt/status-page/statuspage/static
-
-# Use the venv's python if it exists; otherwise fall back to system python
-RUN if [ -x "/opt/status-page/venv/bin/python" ]; then \
-      /opt/status-page/venv/bin/python statuspage/manage.py collectstatic --noinput ; \
-    else \
-      python3 statuspage/manage.py collectstatic --noinput ; \
-    fi
-
-
 FROM httpd:2.4
 COPY updated-files/status-page.conf /usr/local/apache2/conf/extra/status-page.conf
-
-COPY --from=staticbuilder /opt/status-page/statuspage/static/ /opt/status-page/statuspage/static/
 
 RUN sed -i '/#LoadModule proxy_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
  && sed -i '/#LoadModule proxy_http_module/s/^#//g' /usr/local/apache2/conf/httpd.conf \
