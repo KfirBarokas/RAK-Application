@@ -1,0 +1,49 @@
+name: Docker Image CI-CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    - name: log in to ecr
+      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 992382545251.dkr.ecr.us-east-1.amazonaws.com
+      
+    - name: tag and push to ecr httpd
+      run: |  
+        docker build -t rak-httpd -f Dockerfile.httpd .
+        docker tag rak-httpd:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest
+        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest
+        
+    - name: tag and push to ecr app
+      run: |
+        docker build -t rak-django-gunicorn -f Dockerfile.app .
+        docker tag rak-django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
+        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest
+        
+    - name: Update kubeconfig for EKS
+      run: |
+        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+    - name: Deploy new image to EKS
+      run: |
+        kubectl set image deployment/django-gunicorn django-gunicorn=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest -n default
+        kubectl rollout status deployment/django-gunicorn -n default
+        kubectl set image deployment/httpd httpd=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:latest -n default
+        kubectl rollout status deployment/httpd -n default
+        
+      

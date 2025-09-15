@@ -1,7 +1,6 @@
 import os
 # Required Settings
 #
-
 # This is a list of valid fully-qualified domain names (FQDNs) for the Status-Page server. Status-Page will not permit
 # write access to the server via any other hostnames. The first FQDN in the list will be treated as the preferred name.
 #
@@ -42,8 +41,8 @@ REDIS = {
         # 'INSECURE_SKIP_TLS_VERIFY': False,
     },
     'caching': {
-        'HOST': 'project-rak-redis-7fftml.serverless.use1.cache.amazonaws.com',
-        'PORT': 6379,
+        'HOST': os.getenv('REDIS_HOST', 'localhost'),
+        'PORT':  int(os.getenv('REDIS_PORT', 6379)),
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
         # 'SENTINEL_SERVICE': 'netbox',
