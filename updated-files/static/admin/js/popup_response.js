@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /*global opener */
+=======
+>>>>>>> 504de05 (dsadsd)
 'use strict';
 {
     const initData = JSON.parse(document.getElementById('django-admin-popup-response-constants').dataset.popupResponse);

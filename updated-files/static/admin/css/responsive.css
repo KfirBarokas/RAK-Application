@@ -43,7 +43,11 @@ input[type="submit"], button {
         justify-content: flex-start;
     }
 
+<<<<<<< HEAD
     #branding h1 {
+=======
+    #site-name {
+>>>>>>> 504de05 (dsadsd)
         margin: 0 0 8px;
         line-height: 1.2;
     }
@@ -104,13 +108,21 @@ input[type="submit"], button {
     }
 
     #changelist-search label {
+<<<<<<< HEAD
         line-height: 22px;
+=======
+        line-height: 1.375rem;
+>>>>>>> 504de05 (dsadsd)
     }
 
     #toolbar form #searchbar {
         flex: 1 0 auto;
         width: 0;
+<<<<<<< HEAD
         height: 22px;
+=======
+        height: 1.375rem;
+>>>>>>> 504de05 (dsadsd)
         margin: 0 10px 0 6px;
     }
 
@@ -171,9 +183,20 @@ input[type="submit"], button {
     /* Forms */
 
     label {
+<<<<<<< HEAD
         font-size: 0.875rem;
     }
 
+=======
+        font-size: 1rem;
+    }
+
+    /*
+    Minifiers remove the default (text) "type" attribute from "input" HTML
+    tags. Add input:not([type]) to make the CSS stylesheet work the same.
+    */
+    .form-row input:not([type]),
+>>>>>>> 504de05 (dsadsd)
     .form-row input[type=text],
     .form-row input[type=password],
     .form-row input[type=email],
@@ -186,12 +209,21 @@ input[type="submit"], button {
         box-sizing: border-box;
         margin: 0;
         padding: 6px 8px;
+<<<<<<< HEAD
         min-height: 36px;
         font-size: 0.875rem;
     }
 
     .form-row select {
         height: 36px;
+=======
+        min-height: 2.25rem;
+        font-size: 1rem;
+    }
+
+    .form-row select {
+        height: 2.25rem;
+>>>>>>> 504de05 (dsadsd)
     }
 
     .form-row select[multiple] {
@@ -199,12 +231,15 @@ input[type="submit"], button {
         min-height: 0;
     }
 
+<<<<<<< HEAD
     fieldset .fieldBox {
         float: none;
         margin: 0 -10px;
         padding: 0 10px;
     }
 
+=======
+>>>>>>> 504de05 (dsadsd)
     fieldset .fieldBox + .fieldBox {
         margin-top: 10px;
         padding-top: 10px;
@@ -232,21 +267,29 @@ input[type="submit"], button {
     }
 
     .submit-row {
+<<<<<<< HEAD
         padding: 8px 8px 3px 8px;
+=======
+        padding: 8px;
+>>>>>>> 504de05 (dsadsd)
     }
 
     .submit-row a.deletelink {
         padding: 10px 7px;
     }
 
+<<<<<<< HEAD
     .submit-row input.default {
         margin: 0 0 5px 5px;
     }
 
+=======
+>>>>>>> 504de05 (dsadsd)
     .button, input[type=submit], input[type=button], .submit-row input, a.button {
         padding: 7px;
     }
 
+<<<<<<< HEAD
     /* Related widget */
 
     .related-widget-wrapper {
@@ -263,6 +306,8 @@ input[type="submit"], button {
         margin-left: 10px;
     }
 
+=======
+>>>>>>> 504de05 (dsadsd)
     /* Selector */
 
     .selector {
@@ -280,7 +325,11 @@ input[type="submit"], button {
     }
 
     .selector .selector-filter input {
+<<<<<<< HEAD
         width: auto;
+=======
+        width: 100%;
+>>>>>>> 504de05 (dsadsd)
         min-height: 0;
         flex: 1 1;
     }
@@ -302,7 +351,10 @@ input[type="submit"], button {
         width: 26px;
         height: 52px;
         padding: 2px 0;
+<<<<<<< HEAD
         margin: auto 15px;
+=======
+>>>>>>> 504de05 (dsadsd)
         border-radius: 20px;
         transform: translateY(-10px);
     }
@@ -346,7 +398,10 @@ input[type="submit"], button {
         width: 52px;
         height: 26px;
         padding: 0 2px;
+<<<<<<< HEAD
         margin: 15px auto;
+=======
+>>>>>>> 504de05 (dsadsd)
         transform: none;
     }
 
@@ -394,10 +449,13 @@ input[type="submit"], button {
         display: none;
     }
 
+<<<<<<< HEAD
     form .form-row p.datetime {
         width: 100%;
     }
 
+=======
+>>>>>>> 504de05 (dsadsd)
     .datetime input {
         width: 50%;
         max-width: 120px;
@@ -446,7 +504,11 @@ input[type="submit"], button {
         padding: 15px 20px;
     }
 
+<<<<<<< HEAD
     .login #branding h1 {
+=======
+    .login #site-name {
+>>>>>>> 504de05 (dsadsd)
         margin: 0;
     }
 
@@ -478,6 +540,7 @@ input[type="submit"], button {
 @media (max-width: 767px) {
     /* Layout */
 
+<<<<<<< HEAD
     #header, #content, #footer {
         padding: 15px;
     }
@@ -486,6 +549,12 @@ input[type="submit"], button {
         padding: 0;
     }
 
+=======
+    #header, #content {
+        padding: 15px;
+    }
+
+>>>>>>> 504de05 (dsadsd)
     div.breadcrumbs {
         padding: 10px 15px;
     }
@@ -568,8 +637,11 @@ input[type="submit"], button {
 
     .aligned .form-row,
     .aligned .form-row > div {
+<<<<<<< HEAD
         display: flex;
         flex-wrap: wrap;
+=======
+>>>>>>> 504de05 (dsadsd)
         max-width: 100vw;
     }
 
@@ -577,6 +649,17 @@ input[type="submit"], button {
         width: calc(100vw - 30px);
     }
 
+<<<<<<< HEAD
+=======
+    .flex-container {
+        flex-flow: column;
+    }
+
+    .flex-container.checkbox-row {
+        flex-flow: row;
+    }
+
+>>>>>>> 504de05 (dsadsd)
     textarea {
         max-width: none;
     }
@@ -590,12 +673,18 @@ input[type="submit"], button {
         padding-top: 15px;
     }
 
+<<<<<<< HEAD
     fieldset.collapsed .form-row {
         display: none;
     }
 
     .aligned label {
         width: 100%;
+=======
+    .aligned label {
+        width: 100%;
+        min-width: auto;
+>>>>>>> 504de05 (dsadsd)
         padding: 0 0 10px;
     }
 
@@ -610,10 +699,13 @@ input[type="submit"], button {
         max-width: 100%;
     }
 
+<<<<<<< HEAD
     .aligned .checkbox-row {
         align-items: center;
     }
 
+=======
+>>>>>>> 504de05 (dsadsd)
     .aligned .checkbox-row input {
         flex: 0 1 auto;
         margin: 0;
@@ -632,7 +724,10 @@ input[type="submit"], button {
     }
 
     .aligned p.file-upload {
+<<<<<<< HEAD
         margin-left: 0;
+=======
+>>>>>>> 504de05 (dsadsd)
         font-size: 0.8125rem;
     }
 
@@ -656,7 +751,12 @@ input[type="submit"], button {
         padding: 0;
     }
 
+<<<<<<< HEAD
     form .aligned ul {
+=======
+    form .aligned ul,
+    form .aligned ul.errorlist {
+>>>>>>> 504de05 (dsadsd)
         margin-left: 0;
         padding-left: 0;
     }
@@ -695,15 +795,19 @@ input[type="submit"], button {
         align-self: center;
     }
 
+<<<<<<< HEAD
     select + .related-widget-wrapper-link,
     .related-widget-wrapper-link + .related-widget-wrapper-link {
         margin-left: 15px;
     }
 
+=======
+>>>>>>> 504de05 (dsadsd)
     /* Selector */
 
     .selector {
         flex-direction: column;
+<<<<<<< HEAD
     }
 
     .selector > * {
@@ -712,6 +816,12 @@ input[type="submit"], button {
 
     .selector-available, .selector-chosen {
         margin-bottom: 0;
+=======
+        gap: 10px 0;
+    }
+
+    .selector-available, .selector-chosen {
+>>>>>>> 504de05 (dsadsd)
         flex: 1 1 auto;
     }
 
@@ -721,11 +831,17 @@ input[type="submit"], button {
 
     .selector ul.selector-chooser {
         display: block;
+<<<<<<< HEAD
         float: none;
         width: 52px;
         height: 26px;
         padding: 0 2px;
         margin: 15px auto 20px;
+=======
+        width: 52px;
+        height: 26px;
+        padding: 0 2px;
+>>>>>>> 504de05 (dsadsd)
         transform: none;
     }
 
@@ -823,6 +939,7 @@ input[type="submit"], button {
     /* Submit row */
 
     .submit-row {
+<<<<<<< HEAD
         padding: 10px 10px 5px;
         margin: 0 0 15px;
         display: flex;
@@ -836,15 +953,32 @@ input[type="submit"], button {
     .submit-row input, .submit-row input.default, .submit-row a, .submit-row a.closelink {
         float: none;
         margin: 0 0 10px;
+=======
+        padding: 10px;
+        margin: 0 0 15px;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .submit-row input, .submit-row input.default, .submit-row a {
+>>>>>>> 504de05 (dsadsd)
         text-align: center;
     }
 
     .submit-row a.closelink {
         padding: 10px 0;
+<<<<<<< HEAD
     }
 
     .submit-row p.deletelink-box {
         order: 4;
+=======
+        text-align: center;
+    }
+
+    .submit-row a.deletelink {
+        margin: 0;
+>>>>>>> 504de05 (dsadsd)
     }
 
     /* Messages */
@@ -966,7 +1100,11 @@ input[type="submit"], button {
     .calendar-shortcuts {
         padding: 10px 0;
         font-size: 0.75rem;
+<<<<<<< HEAD
         line-height: 12px;
+=======
+        line-height: 0.75rem;
+>>>>>>> 504de05 (dsadsd)
     }
 
     .calendar-shortcuts a {

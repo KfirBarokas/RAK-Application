@@ -41,6 +41,13 @@
             }
             SelectBox.redisplay(id);
         },
+<<<<<<< HEAD
+=======
+        get_hidden_node_count(id) {
+            const cache = SelectBox.cache[id] || [];
+            return cache.filter(node => node.displayed === 0).length;
+        },
+>>>>>>> 504de05 (dsadsd)
         delete_from_cache: function(id, value) {
             let delete_index = null;
             const cache = SelectBox.cache[id];

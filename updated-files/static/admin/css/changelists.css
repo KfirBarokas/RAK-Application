@@ -90,7 +90,11 @@
 }
 
 #toolbar #searchbar {
+<<<<<<< HEAD
     height: 19px;
+=======
+    height: 1.1875rem;
+>>>>>>> 504de05 (dsadsd)
     border: 1px solid var(--border-color);
     padding: 2px 5px;
     margin: 0;
@@ -139,6 +143,15 @@
     margin: 0 0 0 30px;
 }
 
+<<<<<<< HEAD
+=======
+@media (forced-colors: active) {
+  #changelist-filter {
+      border: 1px solid;
+  }
+}
+
+>>>>>>> 504de05 (dsadsd)
 #changelist-filter h2 {
     font-size: 0.875rem;
     text-transform: uppercase;
@@ -215,14 +228,21 @@
     color: var(--link-hover-color);
 }
 
+<<<<<<< HEAD
 #changelist-filter #changelist-filter-clear a {
     font-size: 0.8125rem;
     padding-bottom: 10px;
+=======
+#changelist-filter #changelist-filter-extra-actions {
+    font-size: 0.8125rem;
+    margin-bottom: 10px;
+>>>>>>> 504de05 (dsadsd)
     border-bottom: 1px solid var(--hairline-color);
 }
 
 /* DATE DRILLDOWN */
 
+<<<<<<< HEAD
 .change-list ul.toplinks {
     display: block;
     float: left;
@@ -244,6 +264,26 @@
 
 .change-list ul.toplinks .date-back a:focus,
 .change-list ul.toplinks .date-back a:hover {
+=======
+.change-list .toplinks {
+    display: flex;
+    padding-bottom: 5px;
+    flex-wrap: wrap;
+    gap: 3px 17px;
+    font-weight: bold;
+}
+
+.change-list .toplinks a {
+    font-size: 0.8125rem;
+}
+
+.change-list .toplinks .date-back {
+    color: var(--body-quiet-color);
+}
+
+.change-list .toplinks .date-back:focus,
+.change-list .toplinks .date-back:hover {
+>>>>>>> 504de05 (dsadsd)
     color: var(--link-hover-color);
 }
 
@@ -258,16 +298,42 @@
     vertical-align: baseline;
 }
 
+<<<<<<< HEAD
 #changelist table tbody tr.selected {
     background-color: var(--selected-row);
 }
 
+=======
+/* Once the :has() pseudo-class is supported by all browsers, the tr.selected
+   selector and the JS adding the class can be removed. */
+#changelist tbody tr.selected {
+    background-color: var(--selected-row);
+}
+
+#changelist tbody tr:has(.action-select:checked) {
+    background-color: var(--selected-row);
+}
+
+@media (forced-colors: active) {
+    #changelist tbody tr.selected {
+        background-color: SelectedItem;
+    }
+    #changelist tbody tr:has(.action-select:checked) {
+        background-color: SelectedItem;
+    }
+}
+
+>>>>>>> 504de05 (dsadsd)
 #changelist .actions {
     padding: 10px;
     background: var(--body-bg);
     border-top: none;
     border-bottom: none;
+<<<<<<< HEAD
     line-height: 24px;
+=======
+    line-height: 1.5rem;
+>>>>>>> 504de05 (dsadsd)
     color: var(--body-quiet-color);
     width: 100%;
 }
@@ -286,7 +352,11 @@
 
 #changelist .actions select {
     vertical-align: top;
+<<<<<<< HEAD
     height: 24px;
+=======
+    height: 1.5rem;
+>>>>>>> 504de05 (dsadsd)
     color: var(--body-fg);
     border: 1px solid var(--border-color);
     border-radius: 4px;
@@ -313,7 +383,11 @@
     background: var(--body-bg);
     box-shadow: 0 -15px 20px -10px rgba(0, 0, 0, 0.15) inset;
     cursor: pointer;
+<<<<<<< HEAD
     height: 24px;
+=======
+    height: 1.5rem;
+>>>>>>> 504de05 (dsadsd)
     line-height: 1;
     padding: 4px 8px;
     margin: 0;

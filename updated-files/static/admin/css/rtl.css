@@ -13,7 +13,11 @@ th {
     margin-right: 1.5em;
 }
 
+<<<<<<< HEAD
 .viewlink, .addlink, .changelink {
+=======
+.viewlink, .addlink, .changelink, .hidelink {
+>>>>>>> 504de05 (dsadsd)
     padding-left: 0;
     padding-right: 16px;
     background-position: 100% 1px;
@@ -107,10 +111,24 @@ thead th.sorted .text {
     border-left: none;
 }
 
+<<<<<<< HEAD
+=======
+.paginator .end {
+    margin-left: 6px;
+    margin-right: 0;
+}
+
+.paginator input {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+>>>>>>> 504de05 (dsadsd)
 /* FORMS */
 
 .aligned label {
     padding: 0 0 3px 1em;
+<<<<<<< HEAD
     float: right;
 }
 
@@ -124,6 +142,13 @@ thead th.sorted .text {
 
 .submit-row input.default {
     margin-left: 0;
+=======
+}
+
+.submit-row a.deletelink {
+    margin-left: 0;
+    margin-right: auto;
+>>>>>>> 504de05 (dsadsd)
 }
 
 .vDateField, .vTimeField {
@@ -134,6 +159,7 @@ thead th.sorted .text {
     margin-left: 5px;
 }
 
+<<<<<<< HEAD
 form .aligned p.help, form .aligned div.help {
     clear: right;
 }
@@ -141,6 +167,13 @@ form .aligned p.help, form .aligned div.help {
 form .aligned ul {
     margin-right: 163px;
     margin-left: 0;
+=======
+form .aligned ul {
+    margin-right: 163px;
+    padding-right: 10px;
+    margin-left: 0;
+    padding-left: 0;
+>>>>>>> 504de05 (dsadsd)
 }
 
 form ul.inline li {
@@ -149,12 +182,43 @@ form ul.inline li {
     padding-left: 7px;
 }
 
+<<<<<<< HEAD
 input[type=submit].default, .submit-row input.default {
     float: left;
 }
 
 fieldset .fieldBox {
     float: right;
+=======
+form .aligned p.help,
+form .aligned div.help {
+    margin-left: 0;
+    margin-right: 160px;
+    padding-right: 10px;
+}
+
+form div.help ul,
+form .aligned .checkbox-row + .help,
+form .aligned p.date div.help.timezonewarning,
+form .aligned p.datetime div.help.timezonewarning,
+form .aligned p.time div.help.timezonewarning {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+form .wide p.help,
+form .wide ul.errorlist,
+form .wide div.help {
+    padding-left: 0;
+    padding-right: 50px;
+}
+
+.submit-row {
+    text-align: right;
+}
+
+fieldset .fieldBox {
+>>>>>>> 504de05 (dsadsd)
     margin-left: 20px;
     margin-right: 0;
 }
@@ -175,12 +239,16 @@ fieldset .fieldBox {
     top: 0;
     left: auto;
     right: 10px;
+<<<<<<< HEAD
     background: url(../img/calendar-icons.svg) 0 -30px no-repeat;
 }
 
 .calendarbox .calendarnav-previous:focus,
 .calendarbox .calendarnav-previous:hover {
     background-position: 0 -45px;
+=======
+    background: url(../img/calendar-icons.svg) 0 -15px no-repeat;
+>>>>>>> 504de05 (dsadsd)
 }
 
 .calendarnav-next {
@@ -190,11 +258,14 @@ fieldset .fieldBox {
     background: url(../img/calendar-icons.svg) 0 0 no-repeat;
 }
 
+<<<<<<< HEAD
 .calendarbox .calendarnav-next:focus,
 .calendarbox .calendarnav-next:hover {
     background-position: 0 -15px;
 }
 
+=======
+>>>>>>> 504de05 (dsadsd)
 .calendar caption, .calendarbox h2 {
     text-align: center;
 }
@@ -207,6 +278,41 @@ fieldset .fieldBox {
     text-align: right;
 }
 
+<<<<<<< HEAD
+=======
+.selector-add {
+  background: url(../img/selector-icons.svg) 0 -64px no-repeat;
+}
+
+.active.selector-add:focus, .active.selector-add:hover {
+  background-position: 0 -80px;
+}
+
+.selector-remove {
+  background: url(../img/selector-icons.svg) 0 -96px no-repeat;
+}
+
+.active.selector-remove:focus, .active.selector-remove:hover {
+  background-position: 0 -112px;
+}
+
+a.selector-chooseall {
+    background: url(../img/selector-icons.svg) right -128px no-repeat;
+}
+
+a.active.selector-chooseall:focus, a.active.selector-chooseall:hover {
+    background-position: 100% -144px;
+}
+
+a.selector-clearall {
+    background: url(../img/selector-icons.svg) 0 -160px no-repeat;
+}
+
+a.active.selector-clearall:focus, a.active.selector-clearall:hover {
+    background-position: 0 -176px;
+}
+
+>>>>>>> 504de05 (dsadsd)
 .inline-deletelink {
     float: left;
 }
@@ -237,3 +343,14 @@ form .form-row p.datetime {
     margin-left: inherit;
     margin-right: 2px;
 }
+<<<<<<< HEAD
+=======
+
+.inline-group .tabular td.original p {
+    right: 0;
+}
+
+.selector .selector-chooser {
+    margin: 0;
+}
+>>>>>>> 504de05 (dsadsd)

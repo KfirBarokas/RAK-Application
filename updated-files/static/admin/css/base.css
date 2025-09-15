@@ -2,6 +2,7 @@
     DJANGO Admin styles
 */
 
+<<<<<<< HEAD
 @import url(fonts.css);
 
 /* VARIABLE DEFINITIONS */
@@ -55,6 +56,93 @@
   --object-tools-fg: var(--button-fg);
   --object-tools-bg: var(--close-button-bg);
   --object-tools-hover-bg: var(--close-button-hover-bg);
+=======
+/* VARIABLE DEFINITIONS */
+html[data-theme="light"],
+:root {
+    --primary: #79aec8;
+    --secondary: #417690;
+    --accent: #f5dd5d;
+    --primary-fg: #fff;
+
+    --body-fg: #333;
+    --body-bg: #fff;
+    --body-quiet-color: #666;
+    --body-medium-color: #444;
+    --body-loud-color: #000;
+
+    --header-color: #ffc;
+    --header-branding-color: var(--accent);
+    --header-bg: var(--secondary);
+    --header-link-color: var(--primary-fg);
+
+    --breadcrumbs-fg: #c4dce8;
+    --breadcrumbs-link-fg: var(--body-bg);
+    --breadcrumbs-bg: #264b5d;
+
+    --link-fg: #417893;
+    --link-hover-color: #036;
+    --link-selected-fg: var(--secondary);
+
+    --hairline-color: #e8e8e8;
+    --border-color: #ccc;
+
+    --error-fg: #ba2121;
+
+    --message-success-bg: #dfd;
+    --message-warning-bg: #ffc;
+    --message-error-bg: #ffefef;
+
+    --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
+    --selected-bg: #e4e4e4; /* E.g. selected table cells */
+    --selected-row: #ffc;
+
+    --button-fg: #fff;
+    --button-bg: var(--secondary);
+    --button-hover-bg: #205067;
+    --default-button-bg: #205067;
+    --default-button-hover-bg: var(--secondary);
+    --close-button-bg: #747474;
+    --close-button-hover-bg: #333;
+    --delete-button-bg: #ba2121;
+    --delete-button-hover-bg: #a41515;
+
+    --object-tools-fg: var(--button-fg);
+    --object-tools-bg: var(--close-button-bg);
+    --object-tools-hover-bg: var(--close-button-hover-bg);
+
+    --font-family-primary:
+        "Segoe UI",
+        system-ui,
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-family-monospace:
+        ui-monospace,
+        Menlo,
+        Monaco,
+        "Cascadia Mono",
+        "Segoe UI Mono",
+        "Roboto Mono",
+        "Oxygen Mono",
+        "Ubuntu Monospace",
+        "Source Code Pro",
+        "Fira Mono",
+        "Droid Sans Mono",
+        "Courier New",
+        monospace,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    color-scheme: light;
+>>>>>>> 504de05 (dsadsd)
 }
 
 html, body {
@@ -65,7 +153,11 @@ body {
     margin: 0;
     padding: 0;
     font-size: 0.875rem;
+<<<<<<< HEAD
     font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+=======
+    font-family: var(--font-family-primary);
+>>>>>>> 504de05 (dsadsd)
     color: var(--body-fg);
     background: var(--body-bg);
 }
@@ -118,7 +210,10 @@ h1 {
     margin: 0 0 20px;
     font-weight: 300;
     font-size: 1.25rem;
+<<<<<<< HEAD
     color: var(--body-quiet-color);
+=======
+>>>>>>> 504de05 (dsadsd)
 }
 
 h2 {
@@ -134,7 +229,11 @@ h2.subhead {
 h3 {
     font-size: 0.875rem;
     margin: .8em 0 .3em 0;
+<<<<<<< HEAD
     color: var(--body-quiet-color);
+=======
+    color: var(--body-medium-color);
+>>>>>>> 504de05 (dsadsd)
     font-weight: bold;
 }
 
@@ -142,6 +241,10 @@ h4 {
     font-size: 0.75rem;
     margin: 1em 0 .8em 0;
     padding-bottom: 3px;
+<<<<<<< HEAD
+=======
+    color: var(--body-medium-color);
+>>>>>>> 504de05 (dsadsd)
 }
 
 h5 {
@@ -163,7 +266,11 @@ li ul {
 
 li, dt, dd {
     font-size: 0.8125rem;
+<<<<<<< HEAD
     line-height: 20px;
+=======
+    line-height: 1.25rem;
+>>>>>>> 504de05 (dsadsd)
 }
 
 dt {
@@ -188,6 +295,13 @@ fieldset {
     border-top: 1px solid var(--hairline-color);
 }
 
+<<<<<<< HEAD
+=======
+details summary {
+    cursor: pointer;
+}
+
+>>>>>>> 504de05 (dsadsd)
 blockquote {
     font-size: 0.6875rem;
     color: #777;
@@ -197,7 +311,11 @@ blockquote {
 }
 
 code, pre {
+<<<<<<< HEAD
     font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+=======
+    font-family: var(--font-family-monospace);
+>>>>>>> 504de05 (dsadsd)
     color: var(--body-quiet-color);
     font-size: 0.75rem;
     overflow-x: auto;
@@ -277,14 +395,22 @@ table {
 
 td, th {
     font-size: 0.8125rem;
+<<<<<<< HEAD
     line-height: 16px;
+=======
+    line-height: 1rem;
+>>>>>>> 504de05 (dsadsd)
     border-bottom: 1px solid var(--hairline-color);
     vertical-align: top;
     padding: 8px;
 }
 
 th {
+<<<<<<< HEAD
     font-weight: 600;
+=======
+    font-weight: 500;
+>>>>>>> 504de05 (dsadsd)
     text-align: left;
 }
 
@@ -305,7 +431,11 @@ tfoot td {
 }
 
 thead th.required {
+<<<<<<< HEAD
     color: var(--body-loud-color);
+=======
+    font-weight: bold;
+>>>>>>> 504de05 (dsadsd)
 }
 
 tr.alt {
@@ -441,7 +571,11 @@ input, textarea, select, .form-row p, form .button {
     margin: 2px 0;
     padding: 2px 3px;
     vertical-align: middle;
+<<<<<<< HEAD
     font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+=======
+    font-family: var(--font-family-primary);
+>>>>>>> 504de05 (dsadsd)
     font-weight: normal;
     font-size: 0.8125rem;
 }
@@ -453,8 +587,18 @@ textarea {
     vertical-align: top;
 }
 
+<<<<<<< HEAD
 input[type=text], input[type=password], input[type=email], input[type=url],
 input[type=number], input[type=tel], textarea, select, .vTextField {
+=======
+/*
+Minifiers remove the default (text) "type" attribute from "input" HTML tags.
+Add input:not([type]) to make the CSS stylesheet work the same.
+*/
+input:not([type]), input[type=text], input[type=password], input[type=email],
+input[type=url], input[type=number], input[type=tel], textarea, select,
+.vTextField {
+>>>>>>> 504de05 (dsadsd)
     border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 5px 6px;
@@ -463,14 +607,28 @@ input[type=number], input[type=tel], textarea, select, .vTextField {
     background-color: var(--body-bg);
 }
 
+<<<<<<< HEAD
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus,
 input[type=url]:focus, input[type=number]:focus, input[type=tel]:focus,
 textarea:focus, select:focus, .vTextField:focus {
+=======
+/*
+Minifiers remove the default (text) "type" attribute from "input" HTML tags.
+Add input:not([type]) to make the CSS stylesheet work the same.
+*/
+input:not([type]):focus, input[type=text]:focus, input[type=password]:focus,
+input[type=email]:focus, input[type=url]:focus, input[type=number]:focus,
+input[type=tel]:focus, textarea:focus, select:focus, .vTextField:focus {
+>>>>>>> 504de05 (dsadsd)
     border-color: var(--body-quiet-color);
 }
 
 select {
+<<<<<<< HEAD
     height: 30px;
+=======
+    height: 1.875rem;
+>>>>>>> 504de05 (dsadsd)
 }
 
 select[multiple] {
@@ -506,7 +664,10 @@ a.button {
 }
 
 .button.default, input[type=submit].default, .submit-row input.default {
+<<<<<<< HEAD
     float: right;
+=======
+>>>>>>> 504de05 (dsadsd)
     border: none;
     font-weight: 400;
     background: var(--default-button-bg);
@@ -556,7 +717,11 @@ input[type=button][disabled].default {
     font-weight: 400;
     font-size: 0.8125rem;
     text-align: left;
+<<<<<<< HEAD
     background: var(--primary);
+=======
+    background: var(--header-bg);
+>>>>>>> 504de05 (dsadsd)
     color: var(--header-link-color);
 }
 
@@ -692,6 +857,14 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
     background: url(../img/icon-viewlink.svg) 0 1px no-repeat;
 }
 
+<<<<<<< HEAD
+=======
+.hidelink {
+    padding-left: 16px;
+    background: url(../img/icon-hidelink.svg) 0 1px no-repeat;
+}
+
+>>>>>>> 504de05 (dsadsd)
 .addlink {
     padding-left: 16px;
     background: url(../img/icon-addlink.svg) 0 1px no-repeat;
@@ -731,7 +904,11 @@ a.deletelink:focus, a.deletelink:hover {
     display: block;
     float: left;
     margin-left: 5px;
+<<<<<<< HEAD
     height: 16px;
+=======
+    height: 1rem;
+>>>>>>> 504de05 (dsadsd)
 }
 
 .object-tools a {
@@ -801,10 +978,13 @@ a.deletelink:focus, a.deletelink:hover {
     height: 100%;
 }
 
+<<<<<<< HEAD
 #container > div {
     flex-shrink: 0;
 }
 
+=======
+>>>>>>> 504de05 (dsadsd)
 #container > .main {
     display: flex;
     flex: 1 0 auto;
@@ -815,6 +995,23 @@ a.deletelink:focus, a.deletelink:hover {
     max-width: 100%;
 }
 
+<<<<<<< HEAD
+=======
+.skip-to-content-link {
+    position: absolute;
+    top: -999px;
+    margin: 5px;
+    padding: 5px;
+    background: var(--body-bg);
+    z-index: 1;
+}
+
+.skip-to-content-link:focus {
+    left: 0px;
+    top: 0px;
+}
+
+>>>>>>> 504de05 (dsadsd)
 #content {
     padding: 20px 40px;
 }
@@ -835,9 +1032,16 @@ a.deletelink:focus, a.deletelink:hover {
     margin-right: -300px;
 }
 
+<<<<<<< HEAD
 #footer {
     clear: both;
     padding: 10px;
+=======
+@media (forced-colors: active) {
+  #content-related {
+      border: 1px solid;
+  }
+>>>>>>> 504de05 (dsadsd)
 }
 
 /* COLUMN TYPES */
@@ -875,7 +1079,10 @@ a.deletelink:focus, a.deletelink:hover {
     padding: 10px 40px;
     background: var(--header-bg);
     color: var(--header-color);
+<<<<<<< HEAD
     overflow: hidden;
+=======
+>>>>>>> 504de05 (dsadsd)
 }
 
 #header a:link, #header a:visited, #logout-form button {
@@ -886,6 +1093,7 @@ a.deletelink:focus, a.deletelink:hover {
     text-decoration: underline;
 }
 
+<<<<<<< HEAD
 #branding {
     float: left;
 }
@@ -893,12 +1101,32 @@ a.deletelink:focus, a.deletelink:hover {
 #branding h1 {
     padding: 0;
     margin: 0 20px 0 0;
+=======
+@media (forced-colors: active) {
+  #header {
+      border-bottom: 1px solid;
+  }
+}
+
+#branding {
+    display: flex;
+}
+
+#site-name {
+    padding: 0;
+    margin: 0;
+    margin-inline-end: 20px;
+>>>>>>> 504de05 (dsadsd)
     font-weight: 300;
     font-size: 1.5rem;
     color: var(--header-branding-color);
 }
 
+<<<<<<< HEAD
 #branding h1 a:link, #branding h1 a:visited {
+=======
+#site-name a:link, #site-name a:visited {
+>>>>>>> 504de05 (dsadsd)
     color: var(--accent);
 }
 
@@ -922,7 +1150,11 @@ a.deletelink:focus, a.deletelink:hover {
     background: none;
     border: 0;
     cursor: pointer;
+<<<<<<< HEAD
     font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+=======
+    font-family: var(--font-family-primary);
+>>>>>>> 504de05 (dsadsd)
 }
 
 #user-tools {
@@ -1014,8 +1246,13 @@ a.deletelink:focus, a.deletelink:hover {
 .delete-confirmation form .cancel-link {
     display: inline-block;
     vertical-align: middle;
+<<<<<<< HEAD
     height: 15px;
     line-height: 15px;
+=======
+    height: 0.9375rem;
+    line-height: 0.9375rem;
+>>>>>>> 504de05 (dsadsd)
     border-radius: 4px;
     padding: 10px 15px;
     color: var(--button-fg);
@@ -1045,6 +1282,12 @@ a.deletelink:focus, a.deletelink:hover {
 /* PAGINATOR */
 
 .paginator {
+<<<<<<< HEAD
+=======
+    display: flex;
+    align-items: center;
+    gap: 4px;
+>>>>>>> 504de05 (dsadsd)
     font-size: 0.8125rem;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1087,3 +1330,27 @@ a.deletelink:focus, a.deletelink:hover {
     color: white;
     background: var(--link-hover-color);
 }
+<<<<<<< HEAD
+=======
+
+.paginator input {
+    margin-left: auto;
+}
+
+.base-svgs {
+    display: none;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+    color: var(--body-fg);
+    background-color: var(--body-bg);
+}
+>>>>>>> 504de05 (dsadsd)

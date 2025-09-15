@@ -2,6 +2,7 @@
 {
     const toggleNavSidebar = document.getElementById('toggle-nav-sidebar');
     if (toggleNavSidebar !== null) {
+<<<<<<< HEAD
         const navLinks = document.querySelectorAll('#nav-sidebar a');
         function disableNavLinkTabbing() {
             for (const navLink of navLinks) {
@@ -20,20 +21,29 @@
             document.getElementById('nav-filter').tabIndex = 0;
         }
 
+=======
+        const navSidebar = document.getElementById('nav-sidebar');
+>>>>>>> 504de05 (dsadsd)
         const main = document.getElementById('main');
         let navSidebarIsOpen = localStorage.getItem('django.admin.navSidebarIsOpen');
         if (navSidebarIsOpen === null) {
             navSidebarIsOpen = 'true';
         }
+<<<<<<< HEAD
         if (navSidebarIsOpen === 'false') {
             disableNavLinkTabbing();
             disableNavFilterTabbing();
         }
         main.classList.toggle('shifted', navSidebarIsOpen === 'true');
+=======
+        main.classList.toggle('shifted', navSidebarIsOpen === 'true');
+        navSidebar.setAttribute('aria-expanded', navSidebarIsOpen);
+>>>>>>> 504de05 (dsadsd)
 
         toggleNavSidebar.addEventListener('click', function() {
             if (navSidebarIsOpen === 'true') {
                 navSidebarIsOpen = 'false';
+<<<<<<< HEAD
                 disableNavLinkTabbing();
                 disableNavFilterTabbing();
             } else {
@@ -43,6 +53,14 @@
             }
             localStorage.setItem('django.admin.navSidebarIsOpen', navSidebarIsOpen);
             main.classList.toggle('shifted');
+=======
+            } else {
+                navSidebarIsOpen = 'true';
+            }
+            localStorage.setItem('django.admin.navSidebarIsOpen', navSidebarIsOpen);
+            main.classList.toggle('shifted');
+            navSidebar.setAttribute('aria-expanded', navSidebarIsOpen);
+>>>>>>> 504de05 (dsadsd)
         });
     }
 

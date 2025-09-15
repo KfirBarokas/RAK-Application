@@ -59,8 +59,18 @@
     content: '\00AB';
 }
 
+<<<<<<< HEAD
 .main.shifted > #nav-sidebar {
     margin-left: 0;
+=======
+.main > #nav-sidebar {
+    visibility: hidden;
+}
+
+.main.shifted > #nav-sidebar {
+    margin-left: 0;
+    visibility: visible;
+>>>>>>> 504de05 (dsadsd)
 }
 
 [dir="rtl"] .main.shifted > #nav-sidebar {
@@ -97,6 +107,15 @@
     background: var(--selected-row);
 }
 
+<<<<<<< HEAD
+=======
+@media (forced-colors: active) {
+    #nav-sidebar .current-model {
+        background-color: SelectedItem;
+    }
+}
+
+>>>>>>> 504de05 (dsadsd)
 .main > #nav-sidebar + .content {
     max-width: calc(100% - 23px);
 }

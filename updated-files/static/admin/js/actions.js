@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*global gettext, interpolate, ngettext*/
+=======
+/*global gettext, interpolate, ngettext, Actions*/
+>>>>>>> 504de05 (dsadsd)
 'use strict';
 {
     function show(selector) {
@@ -179,6 +183,12 @@
                 }
             });
         }
+<<<<<<< HEAD
+=======
+        // Sync counter when navigating to the page, such as through the back
+        // button.
+        window.addEventListener('pageshow', (event) => updateCounter(actionCheckboxes, options));
+>>>>>>> 504de05 (dsadsd)
     };
 
     // Call function fn when the DOM is loaded and ready. If it is already

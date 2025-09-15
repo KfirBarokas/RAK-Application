@@ -1,15 +1,25 @@
 /*!
+<<<<<<< HEAD
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
  *
  * Includes Sizzle.js
  * https://sizzlejs.com/
  *
+=======
+ * jQuery JavaScript Library v3.7.1
+ * https://jquery.com/
+ *
+>>>>>>> 504de05 (dsadsd)
  * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
+<<<<<<< HEAD
  * Date: 2021-03-02T17:08Z
+=======
+ * Date: 2023-08-28T13:37Z
+>>>>>>> 504de05 (dsadsd)
  */
 ( function( global, factory ) {
 
@@ -23,7 +33,11 @@
 		// (such as Node.js), expose a factory as module.exports.
 		// This accentuates the need for the creation of a real `window`.
 		// e.g. var jQuery = require("jquery")(window);
+<<<<<<< HEAD
 		// See ticket #14549 for more info.
+=======
+		// See ticket trac-14549 for more info.
+>>>>>>> 504de05 (dsadsd)
 		module.exports = global.document ?
 			factory( global, true ) :
 			function( w ) {
@@ -150,8 +164,14 @@ function toType( obj ) {
 
 
 
+<<<<<<< HEAD
 var
 	version = "3.6.0",
+=======
+var version = "3.7.1",
+
+	rhtmlSuffix = /HTML$/i,
+>>>>>>> 504de05 (dsadsd)
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -397,6 +417,41 @@ jQuery.extend( {
 		return obj;
 	},
 
+<<<<<<< HEAD
+=======
+
+	// Retrieve the text value of an array of DOM nodes
+	text: function( elem ) {
+		var node,
+			ret = "",
+			i = 0,
+			nodeType = elem.nodeType;
+
+		if ( !nodeType ) {
+
+			// If no nodeType, this is expected to be an array
+			while ( ( node = elem[ i++ ] ) ) {
+
+				// Do not traverse comment nodes
+				ret += jQuery.text( node );
+			}
+		}
+		if ( nodeType === 1 || nodeType === 11 ) {
+			return elem.textContent;
+		}
+		if ( nodeType === 9 ) {
+			return elem.documentElement.textContent;
+		}
+		if ( nodeType === 3 || nodeType === 4 ) {
+			return elem.nodeValue;
+		}
+
+		// Do not include comment or processing instruction nodes
+
+		return ret;
+	},
+
+>>>>>>> 504de05 (dsadsd)
 	// results is for internal usage only
 	makeArray: function( arr, results ) {
 		var ret = results || [];
@@ -419,6 +474,18 @@ jQuery.extend( {
 		return arr == null ? -1 : indexOf.call( arr, elem, i );
 	},
 
+<<<<<<< HEAD
+=======
+	isXMLDoc: function( elem ) {
+		var namespace = elem && elem.namespaceURI,
+			docElem = elem && ( elem.ownerDocument || elem ).documentElement;
+
+		// Assume HTML when documentElement doesn't yet exist, such as inside
+		// document fragments.
+		return !rhtmlSuffix.test( namespace || docElem && docElem.nodeName || "HTML" );
+	},
+
+>>>>>>> 504de05 (dsadsd)
 	// Support: Android <=4.0 only, PhantomJS 1 only
 	// push.apply(_, arraylike) throws on ancient WebKit
 	merge: function( first, second ) {
@@ -520,6 +587,7 @@ function isArrayLike( obj ) {
 	return type === "array" || length === 0 ||
 		typeof length === "number" && length > 0 && ( length - 1 ) in obj;
 }
+<<<<<<< HEAD
 var Sizzle =
 /*!
  * Sizzle CSS Selector Engine v2.3.6
@@ -557,6 +625,100 @@ var i,
 	// Instance-specific data
 	expando = "sizzle" + 1 * new Date(),
 	preferredDoc = window.document,
+=======
+
+
+function nodeName( elem, name ) {
+
+	return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+
+}
+var pop = arr.pop;
+
+
+var sort = arr.sort;
+
+
+var splice = arr.splice;
+
+
+var whitespace = "[\\x20\\t\\r\\n\\f]";
+
+
+var rtrimCSS = new RegExp(
+	"^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$",
+	"g"
+);
+
+
+
+
+// Note: an element does not contain itself
+jQuery.contains = function( a, b ) {
+	var bup = b && b.parentNode;
+
+	return a === bup || !!( bup && bup.nodeType === 1 && (
+
+		// Support: IE 9 - 11+
+		// IE doesn't have `contains` on SVG.
+		a.contains ?
+			a.contains( bup ) :
+			a.compareDocumentPosition && a.compareDocumentPosition( bup ) & 16
+	) );
+};
+
+
+
+
+// CSS string/identifier serialization
+// https://drafts.csswg.org/cssom/#common-serializing-idioms
+var rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g;
+
+function fcssescape( ch, asCodePoint ) {
+	if ( asCodePoint ) {
+
+		// U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
+		if ( ch === "\0" ) {
+			return "\uFFFD";
+		}
+
+		// Control characters and (dependent upon position) numbers get escaped as code points
+		return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
+	}
+
+	// Other potentially-special ASCII characters get backslash-escaped
+	return "\\" + ch;
+}
+
+jQuery.escapeSelector = function( sel ) {
+	return ( sel + "" ).replace( rcssescape, fcssescape );
+};
+
+
+
+
+var preferredDoc = document,
+	pushNative = push;
+
+( function() {
+
+var i,
+	Expr,
+	outermostContext,
+	sortInput,
+	hasDuplicate,
+	push = pushNative,
+
+	// Local document vars
+	document,
+	documentElement,
+	documentIsHTML,
+	rbuggyQSA,
+	matches,
+
+	// Instance-specific data
+	expando = jQuery.expando,
+>>>>>>> 504de05 (dsadsd)
 	dirruns = 0,
 	done = 0,
 	classCache = createCache(),
@@ -570,6 +732,7 @@ var i,
 		return 0;
 	},
 
+<<<<<<< HEAD
 	// Instance methods
 	hasOwn = ( {} ).hasOwnProperty,
 	arr = [],
@@ -599,18 +762,33 @@ var i,
 	// http://www.w3.org/TR/css3-selectors/#whitespace
 	whitespace = "[\\x20\\t\\r\\n\\f]",
 
+=======
+	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|" +
+		"loop|multiple|open|readonly|required|scoped",
+
+	// Regular expressions
+
+>>>>>>> 504de05 (dsadsd)
 	// https://www.w3.org/TR/css-syntax-3/#ident-token-diagram
 	identifier = "(?:\\\\[\\da-fA-F]{1,6}" + whitespace +
 		"?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+",
 
+<<<<<<< HEAD
 	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
+=======
+	// Attribute selectors: https://www.w3.org/TR/selectors/#attribute-selectors
+>>>>>>> 504de05 (dsadsd)
 	attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
 
 		// Operator (capture 2)
 		"*([*^$|!~]?=)" + whitespace +
 
+<<<<<<< HEAD
 		// "Attribute values must be CSS identifiers [capture 5]
 		// or strings [capture 3 or capture 4]"
+=======
+		// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
+>>>>>>> 504de05 (dsadsd)
 		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" +
 		whitespace + "*\\]",
 
@@ -629,18 +807,26 @@ var i,
 
 	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
 	rwhitespace = new RegExp( whitespace + "+", "g" ),
+<<<<<<< HEAD
 	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" +
 		whitespace + "+$", "g" ),
 
 	rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
 	rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace +
 		"*" ),
+=======
+
+	rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
+	rleadingCombinator = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" +
+		whitespace + "*" ),
+>>>>>>> 504de05 (dsadsd)
 	rdescend = new RegExp( whitespace + "|>" ),
 
 	rpseudo = new RegExp( pseudos ),
 	ridentifier = new RegExp( "^" + identifier + "$" ),
 
 	matchExpr = {
+<<<<<<< HEAD
 		"ID": new RegExp( "^#(" + identifier + ")" ),
 		"CLASS": new RegExp( "^\\.(" + identifier + ")" ),
 		"TAG": new RegExp( "^(" + identifier + "|[*])" ),
@@ -654,22 +840,45 @@ var i,
 		// For use in libraries implementing .is()
 		// We use this for POS matching in `select`
 		"needsContext": new RegExp( "^" + whitespace +
+=======
+		ID: new RegExp( "^#(" + identifier + ")" ),
+		CLASS: new RegExp( "^\\.(" + identifier + ")" ),
+		TAG: new RegExp( "^(" + identifier + "|[*])" ),
+		ATTR: new RegExp( "^" + attributes ),
+		PSEUDO: new RegExp( "^" + pseudos ),
+		CHILD: new RegExp(
+			"^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" +
+				whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" +
+				whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
+		bool: new RegExp( "^(?:" + booleans + ")$", "i" ),
+
+		// For use in libraries implementing .is()
+		// We use this for POS matching in `select`
+		needsContext: new RegExp( "^" + whitespace +
+>>>>>>> 504de05 (dsadsd)
 			"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + whitespace +
 			"*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
 	},
 
+<<<<<<< HEAD
 	rhtml = /HTML$/i,
 	rinputs = /^(?:input|select|textarea|button)$/i,
 	rheader = /^h\d$/i,
 
 	rnative = /^[^{]+\{\s*\[native \w/,
 
+=======
+	rinputs = /^(?:input|select|textarea|button)$/i,
+	rheader = /^h\d$/i,
+
+>>>>>>> 504de05 (dsadsd)
 	// Easily-parseable/retrievable ID or TAG or CLASS selectors
 	rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
 
 	rsibling = /[+~]/,
 
 	// CSS escapes
+<<<<<<< HEAD
 	// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
 	runescape = new RegExp( "\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\([^\\r\\n\\f])", "g" ),
 	funescape = function( escape, nonHex ) {
@@ -713,17 +922,60 @@ var i,
 	// See setDocument()
 	// Removing the function wrapper causes a "Permission Denied"
 	// error in IE
+=======
+	// https://www.w3.org/TR/CSS21/syndata.html#escaped-characters
+	runescape = new RegExp( "\\\\[\\da-fA-F]{1,6}" + whitespace +
+		"?|\\\\([^\\r\\n\\f])", "g" ),
+	funescape = function( escape, nonHex ) {
+		var high = "0x" + escape.slice( 1 ) - 0x10000;
+
+		if ( nonHex ) {
+
+			// Strip the backslash prefix from a non-hex escape sequence
+			return nonHex;
+		}
+
+		// Replace a hexadecimal escape sequence with the encoded Unicode code point
+		// Support: IE <=11+
+		// For values outside the Basic Multilingual Plane (BMP), manually construct a
+		// surrogate pair
+		return high < 0 ?
+			String.fromCharCode( high + 0x10000 ) :
+			String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
+	},
+
+	// Used for iframes; see `setDocument`.
+	// Support: IE 9 - 11+, Edge 12 - 18+
+	// Removing the function wrapper causes a "Permission Denied"
+	// error in IE/Edge.
+>>>>>>> 504de05 (dsadsd)
 	unloadHandler = function() {
 		setDocument();
 	},
 
 	inDisabledFieldset = addCombinator(
 		function( elem ) {
+<<<<<<< HEAD
 			return elem.disabled === true && elem.nodeName.toLowerCase() === "fieldset";
+=======
+			return elem.disabled === true && nodeName( elem, "fieldset" );
+>>>>>>> 504de05 (dsadsd)
 		},
 		{ dir: "parentNode", next: "legend" }
 	);
 
+<<<<<<< HEAD
+=======
+// Support: IE <=9 only
+// Accessing document.activeElement can throw unexpectedly
+// https://bugs.jquery.com/ticket/13393
+function safeActiveElement() {
+	try {
+		return document.activeElement;
+	} catch ( err ) { }
+}
+
+>>>>>>> 504de05 (dsadsd)
 // Optimize for push.apply( _, NodeList )
 try {
 	push.apply(
@@ -731,11 +983,16 @@ try {
 		preferredDoc.childNodes
 	);
 
+<<<<<<< HEAD
 	// Support: Android<4.0
+=======
+	// Support: Android <=4.0
+>>>>>>> 504de05 (dsadsd)
 	// Detect silently failing push.apply
 	// eslint-disable-next-line no-unused-expressions
 	arr[ preferredDoc.childNodes.length ].nodeType;
 } catch ( e ) {
+<<<<<<< HEAD
 	push = { apply: arr.length ?
 
 		// Leverage slice if possible
@@ -752,11 +1009,23 @@ try {
 			// Can't trust NodeList.length
 			while ( ( target[ j++ ] = els[ i++ ] ) ) {}
 			target.length = j - 1;
+=======
+	push = {
+		apply: function( target, els ) {
+			pushNative.apply( target, slice.call( els ) );
+		},
+		call: function( target ) {
+			pushNative.apply( target, slice.call( arguments, 1 ) );
+>>>>>>> 504de05 (dsadsd)
 		}
 	};
 }
 
+<<<<<<< HEAD
 function Sizzle( selector, context, results, seed ) {
+=======
+function find( selector, context, results, seed ) {
+>>>>>>> 504de05 (dsadsd)
 	var m, i, elem, nid, match, groups, newSelector,
 		newContext = context && context.ownerDocument,
 
@@ -790,11 +1059,18 @@ function Sizzle( selector, context, results, seed ) {
 					if ( nodeType === 9 ) {
 						if ( ( elem = context.getElementById( m ) ) ) {
 
+<<<<<<< HEAD
 							// Support: IE, Opera, Webkit
 							// TODO: identify versions
 							// getElementById can match elements by name instead of ID
 							if ( elem.id === m ) {
 								results.push( elem );
+=======
+							// Support: IE 9 only
+							// getElementById can match elements by name instead of ID
+							if ( elem.id === m ) {
+								push.call( results, elem );
+>>>>>>> 504de05 (dsadsd)
 								return results;
 							}
 						} else {
@@ -804,6 +1080,7 @@ function Sizzle( selector, context, results, seed ) {
 					// Element context
 					} else {
 
+<<<<<<< HEAD
 						// Support: IE, Opera, Webkit
 						// TODO: identify versions
 						// getElementById can match elements by name instead of ID
@@ -812,6 +1089,15 @@ function Sizzle( selector, context, results, seed ) {
 							elem.id === m ) {
 
 							results.push( elem );
+=======
+						// Support: IE 9 only
+						// getElementById can match elements by name instead of ID
+						if ( newContext && ( elem = newContext.getElementById( m ) ) &&
+							find.contains( context, elem ) &&
+							elem.id === m ) {
+
+							push.call( results, elem );
+>>>>>>> 504de05 (dsadsd)
 							return results;
 						}
 					}
@@ -822,15 +1108,20 @@ function Sizzle( selector, context, results, seed ) {
 					return results;
 
 				// Class selector
+<<<<<<< HEAD
 				} else if ( ( m = match[ 3 ] ) && support.getElementsByClassName &&
 					context.getElementsByClassName ) {
 
+=======
+				} else if ( ( m = match[ 3 ] ) && context.getElementsByClassName ) {
+>>>>>>> 504de05 (dsadsd)
 					push.apply( results, context.getElementsByClassName( m ) );
 					return results;
 				}
 			}
 
 			// Take advantage of querySelectorAll
+<<<<<<< HEAD
 			if ( support.qsa &&
 				!nonnativeSelectorCache[ selector + " " ] &&
 				( !rbuggyQSA || !rbuggyQSA.test( selector ) ) &&
@@ -838,6 +1129,10 @@ function Sizzle( selector, context, results, seed ) {
 				// Support: IE 8 only
 				// Exclude object elements
 				( nodeType !== 1 || context.nodeName.toLowerCase() !== "object" ) ) {
+=======
+			if ( !nonnativeSelectorCache[ selector + " " ] &&
+				( !rbuggyQSA || !rbuggyQSA.test( selector ) ) ) {
+>>>>>>> 504de05 (dsadsd)
 
 				newSelector = selector;
 				newContext = context;
@@ -850,7 +1145,11 @@ function Sizzle( selector, context, results, seed ) {
 				// as such selectors are not recognized by querySelectorAll.
 				// Thanks to Andrew Dupont for this technique.
 				if ( nodeType === 1 &&
+<<<<<<< HEAD
 					( rdescend.test( selector ) || rcombinators.test( selector ) ) ) {
+=======
+					( rdescend.test( selector ) || rleadingCombinator.test( selector ) ) ) {
+>>>>>>> 504de05 (dsadsd)
 
 					// Expand context for sibling selectors
 					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
@@ -858,11 +1157,23 @@ function Sizzle( selector, context, results, seed ) {
 
 					// We can use :scope instead of the ID hack if the browser
 					// supports it & if we're not changing the context.
+<<<<<<< HEAD
 					if ( newContext !== context || !support.scope ) {
 
 						// Capture the context ID, setting it first if necessary
 						if ( ( nid = context.getAttribute( "id" ) ) ) {
 							nid = nid.replace( rcssescape, fcssescape );
+=======
+					// Support: IE 11+, Edge 17 - 18+
+					// IE/Edge sometimes throw a "Permission denied" error when
+					// strict-comparing two documents; shallow comparisons work.
+					// eslint-disable-next-line eqeqeq
+					if ( newContext != context || !support.scope ) {
+
+						// Capture the context ID, setting it first if necessary
+						if ( ( nid = context.getAttribute( "id" ) ) ) {
+							nid = jQuery.escapeSelector( nid );
+>>>>>>> 504de05 (dsadsd)
 						} else {
 							context.setAttribute( "id", ( nid = expando ) );
 						}
@@ -895,7 +1206,11 @@ function Sizzle( selector, context, results, seed ) {
 	}
 
 	// All others
+<<<<<<< HEAD
 	return select( selector.replace( rtrim, "$1" ), context, results, seed );
+=======
+	return select( selector.replace( rtrimCSS, "$1" ), context, results, seed );
+>>>>>>> 504de05 (dsadsd)
 }
 
 /**
@@ -909,7 +1224,12 @@ function createCache() {
 
 	function cache( key, value ) {
 
+<<<<<<< HEAD
 		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
+=======
+		// Use (key + " ") to avoid collision with native prototype properties
+		// (see https://github.com/jquery/sizzle/issues/157)
+>>>>>>> 504de05 (dsadsd)
 		if ( keys.push( key + " " ) > Expr.cacheLength ) {
 
 			// Only keep the most recent entries
@@ -921,7 +1241,11 @@ function createCache() {
 }
 
 /**
+<<<<<<< HEAD
  * Mark a function for special use by Sizzle
+=======
+ * Mark a function for special use by jQuery selector module
+>>>>>>> 504de05 (dsadsd)
  * @param {Function} fn The function to mark
  */
 function markFunction( fn ) {
@@ -953,6 +1277,7 @@ function assert( fn ) {
 }
 
 /**
+<<<<<<< HEAD
  * Adds the same handler for all of the specified attrs
  * @param {String} attrs Pipe-separated list of attributes
  * @param {Function} handler The method that will be applied
@@ -995,13 +1320,19 @@ function siblingCheck( a, b ) {
 }
 
 /**
+=======
+>>>>>>> 504de05 (dsadsd)
  * Returns a function to use in pseudos for input types
  * @param {String} type
  */
 function createInputPseudo( type ) {
 	return function( elem ) {
+<<<<<<< HEAD
 		var name = elem.nodeName.toLowerCase();
 		return name === "input" && elem.type === type;
+=======
+		return nodeName( elem, "input" ) && elem.type === type;
+>>>>>>> 504de05 (dsadsd)
 	};
 }
 
@@ -1011,8 +1342,13 @@ function createInputPseudo( type ) {
  */
 function createButtonPseudo( type ) {
 	return function( elem ) {
+<<<<<<< HEAD
 		var name = elem.nodeName.toLowerCase();
 		return ( name === "input" || name === "button" ) && elem.type === type;
+=======
+		return ( nodeName( elem, "input" ) || nodeName( elem, "button" ) ) &&
+			elem.type === type;
+>>>>>>> 504de05 (dsadsd)
 	};
 }
 
@@ -1048,14 +1384,23 @@ function createDisabledPseudo( disabled ) {
 					}
 				}
 
+<<<<<<< HEAD
 				// Support: IE 6 - 11
+=======
+				// Support: IE 6 - 11+
+>>>>>>> 504de05 (dsadsd)
 				// Use the isDisabled shortcut property to check for disabled fieldset ancestors
 				return elem.isDisabled === disabled ||
 
 					// Where there is no isDisabled, check manually
+<<<<<<< HEAD
 					/* jshint -W018 */
 					elem.isDisabled !== !disabled &&
 					inDisabledFieldset( elem ) === disabled;
+=======
+					elem.isDisabled !== !disabled &&
+						inDisabledFieldset( elem ) === disabled;
+>>>>>>> 504de05 (dsadsd)
 			}
 
 			return elem.disabled === disabled;
@@ -1095,7 +1440,11 @@ function createPositionalPseudo( fn ) {
 }
 
 /**
+<<<<<<< HEAD
  * Checks a node for validity as a Sizzle context
+=======
+ * Checks a node for validity as a jQuery selector context
+>>>>>>> 504de05 (dsadsd)
  * @param {Element|Object=} context
  * @returns {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value
  */
@@ -1103,6 +1452,7 @@ function testContext( context ) {
 	return context && typeof context.getElementsByTagName !== "undefined" && context;
 }
 
+<<<<<<< HEAD
 // Expose support vars for convenience
 support = Sizzle.support = {};
 
@@ -1128,6 +1478,15 @@ isXML = Sizzle.isXML = function( elem ) {
  */
 setDocument = Sizzle.setDocument = function( node ) {
 	var hasCompare, subWindow,
+=======
+/**
+ * Sets document-related variables once based on the current document
+ * @param {Element|Object} [node] An element or document object to use to set the document
+ * @returns {Object} Returns the current document
+ */
+function setDocument( node ) {
+	var subWindow,
+>>>>>>> 504de05 (dsadsd)
 		doc = node ? node.ownerDocument || node : preferredDoc;
 
 	// Return early if doc is invalid or already selected
@@ -1141,6 +1500,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// Update global variables
 	document = doc;
+<<<<<<< HEAD
 	docElem = document.documentElement;
 	documentIsHTML = !isXML( document );
 
@@ -1198,30 +1558,109 @@ setDocument = Sizzle.setDocument = function( node ) {
 	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
 
 	// Support: IE<10
+=======
+	documentElement = document.documentElement;
+	documentIsHTML = !jQuery.isXMLDoc( document );
+
+	// Support: iOS 7 only, IE 9 - 11+
+	// Older browsers didn't support unprefixed `matches`.
+	matches = documentElement.matches ||
+		documentElement.webkitMatchesSelector ||
+		documentElement.msMatchesSelector;
+
+	// Support: IE 9 - 11+, Edge 12 - 18+
+	// Accessing iframe documents after unload throws "permission denied" errors
+	// (see trac-13936).
+	// Limit the fix to IE & Edge Legacy; despite Edge 15+ implementing `matches`,
+	// all IE 9+ and Edge Legacy versions implement `msMatchesSelector` as well.
+	if ( documentElement.msMatchesSelector &&
+
+		// Support: IE 11+, Edge 17 - 18+
+		// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+		// two documents; shallow comparisons work.
+		// eslint-disable-next-line eqeqeq
+		preferredDoc != document &&
+		( subWindow = document.defaultView ) && subWindow.top !== subWindow ) {
+
+		// Support: IE 9 - 11+, Edge 12 - 18+
+		subWindow.addEventListener( "unload", unloadHandler );
+	}
+
+	// Support: IE <10
+>>>>>>> 504de05 (dsadsd)
 	// Check if getElementById returns elements by name
 	// The broken getElementById methods don't pick up programmatically-set names,
 	// so use a roundabout getElementsByName test
 	support.getById = assert( function( el ) {
+<<<<<<< HEAD
 		docElem.appendChild( el ).id = expando;
 		return !document.getElementsByName || !document.getElementsByName( expando ).length;
+=======
+		documentElement.appendChild( el ).id = jQuery.expando;
+		return !document.getElementsByName ||
+			!document.getElementsByName( jQuery.expando ).length;
+	} );
+
+	// Support: IE 9 only
+	// Check to see if it's possible to do matchesSelector
+	// on a disconnected node.
+	support.disconnectedMatch = assert( function( el ) {
+		return matches.call( el, "*" );
+	} );
+
+	// Support: IE 9 - 11+, Edge 12 - 18+
+	// IE/Edge don't support the :scope pseudo-class.
+	support.scope = assert( function() {
+		return document.querySelectorAll( ":scope" );
+	} );
+
+	// Support: Chrome 105 - 111 only, Safari 15.4 - 16.3 only
+	// Make sure the `:has()` argument is parsed unforgivingly.
+	// We include `*` in the test to detect buggy implementations that are
+	// _selectively_ forgiving (specifically when the list includes at least
+	// one valid selector).
+	// Note that we treat complete lack of support for `:has()` as if it were
+	// spec-compliant support, which is fine because use of `:has()` in such
+	// environments will fail in the qSA path and fall back to jQuery traversal
+	// anyway.
+	support.cssHas = assert( function() {
+		try {
+			document.querySelector( ":has(*,:jqfake)" );
+			return false;
+		} catch ( e ) {
+			return true;
+		}
+>>>>>>> 504de05 (dsadsd)
 	} );
 
 	// ID filter and find
 	if ( support.getById ) {
+<<<<<<< HEAD
 		Expr.filter[ "ID" ] = function( id ) {
+=======
+		Expr.filter.ID = function( id ) {
+>>>>>>> 504de05 (dsadsd)
 			var attrId = id.replace( runescape, funescape );
 			return function( elem ) {
 				return elem.getAttribute( "id" ) === attrId;
 			};
 		};
+<<<<<<< HEAD
 		Expr.find[ "ID" ] = function( id, context ) {
+=======
+		Expr.find.ID = function( id, context ) {
+>>>>>>> 504de05 (dsadsd)
 			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
 				var elem = context.getElementById( id );
 				return elem ? [ elem ] : [];
 			}
 		};
 	} else {
+<<<<<<< HEAD
 		Expr.filter[ "ID" ] =  function( id ) {
+=======
+		Expr.filter.ID =  function( id ) {
+>>>>>>> 504de05 (dsadsd)
 			var attrId = id.replace( runescape, funescape );
 			return function( elem ) {
 				var node = typeof elem.getAttributeNode !== "undefined" &&
@@ -1232,7 +1671,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		// Support: IE 6 - 7 only
 		// getElementById is not reliable as a find shortcut
+<<<<<<< HEAD
 		Expr.find[ "ID" ] = function( id, context ) {
+=======
+		Expr.find.ID = function( id, context ) {
+>>>>>>> 504de05 (dsadsd)
 			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
 				var node, i, elems,
 					elem = context.getElementById( id );
@@ -1262,6 +1705,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	}
 
 	// Tag
+<<<<<<< HEAD
 	Expr.find[ "TAG" ] = support.getElementsByTagName ?
 		function( tag, context ) {
 			if ( typeof context.getElementsByTagName !== "undefined" ) {
@@ -1296,6 +1740,20 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// Class
 	Expr.find[ "CLASS" ] = support.getElementsByClassName && function( className, context ) {
+=======
+	Expr.find.TAG = function( tag, context ) {
+		if ( typeof context.getElementsByTagName !== "undefined" ) {
+			return context.getElementsByTagName( tag );
+
+		// DocumentFragment nodes don't have gEBTN
+		} else {
+			return context.querySelectorAll( tag );
+		}
+	};
+
+	// Class
+	Expr.find.CLASS = function( className, context ) {
+>>>>>>> 504de05 (dsadsd)
 		if ( typeof context.getElementsByClassName !== "undefined" && documentIsHTML ) {
 			return context.getElementsByClassName( className );
 		}
@@ -1306,6 +1764,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// QSA and matchesSelector support
 
+<<<<<<< HEAD
 	// matchesSelector(:active) reports false when true (IE9/Opera 11.5)
 	rbuggyMatches = [];
 
@@ -1470,13 +1929,101 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 			return false;
 		};
+=======
+	rbuggyQSA = [];
+
+	// Build QSA regex
+	// Regex strategy adopted from Diego Perini
+	assert( function( el ) {
+
+		var input;
+
+		documentElement.appendChild( el ).innerHTML =
+			"<a id='" + expando + "' href='' disabled='disabled'></a>" +
+			"<select id='" + expando + "-\r\\' disabled='disabled'>" +
+			"<option selected=''></option></select>";
+
+		// Support: iOS <=7 - 8 only
+		// Boolean attributes and "value" are not treated correctly in some XML documents
+		if ( !el.querySelectorAll( "[selected]" ).length ) {
+			rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
+		}
+
+		// Support: iOS <=7 - 8 only
+		if ( !el.querySelectorAll( "[id~=" + expando + "-]" ).length ) {
+			rbuggyQSA.push( "~=" );
+		}
+
+		// Support: iOS 8 only
+		// https://bugs.webkit.org/show_bug.cgi?id=136851
+		// In-page `selector#id sibling-combinator selector` fails
+		if ( !el.querySelectorAll( "a#" + expando + "+*" ).length ) {
+			rbuggyQSA.push( ".#.+[+~]" );
+		}
+
+		// Support: Chrome <=105+, Firefox <=104+, Safari <=15.4+
+		// In some of the document kinds, these selectors wouldn't work natively.
+		// This is probably OK but for backwards compatibility we want to maintain
+		// handling them through jQuery traversal in jQuery 3.x.
+		if ( !el.querySelectorAll( ":checked" ).length ) {
+			rbuggyQSA.push( ":checked" );
+		}
+
+		// Support: Windows 8 Native Apps
+		// The type and name attributes are restricted during .innerHTML assignment
+		input = document.createElement( "input" );
+		input.setAttribute( "type", "hidden" );
+		el.appendChild( input ).setAttribute( "name", "D" );
+
+		// Support: IE 9 - 11+
+		// IE's :disabled selector does not pick up the children of disabled fieldsets
+		// Support: Chrome <=105+, Firefox <=104+, Safari <=15.4+
+		// In some of the document kinds, these selectors wouldn't work natively.
+		// This is probably OK but for backwards compatibility we want to maintain
+		// handling them through jQuery traversal in jQuery 3.x.
+		documentElement.appendChild( el ).disabled = true;
+		if ( el.querySelectorAll( ":disabled" ).length !== 2 ) {
+			rbuggyQSA.push( ":enabled", ":disabled" );
+		}
+
+		// Support: IE 11+, Edge 15 - 18+
+		// IE 11/Edge don't find elements on a `[name='']` query in some cases.
+		// Adding a temporary attribute to the document before the selection works
+		// around the issue.
+		// Interestingly, IE 10 & older don't seem to have the issue.
+		input = document.createElement( "input" );
+		input.setAttribute( "name", "" );
+		el.appendChild( input );
+		if ( !el.querySelectorAll( "[name='']" ).length ) {
+			rbuggyQSA.push( "\\[" + whitespace + "*name" + whitespace + "*=" +
+				whitespace + "*(?:''|\"\")" );
+		}
+	} );
+
+	if ( !support.cssHas ) {
+
+		// Support: Chrome 105 - 110+, Safari 15.4 - 16.3+
+		// Our regular `try-catch` mechanism fails to detect natively-unsupported
+		// pseudo-classes inside `:has()` (such as `:has(:contains("Foo"))`)
+		// in browsers that parse the `:has()` argument as a forgiving selector list.
+		// https://drafts.csswg.org/selectors/#relational now requires the argument
+		// to be parsed unforgivingly, but browsers have not yet fully adjusted.
+		rbuggyQSA.push( ":has" );
+	}
+
+	rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join( "|" ) );
+>>>>>>> 504de05 (dsadsd)
 
 	/* Sorting
 	---------------------------------------------------------------------- */
 
 	// Document order sorting
+<<<<<<< HEAD
 	sortOrder = hasCompare ?
 	function( a, b ) {
+=======
+	sortOrder = function( a, b ) {
+>>>>>>> 504de05 (dsadsd)
 
 		// Flag for duplicate removal
 		if ( a === b ) {
@@ -1510,8 +2057,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 			// two documents; shallow comparisons work.
 			// eslint-disable-next-line eqeqeq
+<<<<<<< HEAD
 			if ( a == document || a.ownerDocument == preferredDoc &&
 				contains( preferredDoc, a ) ) {
+=======
+			if ( a === document || a.ownerDocument == preferredDoc &&
+				find.contains( preferredDoc, a ) ) {
+>>>>>>> 504de05 (dsadsd)
 				return -1;
 			}
 
@@ -1519,18 +2071,28 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 			// two documents; shallow comparisons work.
 			// eslint-disable-next-line eqeqeq
+<<<<<<< HEAD
 			if ( b == document || b.ownerDocument == preferredDoc &&
 				contains( preferredDoc, b ) ) {
+=======
+			if ( b === document || b.ownerDocument == preferredDoc &&
+				find.contains( preferredDoc, b ) ) {
+>>>>>>> 504de05 (dsadsd)
 				return 1;
 			}
 
 			// Maintain original order
 			return sortInput ?
+<<<<<<< HEAD
 				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
+=======
+				( indexOf.call( sortInput, a ) - indexOf.call( sortInput, b ) ) :
+>>>>>>> 504de05 (dsadsd)
 				0;
 		}
 
 		return compare & 4 ? -1 : 1;
+<<<<<<< HEAD
 	} :
 	function( a, b ) {
 
@@ -1613,6 +2175,23 @@ Sizzle.matchesSelector = function( elem, expr ) {
 		!nonnativeSelectorCache[ expr + " " ] &&
 		( !rbuggyMatches || !rbuggyMatches.test( expr ) ) &&
 		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
+=======
+	};
+
+	return document;
+}
+
+find.matches = function( expr, elements ) {
+	return find( expr, null, null, elements );
+};
+
+find.matchesSelector = function( elem, expr ) {
+	setDocument( elem );
+
+	if ( documentIsHTML &&
+		!nonnativeSelectorCache[ expr + " " ] &&
+		( !rbuggyQSA || !rbuggyQSA.test( expr ) ) ) {
+>>>>>>> 504de05 (dsadsd)
 
 		try {
 			var ret = matches.call( elem, expr );
@@ -1620,9 +2199,15 @@ Sizzle.matchesSelector = function( elem, expr ) {
 			// IE 9's matchesSelector returns false on disconnected nodes
 			if ( ret || support.disconnectedMatch ||
 
+<<<<<<< HEAD
 				// As well, disconnected nodes are said to be in a document
 				// fragment in IE 9
 				elem.document && elem.document.nodeType !== 11 ) {
+=======
+					// As well, disconnected nodes are said to be in a document
+					// fragment in IE 9
+					elem.document && elem.document.nodeType !== 11 ) {
+>>>>>>> 504de05 (dsadsd)
 				return ret;
 			}
 		} catch ( e ) {
@@ -1630,10 +2215,17 @@ Sizzle.matchesSelector = function( elem, expr ) {
 		}
 	}
 
+<<<<<<< HEAD
 	return Sizzle( expr, document, null, [ elem ] ).length > 0;
 };
 
 Sizzle.contains = function( context, elem ) {
+=======
+	return find( expr, document, null, [ elem ] ).length > 0;
+};
+
+find.contains = function( context, elem ) {
+>>>>>>> 504de05 (dsadsd)
 
 	// Set document vars if needed
 	// Support: IE 11+, Edge 17 - 18+
@@ -1643,10 +2235,18 @@ Sizzle.contains = function( context, elem ) {
 	if ( ( context.ownerDocument || context ) != document ) {
 		setDocument( context );
 	}
+<<<<<<< HEAD
 	return contains( context, elem );
 };
 
 Sizzle.attr = function( elem, name ) {
+=======
+	return jQuery.contains( context, elem );
+};
+
+
+find.attr = function( elem, name ) {
+>>>>>>> 504de05 (dsadsd)
 
 	// Set document vars if needed
 	// Support: IE 11+, Edge 17 - 18+
@@ -1659,11 +2259,16 @@ Sizzle.attr = function( elem, name ) {
 
 	var fn = Expr.attrHandle[ name.toLowerCase() ],
 
+<<<<<<< HEAD
 		// Don't get fooled by Object.prototype properties (jQuery #13807)
+=======
+		// Don't get fooled by Object.prototype properties (see trac-13807)
+>>>>>>> 504de05 (dsadsd)
 		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
 			fn( elem, name, !documentIsHTML ) :
 			undefined;
 
+<<<<<<< HEAD
 	return val !== undefined ?
 		val :
 		support.attributes || !documentIsHTML ?
@@ -1678,6 +2283,16 @@ Sizzle.escape = function( sel ) {
 };
 
 Sizzle.error = function( msg ) {
+=======
+	if ( val !== undefined ) {
+		return val;
+	}
+
+	return elem.getAttribute( name );
+};
+
+find.error = function( msg ) {
+>>>>>>> 504de05 (dsadsd)
 	throw new Error( "Syntax error, unrecognized expression: " + msg );
 };
 
@@ -1685,16 +2300,30 @@ Sizzle.error = function( msg ) {
  * Document sorting and removing duplicates
  * @param {ArrayLike} results
  */
+<<<<<<< HEAD
 Sizzle.uniqueSort = function( results ) {
+=======
+jQuery.uniqueSort = function( results ) {
+>>>>>>> 504de05 (dsadsd)
 	var elem,
 		duplicates = [],
 		j = 0,
 		i = 0;
 
 	// Unless we *know* we can detect duplicates, assume their presence
+<<<<<<< HEAD
 	hasDuplicate = !support.detectDuplicates;
 	sortInput = !support.sortStable && results.slice( 0 );
 	results.sort( sortOrder );
+=======
+	//
+	// Support: Android <=4.0+
+	// Testing for detecting duplicates is unpredictable so instead assume we can't
+	// depend on duplicate detection in all browsers without a stable sort.
+	hasDuplicate = !support.sortStable;
+	sortInput = !support.sortStable && slice.call( results, 0 );
+	sort.call( results, sortOrder );
+>>>>>>> 504de05 (dsadsd)
 
 	if ( hasDuplicate ) {
 		while ( ( elem = results[ i++ ] ) ) {
@@ -1703,7 +2332,11 @@ Sizzle.uniqueSort = function( results ) {
 			}
 		}
 		while ( j-- ) {
+<<<<<<< HEAD
 			results.splice( duplicates[ j ], 1 );
+=======
+			splice.call( results, duplicates[ j ], 1 );
+>>>>>>> 504de05 (dsadsd)
 		}
 	}
 
@@ -1714,6 +2347,7 @@ Sizzle.uniqueSort = function( results ) {
 	return results;
 };
 
+<<<<<<< HEAD
 /**
  * Utility function for retrieving the text value of an array of DOM nodes
  * @param {Array|Element} elem
@@ -1755,6 +2389,13 @@ getText = Sizzle.getText = function( elem ) {
 };
 
 Expr = Sizzle.selectors = {
+=======
+jQuery.fn.uniqueSort = function() {
+	return this.pushStack( jQuery.uniqueSort( slice.apply( this ) ) );
+};
+
+Expr = jQuery.expr = {
+>>>>>>> 504de05 (dsadsd)
 
 	// Can be adjusted by the user
 	cacheLength: 50,
@@ -1775,12 +2416,21 @@ Expr = Sizzle.selectors = {
 	},
 
 	preFilter: {
+<<<<<<< HEAD
 		"ATTR": function( match ) {
 			match[ 1 ] = match[ 1 ].replace( runescape, funescape );
 
 			// Move the given value to match[3] whether quoted or unquoted
 			match[ 3 ] = ( match[ 3 ] || match[ 4 ] ||
 				match[ 5 ] || "" ).replace( runescape, funescape );
+=======
+		ATTR: function( match ) {
+			match[ 1 ] = match[ 1 ].replace( runescape, funescape );
+
+			// Move the given value to match[3] whether quoted or unquoted
+			match[ 3 ] = ( match[ 3 ] || match[ 4 ] || match[ 5 ] || "" )
+				.replace( runescape, funescape );
+>>>>>>> 504de05 (dsadsd)
 
 			if ( match[ 2 ] === "~=" ) {
 				match[ 3 ] = " " + match[ 3 ] + " ";
@@ -1789,7 +2439,11 @@ Expr = Sizzle.selectors = {
 			return match.slice( 0, 4 );
 		},
 
+<<<<<<< HEAD
 		"CHILD": function( match ) {
+=======
+		CHILD: function( match ) {
+>>>>>>> 504de05 (dsadsd)
 
 			/* matches from matchExpr["CHILD"]
 				1 type (only|nth|...)
@@ -1807,29 +2461,51 @@ Expr = Sizzle.selectors = {
 
 				// nth-* requires argument
 				if ( !match[ 3 ] ) {
+<<<<<<< HEAD
 					Sizzle.error( match[ 0 ] );
+=======
+					find.error( match[ 0 ] );
+>>>>>>> 504de05 (dsadsd)
 				}
 
 				// numeric x and y parameters for Expr.filter.CHILD
 				// remember that false/true cast respectively to 0/1
 				match[ 4 ] = +( match[ 4 ] ?
 					match[ 5 ] + ( match[ 6 ] || 1 ) :
+<<<<<<< HEAD
 					2 * ( match[ 3 ] === "even" || match[ 3 ] === "odd" ) );
 				match[ 5 ] = +( ( match[ 7 ] + match[ 8 ] ) || match[ 3 ] === "odd" );
 
 				// other types prohibit arguments
 			} else if ( match[ 3 ] ) {
 				Sizzle.error( match[ 0 ] );
+=======
+					2 * ( match[ 3 ] === "even" || match[ 3 ] === "odd" )
+				);
+				match[ 5 ] = +( ( match[ 7 ] + match[ 8 ] ) || match[ 3 ] === "odd" );
+
+			// other types prohibit arguments
+			} else if ( match[ 3 ] ) {
+				find.error( match[ 0 ] );
+>>>>>>> 504de05 (dsadsd)
 			}
 
 			return match;
 		},
 
+<<<<<<< HEAD
 		"PSEUDO": function( match ) {
 			var excess,
 				unquoted = !match[ 6 ] && match[ 2 ];
 
 			if ( matchExpr[ "CHILD" ].test( match[ 0 ] ) ) {
+=======
+		PSEUDO: function( match ) {
+			var excess,
+				unquoted = !match[ 6 ] && match[ 2 ];
+
+			if ( matchExpr.CHILD.test( match[ 0 ] ) ) {
+>>>>>>> 504de05 (dsadsd)
 				return null;
 			}
 
@@ -1858,13 +2534,19 @@ Expr = Sizzle.selectors = {
 
 	filter: {
 
+<<<<<<< HEAD
 		"TAG": function( nodeNameSelector ) {
 			var nodeName = nodeNameSelector.replace( runescape, funescape ).toLowerCase();
+=======
+		TAG: function( nodeNameSelector ) {
+			var expectedNodeName = nodeNameSelector.replace( runescape, funescape ).toLowerCase();
+>>>>>>> 504de05 (dsadsd)
 			return nodeNameSelector === "*" ?
 				function() {
 					return true;
 				} :
 				function( elem ) {
+<<<<<<< HEAD
 					return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
 				};
 		},
@@ -1888,6 +2570,31 @@ Expr = Sizzle.selectors = {
 		"ATTR": function( name, operator, check ) {
 			return function( elem ) {
 				var result = Sizzle.attr( elem, name );
+=======
+					return nodeName( elem, expectedNodeName );
+				};
+		},
+
+		CLASS: function( className ) {
+			var pattern = classCache[ className + " " ];
+
+			return pattern ||
+				( pattern = new RegExp( "(^|" + whitespace + ")" + className +
+					"(" + whitespace + "|$)" ) ) &&
+				classCache( className, function( elem ) {
+					return pattern.test(
+						typeof elem.className === "string" && elem.className ||
+							typeof elem.getAttribute !== "undefined" &&
+								elem.getAttribute( "class" ) ||
+							""
+					);
+				} );
+		},
+
+		ATTR: function( name, operator, check ) {
+			return function( elem ) {
+				var result = find.attr( elem, name );
+>>>>>>> 504de05 (dsadsd)
 
 				if ( result == null ) {
 					return operator === "!=";
@@ -1898,6 +2605,7 @@ Expr = Sizzle.selectors = {
 
 				result += "";
 
+<<<<<<< HEAD
 				/* eslint-disable max-len */
 
 				return operator === "=" ? result === check :
@@ -1914,6 +2622,36 @@ Expr = Sizzle.selectors = {
 		},
 
 		"CHILD": function( type, what, _argument, first, last ) {
+=======
+				if ( operator === "=" ) {
+					return result === check;
+				}
+				if ( operator === "!=" ) {
+					return result !== check;
+				}
+				if ( operator === "^=" ) {
+					return check && result.indexOf( check ) === 0;
+				}
+				if ( operator === "*=" ) {
+					return check && result.indexOf( check ) > -1;
+				}
+				if ( operator === "$=" ) {
+					return check && result.slice( -check.length ) === check;
+				}
+				if ( operator === "~=" ) {
+					return ( " " + result.replace( rwhitespace, " " ) + " " )
+						.indexOf( check ) > -1;
+				}
+				if ( operator === "|=" ) {
+					return result === check || result.slice( 0, check.length + 1 ) === check + "-";
+				}
+
+				return false;
+			};
+		},
+
+		CHILD: function( type, what, _argument, first, last ) {
+>>>>>>> 504de05 (dsadsd)
 			var simple = type.slice( 0, 3 ) !== "nth",
 				forward = type.slice( -4 ) !== "last",
 				ofType = what === "of-type";
@@ -1926,7 +2664,11 @@ Expr = Sizzle.selectors = {
 				} :
 
 				function( elem, _context, xml ) {
+<<<<<<< HEAD
 					var cache, uniqueCache, outerCache, node, nodeIndex, start,
+=======
+					var cache, outerCache, node, nodeIndex, start,
+>>>>>>> 504de05 (dsadsd)
 						dir = simple !== forward ? "nextSibling" : "previousSibling",
 						parent = elem.parentNode,
 						name = ofType && elem.nodeName.toLowerCase(),
@@ -1941,7 +2683,11 @@ Expr = Sizzle.selectors = {
 								node = elem;
 								while ( ( node = node[ dir ] ) ) {
 									if ( ofType ?
+<<<<<<< HEAD
 										node.nodeName.toLowerCase() === name :
+=======
+										nodeName( node, name ) :
+>>>>>>> 504de05 (dsadsd)
 										node.nodeType === 1 ) {
 
 										return false;
@@ -1960,6 +2706,7 @@ Expr = Sizzle.selectors = {
 						if ( forward && useCache ) {
 
 							// Seek `elem` from a previously-cached index
+<<<<<<< HEAD
 
 							// ...in a gzip-friendly way
 							node = parent;
@@ -1971,6 +2718,10 @@ Expr = Sizzle.selectors = {
 								( outerCache[ node.uniqueID ] = {} );
 
 							cache = uniqueCache[ type ] || [];
+=======
+							outerCache = parent[ expando ] || ( parent[ expando ] = {} );
+							cache = outerCache[ type ] || [];
+>>>>>>> 504de05 (dsadsd)
 							nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
 							diff = nodeIndex && cache[ 2 ];
 							node = nodeIndex && parent.childNodes[ nodeIndex ];
@@ -1982,7 +2733,11 @@ Expr = Sizzle.selectors = {
 
 								// When found, cache indexes on `parent` and break
 								if ( node.nodeType === 1 && ++diff && node === elem ) {
+<<<<<<< HEAD
 									uniqueCache[ type ] = [ dirruns, nodeIndex, diff ];
+=======
+									outerCache[ type ] = [ dirruns, nodeIndex, diff ];
+>>>>>>> 504de05 (dsadsd)
 									break;
 								}
 							}
@@ -1991,6 +2746,7 @@ Expr = Sizzle.selectors = {
 
 							// Use previously-cached element index if available
 							if ( useCache ) {
+<<<<<<< HEAD
 
 								// ...in a gzip-friendly way
 								node = elem;
@@ -2002,6 +2758,10 @@ Expr = Sizzle.selectors = {
 									( outerCache[ node.uniqueID ] = {} );
 
 								cache = uniqueCache[ type ] || [];
+=======
+								outerCache = elem[ expando ] || ( elem[ expando ] = {} );
+								cache = outerCache[ type ] || [];
+>>>>>>> 504de05 (dsadsd)
 								nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
 								diff = nodeIndex;
 							}
@@ -2015,7 +2775,11 @@ Expr = Sizzle.selectors = {
 									( diff = nodeIndex = 0 ) || start.pop() ) ) {
 
 									if ( ( ofType ?
+<<<<<<< HEAD
 										node.nodeName.toLowerCase() === name :
+=======
+										nodeName( node, name ) :
+>>>>>>> 504de05 (dsadsd)
 										node.nodeType === 1 ) &&
 										++diff ) {
 
@@ -2023,6 +2787,7 @@ Expr = Sizzle.selectors = {
 										if ( useCache ) {
 											outerCache = node[ expando ] ||
 												( node[ expando ] = {} );
+<<<<<<< HEAD
 
 											// Support: IE <9 only
 											// Defend against cloned attroperties (jQuery gh-1709)
@@ -2030,6 +2795,9 @@ Expr = Sizzle.selectors = {
 												( outerCache[ node.uniqueID ] = {} );
 
 											uniqueCache[ type ] = [ dirruns, diff ];
+=======
+											outerCache[ type ] = [ dirruns, diff ];
+>>>>>>> 504de05 (dsadsd)
 										}
 
 										if ( node === elem ) {
@@ -2047,19 +2815,34 @@ Expr = Sizzle.selectors = {
 				};
 		},
 
+<<<<<<< HEAD
 		"PSEUDO": function( pseudo, argument ) {
 
 			// pseudo-class names are case-insensitive
 			// http://www.w3.org/TR/selectors/#pseudo-classes
+=======
+		PSEUDO: function( pseudo, argument ) {
+
+			// pseudo-class names are case-insensitive
+			// https://www.w3.org/TR/selectors/#pseudo-classes
+>>>>>>> 504de05 (dsadsd)
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
 			// Remember that setFilters inherits from pseudos
 			var args,
 				fn = Expr.pseudos[ pseudo ] || Expr.setFilters[ pseudo.toLowerCase() ] ||
+<<<<<<< HEAD
 					Sizzle.error( "unsupported pseudo: " + pseudo );
 
 			// The user may use createPseudo to indicate that
 			// arguments are needed to create the filter function
 			// just as Sizzle does
+=======
+					find.error( "unsupported pseudo: " + pseudo );
+
+			// The user may use createPseudo to indicate that
+			// arguments are needed to create the filter function
+			// just as jQuery does
+>>>>>>> 504de05 (dsadsd)
 			if ( fn[ expando ] ) {
 				return fn( argument );
 			}
@@ -2073,7 +2856,11 @@ Expr = Sizzle.selectors = {
 							matched = fn( seed, argument ),
 							i = matched.length;
 						while ( i-- ) {
+<<<<<<< HEAD
 							idx = indexOf( seed, matched[ i ] );
+=======
+							idx = indexOf.call( seed, matched[ i ] );
+>>>>>>> 504de05 (dsadsd)
 							seed[ idx ] = !( matches[ idx ] = matched[ i ] );
 						}
 					} ) :
@@ -2089,14 +2876,22 @@ Expr = Sizzle.selectors = {
 	pseudos: {
 
 		// Potentially complex pseudos
+<<<<<<< HEAD
 		"not": markFunction( function( selector ) {
+=======
+		not: markFunction( function( selector ) {
+>>>>>>> 504de05 (dsadsd)
 
 			// Trim the selector passed to compile
 			// to avoid treating leading and trailing
 			// spaces as combinators
 			var input = [],
 				results = [],
+<<<<<<< HEAD
 				matcher = compile( selector.replace( rtrim, "$1" ) );
+=======
+				matcher = compile( selector.replace( rtrimCSS, "$1" ) );
+>>>>>>> 504de05 (dsadsd)
 
 			return matcher[ expando ] ?
 				markFunction( function( seed, matches, _context, xml ) {
@@ -2115,12 +2910,18 @@ Expr = Sizzle.selectors = {
 					input[ 0 ] = elem;
 					matcher( input, null, xml, results );
 
+<<<<<<< HEAD
 					// Don't keep the element (issue #299)
+=======
+					// Don't keep the element
+					// (see https://github.com/jquery/sizzle/issues/299)
+>>>>>>> 504de05 (dsadsd)
 					input[ 0 ] = null;
 					return !results.pop();
 				};
 		} ),
 
+<<<<<<< HEAD
 		"has": markFunction( function( selector ) {
 			return function( elem ) {
 				return Sizzle( selector, elem ).length > 0;
@@ -2131,6 +2932,18 @@ Expr = Sizzle.selectors = {
 			text = text.replace( runescape, funescape );
 			return function( elem ) {
 				return ( elem.textContent || getText( elem ) ).indexOf( text ) > -1;
+=======
+		has: markFunction( function( selector ) {
+			return function( elem ) {
+				return find( selector, elem ).length > 0;
+			};
+		} ),
+
+		contains: markFunction( function( text ) {
+			text = text.replace( runescape, funescape );
+			return function( elem ) {
+				return ( elem.textContent || jQuery.text( elem ) ).indexOf( text ) > -1;
+>>>>>>> 504de05 (dsadsd)
 			};
 		} ),
 
@@ -2140,12 +2953,21 @@ Expr = Sizzle.selectors = {
 		// or beginning with the identifier C immediately followed by "-".
 		// The matching of C against the element's language value is performed case-insensitively.
 		// The identifier C does not have to be a valid language name."
+<<<<<<< HEAD
 		// http://www.w3.org/TR/selectors/#lang-pseudo
 		"lang": markFunction( function( lang ) {
 
 			// lang value must be a valid identifier
 			if ( !ridentifier.test( lang || "" ) ) {
 				Sizzle.error( "unsupported lang: " + lang );
+=======
+		// https://www.w3.org/TR/selectors/#lang-pseudo
+		lang: markFunction( function( lang ) {
+
+			// lang value must be a valid identifier
+			if ( !ridentifier.test( lang || "" ) ) {
+				find.error( "unsupported lang: " + lang );
+>>>>>>> 504de05 (dsadsd)
 			}
 			lang = lang.replace( runescape, funescape ).toLowerCase();
 			return function( elem ) {
@@ -2164,11 +2986,16 @@ Expr = Sizzle.selectors = {
 		} ),
 
 		// Miscellaneous
+<<<<<<< HEAD
 		"target": function( elem ) {
+=======
+		target: function( elem ) {
+>>>>>>> 504de05 (dsadsd)
 			var hash = window.location && window.location.hash;
 			return hash && hash.slice( 1 ) === elem.id;
 		},
 
+<<<<<<< HEAD
 		"root": function( elem ) {
 			return elem === docElem;
 		},
@@ -2176,10 +3003,20 @@ Expr = Sizzle.selectors = {
 		"focus": function( elem ) {
 			return elem === document.activeElement &&
 				( !document.hasFocus || document.hasFocus() ) &&
+=======
+		root: function( elem ) {
+			return elem === documentElement;
+		},
+
+		focus: function( elem ) {
+			return elem === safeActiveElement() &&
+				document.hasFocus() &&
+>>>>>>> 504de05 (dsadsd)
 				!!( elem.type || elem.href || ~elem.tabIndex );
 		},
 
 		// Boolean properties
+<<<<<<< HEAD
 		"enabled": createDisabledPseudo( false ),
 		"disabled": createDisabledPseudo( true ),
 
@@ -2196,6 +3033,25 @@ Expr = Sizzle.selectors = {
 
 			// Accessing this property makes selected-by-default
 			// options in Safari work properly
+=======
+		enabled: createDisabledPseudo( false ),
+		disabled: createDisabledPseudo( true ),
+
+		checked: function( elem ) {
+
+			// In CSS3, :checked should return both checked and selected elements
+			// https://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+			return ( nodeName( elem, "input" ) && !!elem.checked ) ||
+				( nodeName( elem, "option" ) && !!elem.selected );
+		},
+
+		selected: function( elem ) {
+
+			// Support: IE <=11+
+			// Accessing the selectedIndex property
+			// forces the browser to treat the default option as
+			// selected when in an optgroup.
+>>>>>>> 504de05 (dsadsd)
 			if ( elem.parentNode ) {
 				// eslint-disable-next-line no-unused-expressions
 				elem.parentNode.selectedIndex;
@@ -2205,9 +3061,15 @@ Expr = Sizzle.selectors = {
 		},
 
 		// Contents
+<<<<<<< HEAD
 		"empty": function( elem ) {
 
 			// http://www.w3.org/TR/selectors/#empty-pseudo
+=======
+		empty: function( elem ) {
+
+			// https://www.w3.org/TR/selectors/#empty-pseudo
+>>>>>>> 504de05 (dsadsd)
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 			//   but not by others (comment: 8; processing instruction: 7; etc.)
 			// nodeType < 6 works because attributes (2) do not appear as children
@@ -2219,6 +3081,7 @@ Expr = Sizzle.selectors = {
 			return true;
 		},
 
+<<<<<<< HEAD
 		"parent": function( elem ) {
 			return !Expr.pseudos[ "empty" ]( elem );
 		},
@@ -2244,11 +3107,39 @@ Expr = Sizzle.selectors = {
 
 				// Support: IE<8
 				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
+=======
+		parent: function( elem ) {
+			return !Expr.pseudos.empty( elem );
+		},
+
+		// Element/input types
+		header: function( elem ) {
+			return rheader.test( elem.nodeName );
+		},
+
+		input: function( elem ) {
+			return rinputs.test( elem.nodeName );
+		},
+
+		button: function( elem ) {
+			return nodeName( elem, "input" ) && elem.type === "button" ||
+				nodeName( elem, "button" );
+		},
+
+		text: function( elem ) {
+			var attr;
+			return nodeName( elem, "input" ) && elem.type === "text" &&
+
+				// Support: IE <10 only
+				// New HTML5 attribute values (e.g., "search") appear
+				// with elem.type === "text"
+>>>>>>> 504de05 (dsadsd)
 				( ( attr = elem.getAttribute( "type" ) ) == null ||
 					attr.toLowerCase() === "text" );
 		},
 
 		// Position-in-collection
+<<<<<<< HEAD
 		"first": createPositionalPseudo( function() {
 			return [ 0 ];
 		} ),
@@ -2262,6 +3153,21 @@ Expr = Sizzle.selectors = {
 		} ),
 
 		"even": createPositionalPseudo( function( matchIndexes, length ) {
+=======
+		first: createPositionalPseudo( function() {
+			return [ 0 ];
+		} ),
+
+		last: createPositionalPseudo( function( _matchIndexes, length ) {
+			return [ length - 1 ];
+		} ),
+
+		eq: createPositionalPseudo( function( _matchIndexes, length, argument ) {
+			return [ argument < 0 ? argument + length : argument ];
+		} ),
+
+		even: createPositionalPseudo( function( matchIndexes, length ) {
+>>>>>>> 504de05 (dsadsd)
 			var i = 0;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
@@ -2269,7 +3175,11 @@ Expr = Sizzle.selectors = {
 			return matchIndexes;
 		} ),
 
+<<<<<<< HEAD
 		"odd": createPositionalPseudo( function( matchIndexes, length ) {
+=======
+		odd: createPositionalPseudo( function( matchIndexes, length ) {
+>>>>>>> 504de05 (dsadsd)
 			var i = 1;
 			for ( ; i < length; i += 2 ) {
 				matchIndexes.push( i );
@@ -2277,19 +3187,37 @@ Expr = Sizzle.selectors = {
 			return matchIndexes;
 		} ),
 
+<<<<<<< HEAD
 		"lt": createPositionalPseudo( function( matchIndexes, length, argument ) {
 			var i = argument < 0 ?
 				argument + length :
 				argument > length ?
 					length :
 					argument;
+=======
+		lt: createPositionalPseudo( function( matchIndexes, length, argument ) {
+			var i;
+
+			if ( argument < 0 ) {
+				i = argument + length;
+			} else if ( argument > length ) {
+				i = length;
+			} else {
+				i = argument;
+			}
+
+>>>>>>> 504de05 (dsadsd)
 			for ( ; --i >= 0; ) {
 				matchIndexes.push( i );
 			}
 			return matchIndexes;
 		} ),
 
+<<<<<<< HEAD
 		"gt": createPositionalPseudo( function( matchIndexes, length, argument ) {
+=======
+		gt: createPositionalPseudo( function( matchIndexes, length, argument ) {
+>>>>>>> 504de05 (dsadsd)
 			var i = argument < 0 ? argument + length : argument;
 			for ( ; ++i < length; ) {
 				matchIndexes.push( i );
@@ -2299,7 +3227,11 @@ Expr = Sizzle.selectors = {
 	}
 };
 
+<<<<<<< HEAD
 Expr.pseudos[ "nth" ] = Expr.pseudos[ "eq" ];
+=======
+Expr.pseudos.nth = Expr.pseudos.eq;
+>>>>>>> 504de05 (dsadsd)
 
 // Add button/input type pseudos
 for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
@@ -2314,7 +3246,11 @@ function setFilters() {}
 setFilters.prototype = Expr.filters = Expr.pseudos;
 Expr.setFilters = new setFilters();
 
+<<<<<<< HEAD
 tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
+=======
+function tokenize( selector, parseOnly ) {
+>>>>>>> 504de05 (dsadsd)
 	var matched, match, tokens, type,
 		soFar, groups, preFilters,
 		cached = tokenCache[ selector + " " ];
@@ -2342,13 +3278,21 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 		matched = false;
 
 		// Combinators
+<<<<<<< HEAD
 		if ( ( match = rcombinators.exec( soFar ) ) ) {
+=======
+		if ( ( match = rleadingCombinator.exec( soFar ) ) ) {
+>>>>>>> 504de05 (dsadsd)
 			matched = match.shift();
 			tokens.push( {
 				value: matched,
 
 				// Cast descendant combinators to space
+<<<<<<< HEAD
 				type: match[ 0 ].replace( rtrim, " " )
+=======
+				type: match[ 0 ].replace( rtrimCSS, " " )
+>>>>>>> 504de05 (dsadsd)
 			} );
 			soFar = soFar.slice( matched.length );
 		}
@@ -2375,6 +3319,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 	// Return the length of the invalid excess
 	// if we're just parsing
 	// Otherwise, throw an error or return tokens
+<<<<<<< HEAD
 	return parseOnly ?
 		soFar.length :
 		soFar ?
@@ -2383,6 +3328,18 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 			// Cache the tokens
 			tokenCache( selector, groups ).slice( 0 );
 };
+=======
+	if ( parseOnly ) {
+		return soFar.length;
+	}
+
+	return soFar ?
+		find.error( selector ) :
+
+		// Cache the tokens
+		tokenCache( selector, groups ).slice( 0 );
+}
+>>>>>>> 504de05 (dsadsd)
 
 function toSelector( tokens ) {
 	var i = 0,
@@ -2415,7 +3372,11 @@ function addCombinator( matcher, combinator, base ) {
 
 		// Check against all ancestor/preceding elements
 		function( elem, context, xml ) {
+<<<<<<< HEAD
 			var oldCache, uniqueCache, outerCache,
+=======
+			var oldCache, outerCache,
+>>>>>>> 504de05 (dsadsd)
 				newCache = [ dirruns, doneName ];
 
 			// We can't set arbitrary data on XML nodes, so they don't benefit from combinator caching
@@ -2432,6 +3393,7 @@ function addCombinator( matcher, combinator, base ) {
 					if ( elem.nodeType === 1 || checkNonElements ) {
 						outerCache = elem[ expando ] || ( elem[ expando ] = {} );
 
+<<<<<<< HEAD
 						// Support: IE <9 only
 						// Defend against cloned attroperties (jQuery gh-1709)
 						uniqueCache = outerCache[ elem.uniqueID ] ||
@@ -2440,6 +3402,11 @@ function addCombinator( matcher, combinator, base ) {
 						if ( skip && skip === elem.nodeName.toLowerCase() ) {
 							elem = elem[ dir ] || elem;
 						} else if ( ( oldCache = uniqueCache[ key ] ) &&
+=======
+						if ( skip && nodeName( elem, skip ) ) {
+							elem = elem[ dir ] || elem;
+						} else if ( ( oldCache = outerCache[ key ] ) &&
+>>>>>>> 504de05 (dsadsd)
 							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
 
 							// Assign to newCache so results back-propagate to previous elements
@@ -2447,7 +3414,11 @@ function addCombinator( matcher, combinator, base ) {
 						} else {
 
 							// Reuse newcache so results back-propagate to previous elements
+<<<<<<< HEAD
 							uniqueCache[ key ] = newCache;
+=======
+							outerCache[ key ] = newCache;
+>>>>>>> 504de05 (dsadsd)
 
 							// A match means we're done; a fail means we have to keep checking
 							if ( ( newCache[ 2 ] = matcher( elem, context, xml ) ) ) {
@@ -2479,7 +3450,11 @@ function multipleContexts( selector, contexts, results ) {
 	var i = 0,
 		len = contexts.length;
 	for ( ; i < len; i++ ) {
+<<<<<<< HEAD
 		Sizzle( selector, contexts[ i ], results );
+=======
+		find( selector, contexts[ i ], results );
+>>>>>>> 504de05 (dsadsd)
 	}
 	return results;
 }
@@ -2513,21 +3488,32 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 		postFinder = setMatcher( postFinder, postSelector );
 	}
 	return markFunction( function( seed, results, context, xml ) {
+<<<<<<< HEAD
 		var temp, i, elem,
+=======
+		var temp, i, elem, matcherOut,
+>>>>>>> 504de05 (dsadsd)
 			preMap = [],
 			postMap = [],
 			preexisting = results.length,
 
 			// Get initial elements from seed or context
+<<<<<<< HEAD
 			elems = seed || multipleContexts(
 				selector || "*",
 				context.nodeType ? [ context ] : context,
 				[]
 			),
+=======
+			elems = seed ||
+				multipleContexts( selector || "*",
+					context.nodeType ? [ context ] : context, [] ),
+>>>>>>> 504de05 (dsadsd)
 
 			// Prefilter to get matcher input, preserving a map for seed-results synchronization
 			matcherIn = preFilter && ( seed || !selector ) ?
 				condense( elems, preMap, preFilter, context, xml ) :
+<<<<<<< HEAD
 				elems,
 
 			matcherOut = matcher ?
@@ -2545,6 +3531,26 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 		// Find primary matches
 		if ( matcher ) {
 			matcher( matcherIn, matcherOut, context, xml );
+=======
+				elems;
+
+		if ( matcher ) {
+
+			// If we have a postFinder, or filtered seed, or non-seed postFilter
+			// or preexisting results,
+			matcherOut = postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
+
+				// ...intermediate processing is necessary
+				[] :
+
+				// ...otherwise use results directly
+				results;
+
+			// Find primary matches
+			matcher( matcherIn, matcherOut, context, xml );
+		} else {
+			matcherOut = matcherIn;
+>>>>>>> 504de05 (dsadsd)
 		}
 
 		// Apply postFilter
@@ -2582,7 +3588,11 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				i = matcherOut.length;
 				while ( i-- ) {
 					if ( ( elem = matcherOut[ i ] ) &&
+<<<<<<< HEAD
 						( temp = postFinder ? indexOf( seed, elem ) : preMap[ i ] ) > -1 ) {
+=======
+						( temp = postFinder ? indexOf.call( seed, elem ) : preMap[ i ] ) > -1 ) {
+>>>>>>> 504de05 (dsadsd)
 
 						seed[ temp ] = !( results[ temp ] = elem );
 					}
@@ -2617,15 +3627,32 @@ function matcherFromTokens( tokens ) {
 			return elem === checkContext;
 		}, implicitRelative, true ),
 		matchAnyContext = addCombinator( function( elem ) {
+<<<<<<< HEAD
 			return indexOf( checkContext, elem ) > -1;
 		}, implicitRelative, true ),
 		matchers = [ function( elem, context, xml ) {
 			var ret = ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
+=======
+			return indexOf.call( checkContext, elem ) > -1;
+		}, implicitRelative, true ),
+		matchers = [ function( elem, context, xml ) {
+
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			var ret = ( !leadingRelative && ( xml || context != outermostContext ) ) || (
+>>>>>>> 504de05 (dsadsd)
 				( checkContext = context ).nodeType ?
 					matchContext( elem, context, xml ) :
 					matchAnyContext( elem, context, xml ) );
 
+<<<<<<< HEAD
 			// Avoid hanging onto element (issue #299)
+=======
+			// Avoid hanging onto element
+			// (see https://github.com/jquery/sizzle/issues/299)
+>>>>>>> 504de05 (dsadsd)
 			checkContext = null;
 			return ret;
 		} ];
@@ -2650,11 +3677,18 @@ function matcherFromTokens( tokens ) {
 					i > 1 && elementMatcher( matchers ),
 					i > 1 && toSelector(
 
+<<<<<<< HEAD
 					// If the preceding token was a descendant combinator, insert an implicit any-element `*`
 					tokens
 						.slice( 0, i - 1 )
 						.concat( { value: tokens[ i - 2 ].type === " " ? "*" : "" } )
 					).replace( rtrim, "$1" ),
+=======
+						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
+						tokens.slice( 0, i - 1 )
+							.concat( { value: tokens[ i - 2 ].type === " " ? "*" : "" } )
+					).replace( rtrimCSS, "$1" ),
+>>>>>>> 504de05 (dsadsd)
 					matcher,
 					i < j && matcherFromTokens( tokens.slice( i, j ) ),
 					j < len && matcherFromTokens( ( tokens = tokens.slice( j ) ) ),
@@ -2680,7 +3714,11 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				contextBackup = outermostContext,
 
 				// We must always have either seed elements or outermost context
+<<<<<<< HEAD
 				elems = seed || byElement && Expr.find[ "TAG" ]( "*", outermost ),
+=======
+				elems = seed || byElement && Expr.find.TAG( "*", outermost ),
+>>>>>>> 504de05 (dsadsd)
 
 				// Use integer dirruns iff this is the outermost matcher
 				dirrunsUnique = ( dirruns += contextBackup == null ? 1 : Math.random() || 0.1 ),
@@ -2696,8 +3734,14 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			}
 
 			// Add elements passing elementMatchers directly to results
+<<<<<<< HEAD
 			// Support: IE<9, Safari
 			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
+=======
+			// Support: iOS <=7 - 9 only
+			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching
+			// elements by id. (see trac-14142)
+>>>>>>> 504de05 (dsadsd)
 			for ( ; i !== len && ( elem = elems[ i ] ) != null; i++ ) {
 				if ( byElement && elem ) {
 					j = 0;
@@ -2712,7 +3756,11 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 					}
 					while ( ( matcher = elementMatchers[ j++ ] ) ) {
 						if ( matcher( elem, context || document, xml ) ) {
+<<<<<<< HEAD
 							results.push( elem );
+=======
+							push.call( results, elem );
+>>>>>>> 504de05 (dsadsd)
 							break;
 						}
 					}
@@ -2775,7 +3823,11 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				if ( outermost && !seed && setMatched.length > 0 &&
 					( matchedCount + setMatchers.length ) > 1 ) {
 
+<<<<<<< HEAD
 					Sizzle.uniqueSort( results );
+=======
+					jQuery.uniqueSort( results );
+>>>>>>> 504de05 (dsadsd)
 				}
 			}
 
@@ -2793,7 +3845,11 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 		superMatcher;
 }
 
+<<<<<<< HEAD
 compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
+=======
+function compile( selector, match /* Internal Use Only */ ) {
+>>>>>>> 504de05 (dsadsd)
 	var i,
 		setMatchers = [],
 		elementMatchers = [],
@@ -2816,15 +3872,21 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		}
 
 		// Cache the compiled function
+<<<<<<< HEAD
 		cached = compilerCache(
 			selector,
 			matcherFromGroupMatchers( elementMatchers, setMatchers )
 		);
+=======
+		cached = compilerCache( selector,
+			matcherFromGroupMatchers( elementMatchers, setMatchers ) );
+>>>>>>> 504de05 (dsadsd)
 
 		// Save selector and tokenization
 		cached.selector = selector;
 	}
 	return cached;
+<<<<<<< HEAD
 };
 
 /**
@@ -2832,11 +3894,24 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
  *  selector functions
  * @param {String|Function} selector A selector or a pre-compiled
  *  selector function built with Sizzle.compile
+=======
+}
+
+/**
+ * A low-level selection function that works with jQuery's compiled
+ *  selector functions
+ * @param {String|Function} selector A selector or a pre-compiled
+ *  selector function built with jQuery selector compile
+>>>>>>> 504de05 (dsadsd)
  * @param {Element} context
  * @param {Array} [results]
  * @param {Array} [seed] A set of elements to match against
  */
+<<<<<<< HEAD
 select = Sizzle.select = function( selector, context, results, seed ) {
+=======
+function select( selector, context, results, seed ) {
+>>>>>>> 504de05 (dsadsd)
 	var i, tokens, token, type, find,
 		compiled = typeof selector === "function" && selector,
 		match = !seed && tokenize( ( selector = compiled.selector || selector ) );
@@ -2850,10 +3925,19 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		// Reduce context if the leading compound selector is an ID
 		tokens = match[ 0 ] = match[ 0 ].slice( 0 );
 		if ( tokens.length > 2 && ( token = tokens[ 0 ] ).type === "ID" &&
+<<<<<<< HEAD
 			context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[ 1 ].type ] ) {
 
 			context = ( Expr.find[ "ID" ]( token.matches[ 0 ]
 				.replace( runescape, funescape ), context ) || [] )[ 0 ];
+=======
+				context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[ 1 ].type ] ) {
+
+			context = ( Expr.find.ID(
+				token.matches[ 0 ].replace( runescape, funescape ),
+				context
+			) || [] )[ 0 ];
+>>>>>>> 504de05 (dsadsd)
 			if ( !context ) {
 				return results;
 
@@ -2866,7 +3950,11 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		}
 
 		// Fetch a seed set for right-to-left matching
+<<<<<<< HEAD
 		i = matchExpr[ "needsContext" ].test( selector ) ? 0 : tokens.length;
+=======
+		i = matchExpr.needsContext.test( selector ) ? 0 : tokens.length;
+>>>>>>> 504de05 (dsadsd)
 		while ( i-- ) {
 			token = tokens[ i ];
 
@@ -2879,8 +3967,13 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 				// Search, expanding context for leading sibling combinators
 				if ( ( seed = find(
 					token.matches[ 0 ].replace( runescape, funescape ),
+<<<<<<< HEAD
 					rsibling.test( tokens[ 0 ].type ) && testContext( context.parentNode ) ||
 						context
+=======
+					rsibling.test( tokens[ 0 ].type ) &&
+						testContext( context.parentNode ) || context
+>>>>>>> 504de05 (dsadsd)
 				) ) ) {
 
 					// If seed is empty or no tokens remain, we can return early
@@ -2907,6 +4000,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		!context || rsibling.test( selector ) && testContext( context.parentNode ) || context
 	);
 	return results;
+<<<<<<< HEAD
 };
 
 // One-time assignments
@@ -2922,6 +4016,20 @@ support.detectDuplicates = !!hasDuplicate;
 setDocument();
 
 // Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
+=======
+}
+
+// One-time assignments
+
+// Support: Android <=4.0 - 4.1+
+// Sort stability
+support.sortStable = expando.split( "" ).sort( sortOrder ).join( "" ) === expando;
+
+// Initialize against the default document
+setDocument();
+
+// Support: Android <=4.0 - 4.1+
+>>>>>>> 504de05 (dsadsd)
 // Detached nodes confoundingly follow *each other*
 support.sortDetached = assert( function( el ) {
 
@@ -2929,6 +4037,7 @@ support.sortDetached = assert( function( el ) {
 	return el.compareDocumentPosition( document.createElement( "fieldset" ) ) & 1;
 } );
 
+<<<<<<< HEAD
 // Support: IE<8
 // Prevent attribute/property "interpolation"
 // https://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
@@ -2991,6 +4100,31 @@ jQuery.contains = Sizzle.contains;
 jQuery.escapeSelector = Sizzle.escape;
 
 
+=======
+jQuery.find = find;
+
+// Deprecated
+jQuery.expr[ ":" ] = jQuery.expr.pseudos;
+jQuery.unique = jQuery.uniqueSort;
+
+// These have always been private, but they used to be documented as part of
+// Sizzle so let's maintain them for now for backwards compatibility purposes.
+find.compile = compile;
+find.select = select;
+find.setDocument = setDocument;
+find.tokenize = tokenize;
+
+find.escape = jQuery.escapeSelector;
+find.getText = jQuery.text;
+find.isXML = jQuery.isXMLDoc;
+find.selectors = jQuery.expr;
+find.support = jQuery.support;
+find.uniqueSort = jQuery.uniqueSort;
+
+	/* eslint-enable */
+
+} )();
+>>>>>>> 504de05 (dsadsd)
 
 
 var dir = function( elem, dir, until ) {
@@ -3024,6 +4158,7 @@ var siblings = function( n, elem ) {
 
 var rneedsContext = jQuery.expr.match.needsContext;
 
+<<<<<<< HEAD
 
 
 function nodeName( elem, name ) {
@@ -3031,6 +4166,8 @@ function nodeName( elem, name ) {
 	return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 
 }
+=======
+>>>>>>> 504de05 (dsadsd)
 var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
 
 
@@ -3129,8 +4266,13 @@ jQuery.fn.extend( {
 var rootjQuery,
 
 	// A simple way to check for HTML strings
+<<<<<<< HEAD
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
 	// Strict HTML recognition (#11290: must start with <)
+=======
+	// Prioritize #id over <tag> to avoid XSS via location.hash (trac-9521)
+	// Strict HTML recognition (trac-11290: must start with <)
+>>>>>>> 504de05 (dsadsd)
 	// Shortcut simple #id case for speed
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 
@@ -3281,7 +4423,11 @@ jQuery.fn.extend( {
 					if ( cur.nodeType < 11 && ( targets ?
 						targets.index( cur ) > -1 :
 
+<<<<<<< HEAD
 						// Don't pass non-elements to Sizzle
+=======
+						// Don't pass non-elements to jQuery#find
+>>>>>>> 504de05 (dsadsd)
 						cur.nodeType === 1 &&
 							jQuery.find.matchesSelector( cur, selectors ) ) ) {
 
@@ -3836,7 +4982,11 @@ jQuery.extend( {
 
 											if ( jQuery.Deferred.exceptionHook ) {
 												jQuery.Deferred.exceptionHook( e,
+<<<<<<< HEAD
 													process.stackTrace );
+=======
+													process.error );
+>>>>>>> 504de05 (dsadsd)
 											}
 
 											// Support: Promises/A+ section 2.3.3.3.4.1
@@ -3864,10 +5014,24 @@ jQuery.extend( {
 								process();
 							} else {
 
+<<<<<<< HEAD
 								// Call an optional hook to record the stack, in case of exception
 								// since it's otherwise lost when execution goes async
 								if ( jQuery.Deferred.getStackHook ) {
 									process.stackTrace = jQuery.Deferred.getStackHook();
+=======
+								// Call an optional hook to record the error, in case of exception
+								// since it's otherwise lost when execution goes async
+								if ( jQuery.Deferred.getErrorHook ) {
+									process.error = jQuery.Deferred.getErrorHook();
+
+								// The deprecated alias of the above. While the name suggests
+								// returning the stack, not an error instance, jQuery just passes
+								// it directly to `console.warn` so both will work; an instance
+								// just better cooperates with source maps.
+								} else if ( jQuery.Deferred.getStackHook ) {
+									process.error = jQuery.Deferred.getStackHook();
+>>>>>>> 504de05 (dsadsd)
 								}
 								window.setTimeout( process );
 							}
@@ -4042,12 +5206,24 @@ jQuery.extend( {
 // warn about them ASAP rather than swallowing them by default.
 var rerrorNames = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
 
+<<<<<<< HEAD
 jQuery.Deferred.exceptionHook = function( error, stack ) {
+=======
+// If `jQuery.Deferred.getErrorHook` is defined, `asyncError` is an error
+// captured before the async barrier to get the original error cause
+// which may otherwise be hidden.
+jQuery.Deferred.exceptionHook = function( error, asyncError ) {
+>>>>>>> 504de05 (dsadsd)
 
 	// Support: IE 8 - 9 only
 	// Console exists when dev tools are open, which can happen at any time
 	if ( window.console && window.console.warn && error && rerrorNames.test( error.name ) ) {
+<<<<<<< HEAD
 		window.console.warn( "jQuery.Deferred exception: " + error.message, error.stack, stack );
+=======
+		window.console.warn( "jQuery.Deferred exception: " + error.message,
+			error.stack, asyncError );
+>>>>>>> 504de05 (dsadsd)
 	}
 };
 
@@ -4087,7 +5263,11 @@ jQuery.extend( {
 	isReady: false,
 
 	// A counter to track how many items to wait for before
+<<<<<<< HEAD
 	// the ready event fires. See #6781
+=======
+	// the ready event fires. See trac-6781
+>>>>>>> 504de05 (dsadsd)
 	readyWait: 1,
 
 	// Handle when the DOM is ready
@@ -4215,7 +5395,11 @@ function fcamelCase( _all, letter ) {
 
 // Convert dashed to camelCase; used by the css and data modules
 // Support: IE <=9 - 11, Edge 12 - 15
+<<<<<<< HEAD
 // Microsoft forgot to hump their vendor prefix (#9572)
+=======
+// Microsoft forgot to hump their vendor prefix (trac-9572)
+>>>>>>> 504de05 (dsadsd)
 function camelCase( string ) {
 	return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
 }
@@ -4251,7 +5435,11 @@ Data.prototype = {
 			value = {};
 
 			// We can accept data for non-element nodes in modern browsers,
+<<<<<<< HEAD
 			// but we should not, see #8335.
+=======
+			// but we should not, see trac-8335.
+>>>>>>> 504de05 (dsadsd)
 			// Always return an empty object.
 			if ( acceptData( owner ) ) {
 
@@ -4490,7 +5678,11 @@ jQuery.fn.extend( {
 					while ( i-- ) {
 
 						// Support: IE 11 only
+<<<<<<< HEAD
 						// The attrs elements can be null (#14894)
+=======
+						// The attrs elements can be null (trac-14894)
+>>>>>>> 504de05 (dsadsd)
 						if ( attrs[ i ] ) {
 							name = attrs[ i ].name;
 							if ( name.indexOf( "data-" ) === 0 ) {
@@ -4913,9 +6105,15 @@ var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 		input = document.createElement( "input" );
 
 	// Support: Android 4.0 - 4.3 only
+<<<<<<< HEAD
 	// Check state lost if the name is set (#11217)
 	// Support: Windows Web Apps (WWA)
 	// `name` and `type` must use .setAttribute for WWA (#14901)
+=======
+	// Check state lost if the name is set (trac-11217)
+	// Support: Windows Web Apps (WWA)
+	// `name` and `type` must use .setAttribute for WWA (trac-14901)
+>>>>>>> 504de05 (dsadsd)
 	input.setAttribute( "type", "radio" );
 	input.setAttribute( "checked", "checked" );
 	input.setAttribute( "name", "t" );
@@ -4939,7 +6137,11 @@ var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 } )();
 
 
+<<<<<<< HEAD
 // We have to close these tags to support XHTML (#13200)
+=======
+// We have to close these tags to support XHTML (trac-13200)
+>>>>>>> 504de05 (dsadsd)
 var wrapMap = {
 
 	// XHTML parsers do not magically insert elements in the
@@ -4965,7 +6167,11 @@ if ( !support.option ) {
 function getAll( context, tag ) {
 
 	// Support: IE <=9 - 11 only
+<<<<<<< HEAD
 	// Use typeof to avoid zero-argument method invocation on host objects (#15151)
+=======
+	// Use typeof to avoid zero-argument method invocation on host objects (trac-15151)
+>>>>>>> 504de05 (dsadsd)
 	var ret;
 
 	if ( typeof context.getElementsByTagName !== "undefined" ) {
@@ -5048,7 +6254,11 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 				// Remember the top-level container
 				tmp = fragment.firstChild;
 
+<<<<<<< HEAD
 				// Ensure the created nodes are orphaned (#12392)
+=======
+				// Ensure the created nodes are orphaned (trac-12392)
+>>>>>>> 504de05 (dsadsd)
 				tmp.textContent = "";
 			}
 		}
@@ -5103,6 +6313,7 @@ function returnFalse() {
 	return false;
 }
 
+<<<<<<< HEAD
 // Support: IE <=9 - 11+
 // focus() and blur() are asynchronous, except when they are no-op.
 // So expect focus to be synchronous when the element is already active,
@@ -5122,6 +6333,8 @@ function safeActiveElement() {
 	} catch ( err ) { }
 }
 
+=======
+>>>>>>> 504de05 (dsadsd)
 function on( elem, types, selector, data, fn, one ) {
 	var origFn, type;
 
@@ -5469,15 +6682,24 @@ jQuery.event = {
 
 			for ( ; cur !== this; cur = cur.parentNode || this ) {
 
+<<<<<<< HEAD
 				// Don't check non-elements (#13208)
 				// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
+=======
+				// Don't check non-elements (trac-13208)
+				// Don't process clicks on disabled elements (trac-6911, trac-8165, trac-11382, trac-11764)
+>>>>>>> 504de05 (dsadsd)
 				if ( cur.nodeType === 1 && !( event.type === "click" && cur.disabled === true ) ) {
 					matchedHandlers = [];
 					matchedSelectors = {};
 					for ( i = 0; i < delegateCount; i++ ) {
 						handleObj = handlers[ i ];
 
+<<<<<<< HEAD
 						// Don't conflict with Object.prototype properties (#13203)
+=======
+						// Don't conflict with Object.prototype properties (trac-13203)
+>>>>>>> 504de05 (dsadsd)
 						sel = handleObj.selector + " ";
 
 						if ( matchedSelectors[ sel ] === undefined ) {
@@ -5559,7 +6781,11 @@ jQuery.event = {
 					el.click && nodeName( el, "input" ) ) {
 
 					// dataPriv.set( el, "click", ... )
+<<<<<<< HEAD
 					leverageNative( el, "click", returnTrue );
+=======
+					leverageNative( el, "click", true );
+>>>>>>> 504de05 (dsadsd)
 				}
 
 				// Return false to allow normal processing in the caller
@@ -5610,10 +6836,17 @@ jQuery.event = {
 // synthetic events by interrupting progress until reinvoked in response to
 // *native* events that it fires directly, ensuring that state changes have
 // already occurred before other listeners are invoked.
+<<<<<<< HEAD
 function leverageNative( el, type, expectSync ) {
 
 	// Missing expectSync indicates a trigger call, which must force setup through jQuery.event.add
 	if ( !expectSync ) {
+=======
+function leverageNative( el, type, isSetup ) {
+
+	// Missing `isSetup` indicates a trigger call, which must force setup through jQuery.event.add
+	if ( !isSetup ) {
+>>>>>>> 504de05 (dsadsd)
 		if ( dataPriv.get( el, type ) === undefined ) {
 			jQuery.event.add( el, type, returnTrue );
 		}
@@ -5625,15 +6858,23 @@ function leverageNative( el, type, expectSync ) {
 	jQuery.event.add( el, type, {
 		namespace: false,
 		handler: function( event ) {
+<<<<<<< HEAD
 			var notAsync, result,
+=======
+			var result,
+>>>>>>> 504de05 (dsadsd)
 				saved = dataPriv.get( this, type );
 
 			if ( ( event.isTrigger & 1 ) && this[ type ] ) {
 
 				// Interrupt processing of the outer synthetic .trigger()ed event
+<<<<<<< HEAD
 				// Saved data should be false in such cases, but might be a leftover capture object
 				// from an async native handler (gh-4350)
 				if ( !saved.length ) {
+=======
+				if ( !saved ) {
+>>>>>>> 504de05 (dsadsd)
 
 					// Store arguments for use when handling the inner native event
 					// There will always be at least one argument (an event object), so this array
@@ -5642,6 +6883,7 @@ function leverageNative( el, type, expectSync ) {
 					dataPriv.set( this, type, saved );
 
 					// Trigger the native event and capture its result
+<<<<<<< HEAD
 					// Support: IE <=9 - 11+
 					// focus() and blur() are asynchronous
 					notAsync = expectSync( this, type );
@@ -5652,12 +6894,19 @@ function leverageNative( el, type, expectSync ) {
 					} else {
 						result = {};
 					}
+=======
+					this[ type ]();
+					result = dataPriv.get( this, type );
+					dataPriv.set( this, type, false );
+
+>>>>>>> 504de05 (dsadsd)
 					if ( saved !== result ) {
 
 						// Cancel the outer synthetic event
 						event.stopImmediatePropagation();
 						event.preventDefault();
 
+<<<<<<< HEAD
 						// Support: Chrome 86+
 						// In Chrome, if an element having a focusout handler is blurred by
 						// clicking outside of it, it invokes the handler synchronously. If
@@ -5669,6 +6918,14 @@ function leverageNative( el, type, expectSync ) {
 				// If this is an inner synthetic event for an event with a bubbling surrogate
 				// (focus or blur), assume that the surrogate already propagated from triggering the
 				// native event and prevent that from happening again here.
+=======
+						return result;
+					}
+
+				// If this is an inner synthetic event for an event with a bubbling surrogate
+				// (focus or blur), assume that the surrogate already propagated from triggering
+				// the native event and prevent that from happening again here.
+>>>>>>> 504de05 (dsadsd)
 				// This technically gets the ordering wrong w.r.t. to `.trigger()` (in which the
 				// bubbling surrogate propagates *after* the non-bubbling base), but that seems
 				// less bad than duplication.
@@ -5678,6 +6935,7 @@ function leverageNative( el, type, expectSync ) {
 
 			// If this is a native event triggered above, everything is now in order
 			// Fire an inner synthetic event with the original arguments
+<<<<<<< HEAD
 			} else if ( saved.length ) {
 
 				// ...and capture the result
@@ -5694,6 +6952,27 @@ function leverageNative( el, type, expectSync ) {
 
 				// Abort handling of the native event
 				event.stopImmediatePropagation();
+=======
+			} else if ( saved ) {
+
+				// ...and capture the result
+				dataPriv.set( this, type, jQuery.event.trigger(
+					saved[ 0 ],
+					saved.slice( 1 ),
+					this
+				) );
+
+				// Abort handling of the native event by all jQuery handlers while allowing
+				// native handlers on the same element to run. On target, this is achieved
+				// by stopping immediate propagation just on the jQuery event. However,
+				// the native event is re-wrapped by a jQuery one on each level of the
+				// propagation so the only way to stop it for jQuery is to stop it for
+				// everyone via native `stopPropagation()`. This is not a problem for
+				// focus/blur which don't bubble, but it does also stop click on checkboxes
+				// and radios. We accept this limitation.
+				event.stopPropagation();
+				event.isImmediatePropagationStopped = returnTrue;
+>>>>>>> 504de05 (dsadsd)
 			}
 		}
 	} );
@@ -5731,7 +7010,11 @@ jQuery.Event = function( src, props ) {
 
 		// Create target properties
 		// Support: Safari <=6 - 7 only
+<<<<<<< HEAD
 		// Target should not be a text node (#504, #13143)
+=======
+		// Target should not be a text node (trac-504, trac-13143)
+>>>>>>> 504de05 (dsadsd)
 		this.target = ( src.target && src.target.nodeType === 3 ) ?
 			src.target.parentNode :
 			src.target;
@@ -5832,11 +7115,54 @@ jQuery.each( {
 }, jQuery.event.addProp );
 
 jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateType ) {
+<<<<<<< HEAD
+=======
+
+	function focusMappedHandler( nativeEvent ) {
+		if ( document.documentMode ) {
+
+			// Support: IE 11+
+			// Attach a single focusin/focusout handler on the document while someone wants
+			// focus/blur. This is because the former are synchronous in IE while the latter
+			// are async. In other browsers, all those handlers are invoked synchronously.
+
+			// `handle` from private data would already wrap the event, but we need
+			// to change the `type` here.
+			var handle = dataPriv.get( this, "handle" ),
+				event = jQuery.event.fix( nativeEvent );
+			event.type = nativeEvent.type === "focusin" ? "focus" : "blur";
+			event.isSimulated = true;
+
+			// First, handle focusin/focusout
+			handle( nativeEvent );
+
+			// ...then, handle focus/blur
+			//
+			// focus/blur don't bubble while focusin/focusout do; simulate the former by only
+			// invoking the handler at the lower level.
+			if ( event.target === event.currentTarget ) {
+
+				// The setup part calls `leverageNative`, which, in turn, calls
+				// `jQuery.event.add`, so event handle will already have been set
+				// by this point.
+				handle( event );
+			}
+		} else {
+
+			// For non-IE browsers, attach a single capturing handler on the document
+			// while someone wants focusin/focusout.
+			jQuery.event.simulate( delegateType, nativeEvent.target,
+				jQuery.event.fix( nativeEvent ) );
+		}
+	}
+
+>>>>>>> 504de05 (dsadsd)
 	jQuery.event.special[ type ] = {
 
 		// Utilize native event if possible so blur/focus sequence is correct
 		setup: function() {
 
+<<<<<<< HEAD
 			// Claim the first handler
 			// dataPriv.set( this, "focus", ... )
 			// dataPriv.set( this, "blur", ... )
@@ -5844,6 +7170,31 @@ jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateTyp
 
 			// Return false to allow normal processing in the caller
 			return false;
+=======
+			var attaches;
+
+			// Claim the first handler
+			// dataPriv.set( this, "focus", ... )
+			// dataPriv.set( this, "blur", ... )
+			leverageNative( this, type, true );
+
+			if ( document.documentMode ) {
+
+				// Support: IE 9 - 11+
+				// We use the same native handler for focusin & focus (and focusout & blur)
+				// so we need to coordinate setup & teardown parts between those events.
+				// Use `delegateType` as the key as `type` is already used by `leverageNative`.
+				attaches = dataPriv.get( this, delegateType );
+				if ( !attaches ) {
+					this.addEventListener( delegateType, focusMappedHandler );
+				}
+				dataPriv.set( this, delegateType, ( attaches || 0 ) + 1 );
+			} else {
+
+				// Return false to allow normal processing in the caller
+				return false;
+			}
+>>>>>>> 504de05 (dsadsd)
 		},
 		trigger: function() {
 
@@ -5854,14 +7205,94 @@ jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateTyp
 			return true;
 		},
 
+<<<<<<< HEAD
 		// Suppress native focus or blur as it's already being fired
 		// in leverageNative.
 		_default: function() {
 			return true;
+=======
+		teardown: function() {
+			var attaches;
+
+			if ( document.documentMode ) {
+				attaches = dataPriv.get( this, delegateType ) - 1;
+				if ( !attaches ) {
+					this.removeEventListener( delegateType, focusMappedHandler );
+					dataPriv.remove( this, delegateType );
+				} else {
+					dataPriv.set( this, delegateType, attaches );
+				}
+			} else {
+
+				// Return false to indicate standard teardown should be applied
+				return false;
+			}
+		},
+
+		// Suppress native focus or blur if we're currently inside
+		// a leveraged native-event stack
+		_default: function( event ) {
+			return dataPriv.get( event.target, type );
+>>>>>>> 504de05 (dsadsd)
 		},
 
 		delegateType: delegateType
 	};
+<<<<<<< HEAD
+=======
+
+	// Support: Firefox <=44
+	// Firefox doesn't have focus(in | out) events
+	// Related ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
+	//
+	// Support: Chrome <=48 - 49, Safari <=9.0 - 9.1
+	// focus(in | out) events fire after focus & blur events,
+	// which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
+	// Related ticket - https://bugs.chromium.org/p/chromium/issues/detail?id=449857
+	//
+	// Support: IE 9 - 11+
+	// To preserve relative focusin/focus & focusout/blur event order guaranteed on the 3.x branch,
+	// attach a single handler for both events in IE.
+	jQuery.event.special[ delegateType ] = {
+		setup: function() {
+
+			// Handle: regular nodes (via `this.ownerDocument`), window
+			// (via `this.document`) & document (via `this`).
+			var doc = this.ownerDocument || this.document || this,
+				dataHolder = document.documentMode ? this : doc,
+				attaches = dataPriv.get( dataHolder, delegateType );
+
+			// Support: IE 9 - 11+
+			// We use the same native handler for focusin & focus (and focusout & blur)
+			// so we need to coordinate setup & teardown parts between those events.
+			// Use `delegateType` as the key as `type` is already used by `leverageNative`.
+			if ( !attaches ) {
+				if ( document.documentMode ) {
+					this.addEventListener( delegateType, focusMappedHandler );
+				} else {
+					doc.addEventListener( type, focusMappedHandler, true );
+				}
+			}
+			dataPriv.set( dataHolder, delegateType, ( attaches || 0 ) + 1 );
+		},
+		teardown: function() {
+			var doc = this.ownerDocument || this.document || this,
+				dataHolder = document.documentMode ? this : doc,
+				attaches = dataPriv.get( dataHolder, delegateType ) - 1;
+
+			if ( !attaches ) {
+				if ( document.documentMode ) {
+					this.removeEventListener( delegateType, focusMappedHandler );
+				} else {
+					doc.removeEventListener( type, focusMappedHandler, true );
+				}
+				dataPriv.remove( dataHolder, delegateType );
+			} else {
+				dataPriv.set( dataHolder, delegateType, attaches );
+			}
+		}
+	};
+>>>>>>> 504de05 (dsadsd)
 } );
 
 // Create mouseenter/leave events using mouseover/out and event-time checks
@@ -5956,7 +7387,12 @@ var
 
 	// checked="checked" or checked
 	rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
+<<<<<<< HEAD
 	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
+=======
+
+	rcleanScript = /^\s*<!\[CDATA\[|\]\]>\s*$/g;
+>>>>>>> 504de05 (dsadsd)
 
 // Prefer a tbody over its parent table for containing new rows
 function manipulationTarget( elem, content ) {
@@ -6070,7 +7506,11 @@ function domManip( collection, args, callback, ignored ) {
 
 			// Use the original fragment for the last item
 			// instead of the first because it can end up
+<<<<<<< HEAD
 			// being emptied incorrectly in certain situations (#8070).
+=======
+			// being emptied incorrectly in certain situations (trac-8070).
+>>>>>>> 504de05 (dsadsd)
 			for ( ; i < l; i++ ) {
 				node = fragment;
 
@@ -6092,7 +7532,11 @@ function domManip( collection, args, callback, ignored ) {
 			if ( hasScripts ) {
 				doc = scripts[ scripts.length - 1 ].ownerDocument;
 
+<<<<<<< HEAD
 				// Reenable scripts
+=======
+				// Re-enable scripts
+>>>>>>> 504de05 (dsadsd)
 				jQuery.map( scripts, restoreScript );
 
 				// Evaluate executable scripts on first document insertion
@@ -6111,6 +7555,15 @@ function domManip( collection, args, callback, ignored ) {
 								}, doc );
 							}
 						} else {
+<<<<<<< HEAD
+=======
+
+							// Unwrap a CDATA section containing script contents. This shouldn't be
+							// needed as in XML documents they're already not visible when
+							// inspecting element contents and in HTML documents they have no
+							// meaning but we're preserving that logic for backwards compatibility.
+							// This will be removed completely in 4.0. See gh-4904.
+>>>>>>> 504de05 (dsadsd)
 							DOMEval( node.textContent.replace( rcleanScript, "" ), node, doc );
 						}
 					}
@@ -6157,7 +7610,12 @@ jQuery.extend( {
 		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
 				!jQuery.isXMLDoc( elem ) ) {
 
+<<<<<<< HEAD
 			// We eschew Sizzle here for performance reasons: https://jsperf.com/getall-vs-sizzle/2
+=======
+			// We eschew jQuery#find here for performance reasons:
+			// https://jsperf.com/getall-vs-sizzle/2
+>>>>>>> 504de05 (dsadsd)
 			destElements = getAll( clone );
 			srcElements = getAll( elem );
 
@@ -6393,9 +7851,18 @@ jQuery.each( {
 } );
 var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[a-z%]+$", "i" );
 
+<<<<<<< HEAD
 var getStyles = function( elem ) {
 
 		// Support: IE <=11 only, Firefox <=30 (#15098, #14150)
+=======
+var rcustomProp = /^--/;
+
+
+var getStyles = function( elem ) {
+
+		// Support: IE <=11 only, Firefox <=30 (trac-15098, trac-14150)
+>>>>>>> 504de05 (dsadsd)
 		// IE throws on elements created in popups
 		// FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
 		var view = elem.ownerDocument.defaultView;
@@ -6495,7 +7962,11 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 	}
 
 	// Support: IE <=9 - 11 only
+<<<<<<< HEAD
 	// Style of cloned element affects source element cloned (#8908)
+=======
+	// Style of cloned element affects source element cloned (trac-8908)
+>>>>>>> 504de05 (dsadsd)
 	div.style.backgroundClip = "content-box";
 	div.cloneNode( true ).style.backgroundClip = "";
 	support.clearCloneStyle = div.style.backgroundClip === "content-box";
@@ -6539,7 +8010,11 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 				trChild = document.createElement( "div" );
 
 				table.style.cssText = "position:absolute;left:-11111px;border-collapse:separate";
+<<<<<<< HEAD
 				tr.style.cssText = "border:1px solid";
+=======
+				tr.style.cssText = "box-sizing:content-box;border:1px solid";
+>>>>>>> 504de05 (dsadsd)
 
 				// Support: Chrome 86+
 				// Height set through cssText does not get applied.
@@ -6551,7 +8026,11 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 				// In our bodyBackground.html iframe,
 				// display for all div elements is set to "inline",
 				// which causes a problem only in Android 8 Chrome 86.
+<<<<<<< HEAD
 				// Ensuring the div is display: block
+=======
+				// Ensuring the div is `display: block`
+>>>>>>> 504de05 (dsadsd)
 				// gets around this issue.
 				trChild.style.display = "block";
 
@@ -6575,6 +8054,10 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 
 function curCSS( elem, name, computed ) {
 	var width, minWidth, maxWidth, ret,
+<<<<<<< HEAD
+=======
+		isCustomProp = rcustomProp.test( name ),
+>>>>>>> 504de05 (dsadsd)
 
 		// Support: Firefox 51+
 		// Retrieving style before computed somehow
@@ -6585,11 +8068,50 @@ function curCSS( elem, name, computed ) {
 	computed = computed || getStyles( elem );
 
 	// getPropertyValue is needed for:
+<<<<<<< HEAD
 	//   .css('filter') (IE 9 only, #12537)
 	//   .css('--customProperty) (#3144)
 	if ( computed ) {
 		ret = computed.getPropertyValue( name ) || computed[ name ];
 
+=======
+	//   .css('filter') (IE 9 only, trac-12537)
+	//   .css('--customProperty) (gh-3144)
+	if ( computed ) {
+
+		// Support: IE <=9 - 11+
+		// IE only supports `"float"` in `getPropertyValue`; in computed styles
+		// it's only available as `"cssFloat"`. We no longer modify properties
+		// sent to `.css()` apart from camelCasing, so we need to check both.
+		// Normally, this would create difference in behavior: if
+		// `getPropertyValue` returns an empty string, the value returned
+		// by `.css()` would be `undefined`. This is usually the case for
+		// disconnected elements. However, in IE even disconnected elements
+		// with no styles return `"none"` for `getPropertyValue( "float" )`
+		ret = computed.getPropertyValue( name ) || computed[ name ];
+
+		if ( isCustomProp && ret ) {
+
+			// Support: Firefox 105+, Chrome <=105+
+			// Spec requires trimming whitespace for custom properties (gh-4926).
+			// Firefox only trims leading whitespace. Chrome just collapses
+			// both leading & trailing whitespace to a single space.
+			//
+			// Fall back to `undefined` if empty string returned.
+			// This collapses a missing definition with property defined
+			// and set to an empty string but there's no standard API
+			// allowing us to differentiate them without a performance penalty
+			// and returning `undefined` aligns with older jQuery.
+			//
+			// rtrimCSS treats U+000D CARRIAGE RETURN and U+000C FORM FEED
+			// as whitespace while CSS does not, but this is not a problem
+			// because CSS preprocessing replaces them with U+000A LINE FEED
+			// (which *is* CSS whitespace)
+			// https://www.w3.org/TR/css-syntax-3/#input-preprocessing
+			ret = ret.replace( rtrimCSS, "$1" ) || undefined;
+		}
+
+>>>>>>> 504de05 (dsadsd)
 		if ( ret === "" && !isAttached( elem ) ) {
 			ret = jQuery.style( elem, name );
 		}
@@ -6685,7 +8207,10 @@ var
 	// except "table", "table-cell", or "table-caption"
 	// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
 	rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+<<<<<<< HEAD
 	rcustomProp = /^--/,
+=======
+>>>>>>> 504de05 (dsadsd)
 	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
 	cssNormalTransform = {
 		letterSpacing: "0",
@@ -6707,7 +8232,12 @@ function setPositiveNumber( _elem, value, subtract ) {
 function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computedVal ) {
 	var i = dimension === "width" ? 1 : 0,
 		extra = 0,
+<<<<<<< HEAD
 		delta = 0;
+=======
+		delta = 0,
+		marginDelta = 0;
+>>>>>>> 504de05 (dsadsd)
 
 	// Adjustment may not be necessary
 	if ( box === ( isBorderBox ? "border" : "content" ) ) {
@@ -6717,8 +8247,15 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 	for ( ; i < 4; i += 2 ) {
 
 		// Both box models exclude margin
+<<<<<<< HEAD
 		if ( box === "margin" ) {
 			delta += jQuery.css( elem, box + cssExpand[ i ], true, styles );
+=======
+		// Count margin delta separately to only add it after scroll gutter adjustment.
+		// This is needed to make negative margins work with `outerHeight( true )` (gh-3982).
+		if ( box === "margin" ) {
+			marginDelta += jQuery.css( elem, box + cssExpand[ i ], true, styles );
+>>>>>>> 504de05 (dsadsd)
 		}
 
 		// If we get here with a content-box, we're seeking "padding" or "border" or "margin"
@@ -6769,7 +8306,11 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 		) ) || 0;
 	}
 
+<<<<<<< HEAD
 	return delta;
+=======
+	return delta + marginDelta;
+>>>>>>> 504de05 (dsadsd)
 }
 
 function getWidthOrHeight( elem, dimension, extra ) {
@@ -6867,6 +8408,7 @@ jQuery.extend( {
 
 	// Don't automatically add "px" to these possibly-unitless properties
 	cssNumber: {
+<<<<<<< HEAD
 		"animationIterationCount": true,
 		"columnCount": true,
 		"fillOpacity": true,
@@ -6887,6 +8429,37 @@ jQuery.extend( {
 		"widows": true,
 		"zIndex": true,
 		"zoom": true
+=======
+		animationIterationCount: true,
+		aspectRatio: true,
+		borderImageSlice: true,
+		columnCount: true,
+		flexGrow: true,
+		flexShrink: true,
+		fontWeight: true,
+		gridArea: true,
+		gridColumn: true,
+		gridColumnEnd: true,
+		gridColumnStart: true,
+		gridRow: true,
+		gridRowEnd: true,
+		gridRowStart: true,
+		lineHeight: true,
+		opacity: true,
+		order: true,
+		orphans: true,
+		scale: true,
+		widows: true,
+		zIndex: true,
+		zoom: true,
+
+		// SVG-related
+		fillOpacity: true,
+		floodOpacity: true,
+		stopOpacity: true,
+		strokeMiterlimit: true,
+		strokeOpacity: true
+>>>>>>> 504de05 (dsadsd)
 	},
 
 	// Add in properties whose names you wish to fix before
@@ -6921,6 +8494,7 @@ jQuery.extend( {
 		if ( value !== undefined ) {
 			type = typeof value;
 
+<<<<<<< HEAD
 			// Convert "+=" or "-=" to relative numbers (#7345)
 			if ( type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ] ) {
 				value = adjustCSS( elem, name, ret );
@@ -6930,6 +8504,17 @@ jQuery.extend( {
 			}
 
 			// Make sure that null and NaN values aren't set (#7116)
+=======
+			// Convert "+=" or "-=" to relative numbers (trac-7345)
+			if ( type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ] ) {
+				value = adjustCSS( elem, name, ret );
+
+				// Fixes bug trac-9237
+				type = "number";
+			}
+
+			// Make sure that null and NaN values aren't set (trac-7116)
+>>>>>>> 504de05 (dsadsd)
 			if ( value == null || value !== value ) {
 				return;
 			}
@@ -7553,7 +9138,11 @@ function Animation( elem, properties, options ) {
 				remaining = Math.max( 0, animation.startTime + animation.duration - currentTime ),
 
 				// Support: Android 2.3 only
+<<<<<<< HEAD
 				// Archaic crash bug won't allow us to use `1 - ( 0.5 || 0 )` (#12497)
+=======
+				// Archaic crash bug won't allow us to use `1 - ( 0.5 || 0 )` (trac-12497)
+>>>>>>> 504de05 (dsadsd)
 				temp = remaining / animation.duration || 0,
 				percent = 1 - temp,
 				index = 0,
@@ -7943,7 +9532,10 @@ jQuery.fx.speeds = {
 
 
 // Based off of the plugin by Clint Helfers, with permission.
+<<<<<<< HEAD
 // https://web.archive.org/web/20100324014747/http://blindsignals.com/index.php/2009/07/jquery-delay/
+=======
+>>>>>>> 504de05 (dsadsd)
 jQuery.fn.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
 	type = type || "fx";
@@ -8168,8 +9760,12 @@ jQuery.extend( {
 				// Support: IE <=9 - 11 only
 				// elem.tabIndex doesn't always return the
 				// correct value when it hasn't been explicitly set
+<<<<<<< HEAD
 				// https://web.archive.org/web/20141116233347/http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
 				// Use proper attribute retrieval(#12072)
+=======
+				// Use proper attribute retrieval (trac-12072)
+>>>>>>> 504de05 (dsadsd)
 				var tabindex = jQuery.find.attr( elem, "tabindex" );
 
 				if ( tabindex ) {
@@ -8273,8 +9869,12 @@ function classesToArray( value ) {
 
 jQuery.fn.extend( {
 	addClass: function( value ) {
+<<<<<<< HEAD
 		var classes, elem, cur, curValue, clazz, j, finalValue,
 			i = 0;
+=======
+		var classNames, cur, curValue, className, i, finalValue;
+>>>>>>> 504de05 (dsadsd)
 
 		if ( isFunction( value ) ) {
 			return this.each( function( j ) {
@@ -8282,6 +9882,7 @@ jQuery.fn.extend( {
 			} );
 		}
 
+<<<<<<< HEAD
 		classes = classesToArray( value );
 
 		if ( classes.length ) {
@@ -8294,24 +9895,49 @@ jQuery.fn.extend( {
 					while ( ( clazz = classes[ j++ ] ) ) {
 						if ( cur.indexOf( " " + clazz + " " ) < 0 ) {
 							cur += clazz + " ";
+=======
+		classNames = classesToArray( value );
+
+		if ( classNames.length ) {
+			return this.each( function() {
+				curValue = getClass( this );
+				cur = this.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
+
+				if ( cur ) {
+					for ( i = 0; i < classNames.length; i++ ) {
+						className = classNames[ i ];
+						if ( cur.indexOf( " " + className + " " ) < 0 ) {
+							cur += className + " ";
+>>>>>>> 504de05 (dsadsd)
 						}
 					}
 
 					// Only assign if different to avoid unneeded rendering.
 					finalValue = stripAndCollapse( cur );
 					if ( curValue !== finalValue ) {
+<<<<<<< HEAD
 						elem.setAttribute( "class", finalValue );
 					}
 				}
 			}
+=======
+						this.setAttribute( "class", finalValue );
+					}
+				}
+			} );
+>>>>>>> 504de05 (dsadsd)
 		}
 
 		return this;
 	},
 
 	removeClass: function( value ) {
+<<<<<<< HEAD
 		var classes, elem, cur, curValue, clazz, j, finalValue,
 			i = 0;
+=======
+		var classNames, cur, curValue, className, i, finalValue;
+>>>>>>> 504de05 (dsadsd)
 
 		if ( isFunction( value ) ) {
 			return this.each( function( j ) {
@@ -8323,6 +9949,7 @@ jQuery.fn.extend( {
 			return this.attr( "class", "" );
 		}
 
+<<<<<<< HEAD
 		classes = classesToArray( value );
 
 		if ( classes.length ) {
@@ -8339,22 +9966,48 @@ jQuery.fn.extend( {
 						// Remove *all* instances
 						while ( cur.indexOf( " " + clazz + " " ) > -1 ) {
 							cur = cur.replace( " " + clazz + " ", " " );
+=======
+		classNames = classesToArray( value );
+
+		if ( classNames.length ) {
+			return this.each( function() {
+				curValue = getClass( this );
+
+				// This expression is here for better compressibility (see addClass)
+				cur = this.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
+
+				if ( cur ) {
+					for ( i = 0; i < classNames.length; i++ ) {
+						className = classNames[ i ];
+
+						// Remove *all* instances
+						while ( cur.indexOf( " " + className + " " ) > -1 ) {
+							cur = cur.replace( " " + className + " ", " " );
+>>>>>>> 504de05 (dsadsd)
 						}
 					}
 
 					// Only assign if different to avoid unneeded rendering.
 					finalValue = stripAndCollapse( cur );
 					if ( curValue !== finalValue ) {
+<<<<<<< HEAD
 						elem.setAttribute( "class", finalValue );
 					}
 				}
 			}
+=======
+						this.setAttribute( "class", finalValue );
+					}
+				}
+			} );
+>>>>>>> 504de05 (dsadsd)
 		}
 
 		return this;
 	},
 
 	toggleClass: function( value, stateVal ) {
+<<<<<<< HEAD
 		var type = typeof value,
 			isValidValue = type === "string" || Array.isArray( value );
 
@@ -8362,6 +10015,12 @@ jQuery.fn.extend( {
 			return stateVal ? this.addClass( value ) : this.removeClass( value );
 		}
 
+=======
+		var classNames, className, i, self,
+			type = typeof value,
+			isValidValue = type === "string" || Array.isArray( value );
+
+>>>>>>> 504de05 (dsadsd)
 		if ( isFunction( value ) ) {
 			return this.each( function( i ) {
 				jQuery( this ).toggleClass(
@@ -8371,6 +10030,7 @@ jQuery.fn.extend( {
 			} );
 		}
 
+<<<<<<< HEAD
 		return this.each( function() {
 			var className, i, self, classNames;
 
@@ -8382,6 +10042,22 @@ jQuery.fn.extend( {
 				classNames = classesToArray( value );
 
 				while ( ( className = classNames[ i++ ] ) ) {
+=======
+		if ( typeof stateVal === "boolean" && isValidValue ) {
+			return stateVal ? this.addClass( value ) : this.removeClass( value );
+		}
+
+		classNames = classesToArray( value );
+
+		return this.each( function() {
+			if ( isValidValue ) {
+
+				// Toggle individual class names
+				self = jQuery( this );
+
+				for ( i = 0; i < classNames.length; i++ ) {
+					className = classNames[ i ];
+>>>>>>> 504de05 (dsadsd)
 
 					// Check each className given, space separated list
 					if ( self.hasClass( className ) ) {
@@ -8515,7 +10191,11 @@ jQuery.extend( {
 					val :
 
 					// Support: IE <=10 - 11 only
+<<<<<<< HEAD
 					// option.text throws exceptions (#14686, #14858)
+=======
+					// option.text throws exceptions (trac-14686, trac-14858)
+>>>>>>> 504de05 (dsadsd)
 					// Strip and collapse whitespace
 					// https://html.spec.whatwg.org/#strip-and-collapse-whitespace
 					stripAndCollapse( jQuery.text( elem ) );
@@ -8542,7 +10222,11 @@ jQuery.extend( {
 					option = options[ i ];
 
 					// Support: IE <=9 only
+<<<<<<< HEAD
 					// IE8-9 doesn't update selected after form reset (#2551)
+=======
+					// IE8-9 doesn't update selected after form reset (trac-2551)
+>>>>>>> 504de05 (dsadsd)
 					if ( ( option.selected || i === index ) &&
 
 							// Don't return options that are disabled or in a disabled optgroup
@@ -8616,9 +10300,45 @@ jQuery.each( [ "radio", "checkbox" ], function() {
 
 
 // Return jQuery for attributes-only inclusion
+<<<<<<< HEAD
 
 
 support.focusin = "onfocusin" in window;
+=======
+var location = window.location;
+
+var nonce = { guid: Date.now() };
+
+var rquery = ( /\?/ );
+
+
+
+// Cross-browser xml parsing
+jQuery.parseXML = function( data ) {
+	var xml, parserErrorElem;
+	if ( !data || typeof data !== "string" ) {
+		return null;
+	}
+
+	// Support: IE 9 - 11 only
+	// IE throws on parseFromString with invalid input.
+	try {
+		xml = ( new window.DOMParser() ).parseFromString( data, "text/xml" );
+	} catch ( e ) {}
+
+	parserErrorElem = xml && xml.getElementsByTagName( "parsererror" )[ 0 ];
+	if ( !xml || parserErrorElem ) {
+		jQuery.error( "Invalid XML: " + (
+			parserErrorElem ?
+				jQuery.map( parserErrorElem.childNodes, function( el ) {
+					return el.textContent;
+				} ).join( "\n" ) :
+				data
+		) );
+	}
+	return xml;
+};
+>>>>>>> 504de05 (dsadsd)
 
 
 var rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
@@ -8685,8 +10405,13 @@ jQuery.extend( jQuery.event, {
 			return;
 		}
 
+<<<<<<< HEAD
 		// Determine event propagation path in advance, per W3C events spec (#9951)
 		// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
+=======
+		// Determine event propagation path in advance, per W3C events spec (trac-9951)
+		// Bubble up to document, then to window; watch for a global ownerDocument var (trac-9724)
+>>>>>>> 504de05 (dsadsd)
 		if ( !onlyHandlers && !special.noBubble && !isWindow( elem ) ) {
 
 			bubbleType = special.delegateType || type;
@@ -8738,7 +10463,11 @@ jQuery.extend( jQuery.event, {
 				acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name as the event.
+<<<<<<< HEAD
 				// Don't do default actions on window, that's where global variables be (#6170)
+=======
+				// Don't do default actions on window, that's where global variables be (trac-6170)
+>>>>>>> 504de05 (dsadsd)
 				if ( ontype && isFunction( elem[ type ] ) && !isWindow( elem ) ) {
 
 					// Don't re-trigger an onFOO event when we call its FOO() method
@@ -8806,6 +10535,7 @@ jQuery.fn.extend( {
 } );
 
 
+<<<<<<< HEAD
 // Support: Firefox <=44
 // Firefox doesn't have focus(in | out) events
 // Related ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
@@ -8885,6 +10615,8 @@ jQuery.parseXML = function( data ) {
 };
 
 
+=======
+>>>>>>> 504de05 (dsadsd)
 var
 	rbracket = /\[\]$/,
 	rCRLF = /\r?\n/g,
@@ -9012,7 +10744,11 @@ var
 	rantiCache = /([?&])_=[^&]*/,
 	rheaders = /^(.*?):[ \t]*([^\r\n]*)$/mg,
 
+<<<<<<< HEAD
 	// #7653, #8125, #8152: local protocol detection
+=======
+	// trac-7653, trac-8125, trac-8152: local protocol detection
+>>>>>>> 504de05 (dsadsd)
 	rlocalProtocol = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/,
 	rnoContent = /^(?:GET|HEAD)$/,
 	rprotocol = /^\/\//,
@@ -9035,7 +10771,11 @@ var
 	 */
 	transports = {},
 
+<<<<<<< HEAD
 	// Avoid comment-prolog char sequence (#10098); must appease lint and evade compression
+=======
+	// Avoid comment-prolog char sequence (trac-10098); must appease lint and evade compression
+>>>>>>> 504de05 (dsadsd)
 	allTypes = "*/".concat( "*" ),
 
 	// Anchor tag for parsing the document origin
@@ -9106,7 +10846,11 @@ function inspectPrefiltersOrTransports( structure, options, originalOptions, jqX
 
 // A special extend for ajax options
 // that takes "flat" options (not to be deep extended)
+<<<<<<< HEAD
 // Fixes #9887
+=======
+// Fixes trac-9887
+>>>>>>> 504de05 (dsadsd)
 function ajaxExtend( target, src ) {
 	var key, deep,
 		flatOptions = jQuery.ajaxSettings.flatOptions || {};
@@ -9517,12 +11261,20 @@ jQuery.extend( {
 		deferred.promise( jqXHR );
 
 		// Add protocol if not provided (prefilters might expect it)
+<<<<<<< HEAD
 		// Handle falsy url in the settings object (#10093: consistency with old signature)
+=======
+		// Handle falsy url in the settings object (trac-10093: consistency with old signature)
+>>>>>>> 504de05 (dsadsd)
 		// We also use the url parameter if available
 		s.url = ( ( url || s.url || location.href ) + "" )
 			.replace( rprotocol, location.protocol + "//" );
 
+<<<<<<< HEAD
 		// Alias method option to type as per ticket #12004
+=======
+		// Alias method option to type as per ticket trac-12004
+>>>>>>> 504de05 (dsadsd)
 		s.type = options.method || options.type || s.method || s.type;
 
 		// Extract dataTypes list
@@ -9565,7 +11317,11 @@ jQuery.extend( {
 		}
 
 		// We can fire global events as of now if asked to
+<<<<<<< HEAD
 		// Don't fire events if jQuery.event is undefined in an AMD-usage scenario (#15118)
+=======
+		// Don't fire events if jQuery.event is undefined in an AMD-usage scenario (trac-15118)
+>>>>>>> 504de05 (dsadsd)
 		fireGlobals = jQuery.event && s.global;
 
 		// Watch for a new set of requests
@@ -9594,7 +11350,11 @@ jQuery.extend( {
 			if ( s.data && ( s.processData || typeof s.data === "string" ) ) {
 				cacheURL += ( rquery.test( cacheURL ) ? "&" : "?" ) + s.data;
 
+<<<<<<< HEAD
 				// #9682: remove data so that it's not used in an eventual retry
+=======
+				// trac-9682: remove data so that it's not used in an eventual retry
+>>>>>>> 504de05 (dsadsd)
 				delete s.data;
 			}
 
@@ -9867,7 +11627,11 @@ jQuery._evalUrl = function( url, options, doc ) {
 	return jQuery.ajax( {
 		url: url,
 
+<<<<<<< HEAD
 		// Make this explicit, since user can override this through ajaxSetup (#11264)
+=======
+		// Make this explicit, since user can override this through ajaxSetup (trac-11264)
+>>>>>>> 504de05 (dsadsd)
 		type: "GET",
 		dataType: "script",
 		cache: true,
@@ -9976,7 +11740,11 @@ var xhrSuccessStatus = {
 		0: 200,
 
 		// Support: IE <=9 only
+<<<<<<< HEAD
 		// #1450: sometimes IE returns 1223 when it should be 204
+=======
+		// trac-1450: sometimes IE returns 1223 when it should be 204
+>>>>>>> 504de05 (dsadsd)
 		1223: 204
 	},
 	xhrSupported = jQuery.ajaxSettings.xhr();
@@ -10048,7 +11816,11 @@ jQuery.ajaxTransport( function( options ) {
 								} else {
 									complete(
 
+<<<<<<< HEAD
 										// File: protocol always yields status 0; see #8605, #14207
+=======
+										// File: protocol always yields status 0; see trac-8605, trac-14207
+>>>>>>> 504de05 (dsadsd)
 										xhr.status,
 										xhr.statusText
 									);
@@ -10109,7 +11881,11 @@ jQuery.ajaxTransport( function( options ) {
 					xhr.send( options.hasContent && options.data || null );
 				} catch ( e ) {
 
+<<<<<<< HEAD
 					// #14683: Only rethrow if this hasn't been notified as an error yet
+=======
+					// trac-14683: Only rethrow if this hasn't been notified as an error yet
+>>>>>>> 504de05 (dsadsd)
 					if ( callback ) {
 						throw e;
 					}
@@ -10729,7 +12505,13 @@ jQuery.fn.extend( {
 	},
 
 	hover: function( fnOver, fnOut ) {
+<<<<<<< HEAD
 		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
+=======
+		return this
+			.on( "mouseenter", fnOver )
+			.on( "mouseleave", fnOut || fnOver );
+>>>>>>> 504de05 (dsadsd)
 	}
 } );
 
@@ -10753,7 +12535,13 @@ jQuery.each(
 
 // Support: Android <=4.0 only
 // Make sure we trim BOM and NBSP
+<<<<<<< HEAD
 var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+=======
+// Require that the "whitespace run" starts from a non-whitespace
+// to avoid O(N^2) behavior when the engine would try matching "\s+$" at each space position.
+var rtrim = /^[\s\uFEFF\xA0]+|([^\s\uFEFF\xA0])[\s\uFEFF\xA0]+$/g;
+>>>>>>> 504de05 (dsadsd)
 
 // Bind a function to a context, optionally partially applying any
 // arguments.
@@ -10820,7 +12608,11 @@ jQuery.isNumeric = function( obj ) {
 jQuery.trim = function( text ) {
 	return text == null ?
 		"" :
+<<<<<<< HEAD
 		( text + "" ).replace( rtrim, "" );
+=======
+		( text + "" ).replace( rtrim, "$1" );
+>>>>>>> 504de05 (dsadsd)
 };
 
 
@@ -10868,8 +12660,13 @@ jQuery.noConflict = function( deep ) {
 };
 
 // Expose jQuery and $ identifiers, even in AMD
+<<<<<<< HEAD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 // and CommonJS for browser emulators (#13566)
+=======
+// (trac-7102#comment:10, https://github.com/jquery/jquery/pull/557)
+// and CommonJS for browser emulators (trac-13566)
+>>>>>>> 504de05 (dsadsd)
 if ( typeof noGlobal === "undefined" ) {
 	window.jQuery = window.$ = jQuery;
 }
