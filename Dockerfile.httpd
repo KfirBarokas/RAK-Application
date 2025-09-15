@@ -1,17 +1,28 @@
-FROM 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:latest AS staticbuilder
+FROM 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:<DJANGO_TAG> AS staticbuilder
 WORKDIR /opt/status-page
-ENV SECRET_KEY=dummy
-ENV DEBUG=False
-ENV DB_NAME=dummy
-ENV DB_USER=dummy
-ENV DB_PASS=dummy
-ENV DB_HOST=localhost
-ENV DB_PORT=5432
-ENV REDIS_HOST=localhost
-ENV REDIS_PORT=6379
-ENV STATIC_ROOT=/opt/status-page/statuspage/static
-RUN python3 statuspage/manage.py collectstatic --noinput
 
+# Minimal env so settings load without real infra during build
+ENV DJANGO_SETTINGS_MODULE=statuspage.settings \
+    SECRET_KEY=dummy \
+    DEBUG=False \
+    DB_NAME=dummy \
+    DB_USER=dummy \
+    DB_PASS=dummy \
+    DB_HOST=localhost \
+    DB_PORT=5432 \
+    REDIS_HOST=localhost \
+    REDIS_PORT=6379 \
+    STATIC_ROOT=/opt/status-page/statuspage/static
+
+# Ensure target dir exists (collectstatic will also create it, but this avoids permission surprises)
+RUN mkdir -p /opt/status-page/statuspage/static
+
+# Use the venv's python if it exists; otherwise fall back to system python
+RUN if [ -x "/opt/status-page/venv/bin/python" ]; then \
+      /opt/status-page/venv/bin/python statuspage/manage.py collectstatic --noinput ; \
+    else \
+      python3 statuspage/manage.py collectstatic --noinput ; \
+    fi
 
 
 FROM httpd:2.4
