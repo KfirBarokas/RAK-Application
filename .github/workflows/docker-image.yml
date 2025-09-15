@@ -47,7 +47,6 @@ jobs:
 
     - name: Deploy new image to EKS
       run: |
-        kubectl rollout restart deployment django-gunicorn
-        kubectl rollout restart deployment httpd
-        
+        kubectl set image deployment/django-gunicorn django-gunicorn=$DJANGO_IMAGE --record
+        kubectl set image deployment/httpd httpd=$HTTPD_IMAGE --record
       
