@@ -11,7 +11,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/opt/status-page/statuspage/static'
+STATIC_ROOT = os.getenv("STATIC_ROOT", "/opt/status-page/statuspage/static")
 
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
