@@ -15,7 +15,7 @@ RUN pip install --upgrade pip setuptools wheel
 RUN pip install -r requirements.txt
 
 # Collect static files at build time
-ENV DJANGO_SETTINGS_MODULE=statuspage.configuration
+ENV DJANGO_SETTINGS_MODULE=statuspage.statuspage.configuration
 RUN python manage.py collectstatic --noinput
 
 # Entrypoint
