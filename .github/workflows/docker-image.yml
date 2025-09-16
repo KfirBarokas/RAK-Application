@@ -1,4 +1,4 @@
-name: Docker Image CI-CD
+name: Docker Image CI-CDd
 on:
   push:
     branches: [ "main" ]
