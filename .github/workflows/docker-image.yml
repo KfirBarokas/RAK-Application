@@ -1,51 +1,62 @@
-name: Docker Image CI-CDd
+name: Docker Image CI-CD
+
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev", "stage", "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "dev", "stage", "main" ]
 
 jobs:
-
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+      - uses: actions/checkout@v4
 
-    - name: log in to ecr
-      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 992382545251.dkr.ecr.us-east-1.amazonaws.com
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-    - name: Build, tag, and push Django app image
-      run: |
-        IMAGE_TAG=${{ github.sha }}
-        docker build -t rak-django-gunicorn -f Dockerfile.app .
-        docker tag rak-django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:$IMAGE_TAG
-        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:$IMAGE_TAG
-        echo "DJANGO_IMAGE=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:$IMAGE_TAG" >> $GITHUB_ENV
+      - name: Log in to ECR
+        run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 992382545251.dkr.ecr.us-east-1.amazonaws.com
 
-    - name: Build, tag, and push httpd image
-      run: |
-        IMAGE_TAG=${{ github.sha }}
-        docker build -t rak-httpd -f Dockerfile.httpd .
-        docker tag rak-httpd:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:$IMAGE_TAG
-        docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:$IMAGE_TAG
-        echo "HTTPD_IMAGE=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:$IMAGE_TAG" >> $GITHUB_ENV
+      - name: Build and push Django image
+        run: |
+          IMAGE_TAG=${{ github.sha }}
+          docker build -t rak-django-gunicorn -f Dockerfile.app .
+          docker tag rak-django-gunicorn:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:$IMAGE_TAG
+          docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:$IMAGE_TAG
+          echo "DJANGO_IMAGE=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-django-gunicorn:$IMAGE_TAG" >> $GITHUB_ENV
 
-    - name: Update kubeconfig for EKS
-      run: |
-        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+      - name: Build and push HTTPD image
+        run: |
+          IMAGE_TAG=${{ github.sha }}
+          docker build -t rak-httpd -f Dockerfile.httpd .
+          docker tag rak-httpd:latest 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:$IMAGE_TAG
+          docker push 992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:$IMAGE_TAG
+          echo "HTTPD_IMAGE=992382545251.dkr.ecr.us-east-1.amazonaws.com/rak-httpd:$IMAGE_TAG" >> $GITHUB_ENV
 
-    - name: Deploy new image to EKS
-      run: |
-        kubectl set image deployment/django-gunicorn django-gunicorn=$DJANGO_IMAGE --record
-        kubectl set image deployment/httpd httpd=$HTTPD_IMAGE --record
-      
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+      - name: Deploy to dev
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          kubectl set image deployment/django-gunicorn django-gunicorn=$DJANGO_IMAGE -n dev --record
+          kubectl set image deployment/httpd httpd=$HTTPD_IMAGE -n dev --record
+
+      - name: Deploy to stage
+        if: github.ref == 'refs/heads/stage'
+        run: |
+          kubectl set image deployment/django-gunicorn django-gunicorn=$DJANGO_IMAGE -n stage --record
+          kubectl set image deployment/httpd httpd=$HTTPD_IMAGE -n stage --record
+
+      - name: Deploy to production
+        if: github.ref == 'refs/heads/main'
+        run: |
+          kubectl set image deployment/django-gunicorn django-gunicorn=$DJANGO_IMAGE -n production --record
+          kubectl set image deployment/httpd httpd=$HTTPD_IMAGE -n production --record
