@@ -1,4 +1,4 @@
-FROM python:3.11-alpine
+FROM python:3.11-slim
 WORKDIR /opt/status-page
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
