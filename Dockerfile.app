@@ -1,28 +1,15 @@
-FROM python:3.11-alpine
+FROM amazonlinux:latest
+
+COPY . /opt/status-page
 
 WORKDIR /opt/status-page
 
-RUN apk add --no-cache \
-    build-base \
-    gcc \
-    musl-dev \
-    libffi-dev \
-    libxml2-dev \
-    libxslt-dev \
-    postgresql-dev \
-    openssl-dev \
-    bash
+RUN yum update -y
+RUN yum install -y python3.11 python3.11-devel python3-pip gcc libxml2-devel libxslt-devel libffi-devel libpq-devel openssl-devel redhat-rpm-config shadow-utils && yum clean all
 
-RUN addgroup -S statuspage && adduser -S statuspage -G statuspage
-RUN mkdir -p /opt/status-page && chown -R statuspage:statuspage /opt/status-page
+RUN groupadd --system status-page && adduser --system -g status-page status-page
 
-COPY --chown=statuspage:statuspage . .
+RUN chmod +x ./app-entrypoint.sh
+cmd ["./app-entrypoint.sh"]
 
-RUN chmod +x ./app-entrypoint.sh ./upgrade.sh
-
-USER statuspage
-
-EXPOSE 8000
-
-# Entrypoint
-CMD ["./app-entrypoint.sh"]
+# TODO: change to python image!
