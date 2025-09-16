@@ -1,28 +1,35 @@
-FROM python:3.11-slim
+FROM python:3.11-alpine
+
+# Set workdir
 WORKDIR /opt/status-page
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-venv \
+# Install system build dependencies for psycopg2, lxml, cryptography, etc.
+RUN apk add --no-cache \
+    build-base \
     gcc \
-    g++ \
-    make \
+    musl-dev \
+    libffi-dev \
     libxml2-dev \
     libxslt-dev \
-    libffi-dev \
-    libpq-dev \
-    libssl-dev \
-    libc-dev \
-    build-essential \
- && rm -rf /var/lib/apt/lists/*
+    postgresql-dev \
+    openssl-dev \
+    bash
 
-RUN useradd --system --create-home --shell /bin/bash status-page \
- && mkdir -p /opt/status-page \
- && chown -R status-page:status-page /opt/status-page
+# Create non-root user
+RUN addgroup -S statuspage && adduser -S statuspage -G statuspage
+RUN mkdir -p /opt/status-page && chown -R statuspage:statuspage /opt/status-page
 
-COPY --chown=status-page:status-page . .
+# Copy project files
+COPY --chown=statuspage:statuspage . .
 
+# Ensure scripts are executable
 RUN chmod +x ./app-entrypoint.sh ./upgrade.sh
 
-USER status-page
+# Switch to non-root
+USER statuspage
+
+# Expose port
 EXPOSE 8000
+
+# Entrypoint
 CMD ["./app-entrypoint.sh"]
