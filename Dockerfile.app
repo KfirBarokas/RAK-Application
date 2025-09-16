@@ -1,15 +1,33 @@
-FROM amazonlinux:latest
+# Use a lightweight Python base image
+FROM python:3.11-slim
 
-COPY . /opt/status-page
-
+# Set working directory
 WORKDIR /opt/status-page
 
-RUN yum update -y
-RUN yum install -y python3.11 python3.11-devel python3-pip gcc libxml2-devel libxslt-devel libffi-devel libpq-devel openssl-devel redhat-rpm-config shadow-utils && yum clean all
+# Install system dependencies needed for your app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libxml2-dev \
+    libxslt-dev \
+    libffi-dev \
+    libpq-dev \
+    openssl \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd --system status-page && adduser --system -g status-page status-page
+# Copy app code
+COPY . .
 
-RUN chmod +x ./app-entrypoint.sh
-cmd ["./app-entrypoint.sh"]
+# Create a non-root user
+RUN groupadd --system status-page && useradd --system -g status-page status-page
 
-# TODO: change to python image!
+# Ensure entrypoint is executable
+RUN chmod +x ./app-entrypoint.sh ./upgrade.sh
+
+# Switch to non-root user
+USER status-page
+
+# Expose Gunicorn port
+EXPOSE 8000
+
+# Run entrypoint
+CMD ["./app-entrypoint.sh"]
